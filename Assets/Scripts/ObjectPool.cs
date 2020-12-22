@@ -6,18 +6,20 @@ public class ObjectPool<T> where T : SpaceObject
     public int ActiveCount { get => CountActiveObjects(); }
 
     private List<T> objectPool;
+    private string poolType;
 
     public ObjectPool()
     {
+        poolType = typeof(T).Name;
         objectPool = new List<T>();
     }
 
-    public void Initialize(int poolSize)
+    public void Initialize(int poolSize, Transform parent)
     {
         for (int i = 0; i < poolSize; i++)
         {
-            var gameObject = Resources.Load<GameObject>("Assets/Prefabs/PoolObjects/" + typeof(T));
-            Object.Instantiate(gameObject);
+            var gameObject = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
+            Object.Instantiate(gameObject, parent);
             gameObject.SetActive(false);
 
             T spaceObject = gameObject.GetComponent<T>();
@@ -29,8 +31,10 @@ public class ObjectPool<T> where T : SpaceObject
     {
         foreach(T spaceObject in objectPool)
         {
-            if (spaceObject.enabled)
+            if (!spaceObject.gameObject.activeInHierarchy)
+            {
                 return spaceObject;
+            }
         }
 
         return null;
@@ -42,7 +46,7 @@ public class ObjectPool<T> where T : SpaceObject
 
         foreach(T spaceObject in objectPool)
         {
-            if (spaceObject.enabled)
+            if (spaceObject.gameObject.activeInHierarchy)
                 activeObjects++;
         }
 

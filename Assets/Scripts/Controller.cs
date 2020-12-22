@@ -12,8 +12,7 @@ public class Controller : MonoBehaviour
         playerShip = GetComponent<PlayerShip>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         PlayerInput.UpdateInput();
 
@@ -28,6 +27,10 @@ public class Controller : MonoBehaviour
         if (PlayerInput.accelerateButtonDown || PlayerInput.accelerateButtonHeld)
         {
             playerShip.RB.AddForce(playerShip.Direction * playerShip.Acceleration);
+        }
+        if (PlayerInput.fireButtonDown || PlayerInput.fireButtonHeld)
+        {
+            playerShip.Gun.Fire(playerShip.Direction);
         }
     }
 }
