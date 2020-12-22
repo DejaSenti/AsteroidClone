@@ -213,12 +213,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 860938529}
+  - component: {fileID: 860938527}
   - component: {fileID: 860938528}
-  - component: {fileID: 860938526}
-  - component: {fileID: 860938525}
   - component: {fileID: 860938531}
   - component: {fileID: 860938530}
-  - component: {fileID: 860938527}
+  - component: {fileID: 860938525}
+  - component: {fileID: 860938526}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Player
@@ -251,10 +251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d728bc6ccf1434ea3c69c12dc6bcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 20
-  AngularAcceleration: 20
   RB: {fileID: 860938531}
   Collider: {fileID: 860938530}
+  Acceleration: 20
+  AngularAcceleration: 20
 --- !u!114 &860938527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
