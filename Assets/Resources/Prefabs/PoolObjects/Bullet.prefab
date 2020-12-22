@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RB: {fileID: 7452836299507811675}
   Collider: {fileID: 8515178651657388426}
+  distanceTimer: {fileID: 3012651745950718028}

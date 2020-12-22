@@ -20,6 +20,7 @@ public class ObjectPool<T> where T : SpaceObject
         {
             var gameObject = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
             Object.Instantiate(gameObject, parent);
+
             gameObject.SetActive(false);
 
             T spaceObject = gameObject.GetComponent<T>();
@@ -31,8 +32,9 @@ public class ObjectPool<T> where T : SpaceObject
     {
         foreach(T spaceObject in objectPool)
         {
-            if (!spaceObject.gameObject.activeInHierarchy)
+            if (!spaceObject.gameObject.activeSelf)
             {
+                spaceObject.gameObject.SetActive(true);
                 return spaceObject;
             }
         }

@@ -181,7 +181,6 @@ MonoBehaviour:
   Strength: 20
   CooldownPeriod: 0.5
   BulletLifetime: 5
-  cooldownTimer: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

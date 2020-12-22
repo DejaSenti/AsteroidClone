@@ -6,16 +6,17 @@ public class Bullet : SpaceObject
     [NonSerialized]
     public float Lifetime;
 
+    [SerializeField]
     private Timer distanceTimer;
 
     private void Awake()
     {
-        distanceTimer = GetComponent<Timer>();
+        enabled = false;
     }
 
     public void Shoot(Vector2 velocity)
     {
-        gameObject.SetActive(true);
+        enabled = true;
         RB.velocity = velocity;
         distanceTimer.StartTimer(Lifetime);
     }
@@ -30,6 +31,7 @@ public class Bullet : SpaceObject
 
     private void DestroyBullet()
     {
+        enabled = false;
         gameObject.SetActive(false);
         // animate something, play sound
     }
