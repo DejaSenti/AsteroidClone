@@ -16,10 +16,11 @@ public class ObjectPool<T> where T : SpaceObject
 
     public void Initialize(int poolSize, Transform parent)
     {
+        var gameObjectPrefab = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
+
         for (int i = 0; i < poolSize; i++)
         {
-            var gameObject = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
-            Object.Instantiate(gameObject, parent);
+            var gameObject = Object.Instantiate(gameObjectPrefab, parent);
 
             gameObject.SetActive(false);
 
@@ -32,7 +33,7 @@ public class ObjectPool<T> where T : SpaceObject
     {
         foreach(T spaceObject in objectPool)
         {
-            if (!spaceObject.gameObject.activeSelf)
+            if (!spaceObject.gameObject.activeInHierarchy)
             {
                 spaceObject.gameObject.SetActive(true);
                 return spaceObject;

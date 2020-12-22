@@ -5,9 +5,11 @@ public class Timer : MonoBehaviour
     private float duration;
     private float timeElapsed;
 
+    private bool TimerElapsed { get => timeElapsed > duration; }
+
     private void Awake()
     {
-        enabled = false;
+        ResetTimer();
     }
 
     public void StartTimer(float duration)
@@ -20,9 +22,16 @@ public class Timer : MonoBehaviour
     private void FixedUpdate()
     {
         timeElapsed += Time.fixedDeltaTime;
-        if (timeElapsed >= duration)
+        if (TimerElapsed)
         {
-            enabled = false;
+            ResetTimer();
         }
+    }
+
+    public void ResetTimer()
+    {
+        enabled = false;
+        duration = 0;
+        timeElapsed = 0;
     }
 }
