@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using ExtensionMethods;
 
 public class AsteroidManager : MonoBehaviour
 {
@@ -38,11 +38,18 @@ public class AsteroidManager : MonoBehaviour
 
     private void SpawnAsteroids(int amount, int size, Vector2 location)
     {
+        var positionArray = this.GetPositionArrayAroundLocation(amount, size, location);
+
         for (int i = 0; i < amount; i++)
         {
             var asteroid = asteroidPool.Spawn();
             asteroid.Size = size;
-            asteroid.RB.position = Vector2.zero;
+            asteroid.RB.position = positionArray[i];
+
+            var asteroidSpeed = this.GetRandomInRange(asteroid.MinSpeed, asteroid.MaxSpeed);
+            var asteroidDirection = this.GetDirectionInRangeRelatedToPosition(amount, location, asteroid.RB.position);
+
+            asteroid.RB.velocity = asteroidSpeed * asteroidDirection;
         }
     }
 }
