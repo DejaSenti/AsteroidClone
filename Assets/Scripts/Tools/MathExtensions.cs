@@ -4,6 +4,7 @@ namespace ExtensionMethods
     public static class MathExtensions
     {
         private const int FULL_CIRCLE_DEG = 360;
+        private const float DISTANCE_SAFETY_MOD = 1.5f;
 
         public static Vector2 RotationToVector2(this MonoBehaviour monoBehaviour, float angle)
         {
@@ -32,10 +33,16 @@ namespace ExtensionMethods
 
             Vector2[] result = new Vector2[amount];
 
+            if (amount == 1)
+            {
+                result[0] = location;
+                return result;
+            }
+
             float sliceAngle = FULL_CIRCLE_DEG / amount;
             float initialAngle = GetRandomAngle();
 
-            float distance = objectRadius / Mathf.Sin(Mathf.Deg2Rad * sliceAngle / 2);
+            float distance = objectRadius / Mathf.Sin(Mathf.Deg2Rad * sliceAngle / 2) * DISTANCE_SAFETY_MOD;
 
             for (int i = 0; i < amount; i++)
             {

@@ -24,15 +24,14 @@ public class AlienShip : SpaceObject
         {
             Vector2 firingDirection = this.GetRandomDirection();
 
-            Vector3 gunPosition = new Vector3(RB.position.x, RB.position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * BARREL_LENGTH;
+            Vector3 gunPosition = new Vector3(transform.position.x, transform.position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * BARREL_LENGTH;
             Gun.transform.position = gunPosition;
 
             Gun.Fire(firingDirection);
         }
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnCollisionEnter2D(Collision2D collision)
     {
-        throw new System.NotImplementedException();
     }
 }

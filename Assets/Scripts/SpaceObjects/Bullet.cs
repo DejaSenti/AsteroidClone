@@ -30,7 +30,7 @@ public class Bullet : SpaceObject
         DestroyBullet();
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnCollisionEnter2D(Collision2D collision)
     {
         DestroyBullet();
     }
