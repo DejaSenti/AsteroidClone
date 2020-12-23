@@ -12,25 +12,25 @@ public class Controller : MonoBehaviour
         playerShip = GetComponent<PlayerShip>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         PlayerInput.UpdateInput();
 
         if (PlayerInput.leftButtonDown || PlayerInput.leftButtonHeld)
         {
-            playerShip.RB.AddTorque(playerShip.AngularAcceleration);
+            playerShip.Rotate(RotationDirection.CCW);
         }
         if (PlayerInput.rightButtonDown || PlayerInput.rightButtonHeld)
         {
-            playerShip.RB.AddTorque(-playerShip.AngularAcceleration);
+            playerShip.Rotate(RotationDirection.CW);
         }
         if (PlayerInput.accelerateButtonDown || PlayerInput.accelerateButtonHeld)
         {
-            playerShip.RB.AddForce(playerShip.Direction * playerShip.Acceleration);
+            playerShip.Accelerate();
         }
         if (PlayerInput.fireButtonDown || PlayerInput.fireButtonHeld)
         {
-            playerShip.Gun.Fire(playerShip.Direction);
+            playerShip.Fire();
         }
     }
 }

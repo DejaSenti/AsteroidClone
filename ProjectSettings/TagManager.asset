@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Bullet
   - BulletPlayer
+  - Asteroid
+  - AlienShip
+  - BulletAlienShip
   layers:
   - Default
   - TransparentFX

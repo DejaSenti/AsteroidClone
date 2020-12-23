@@ -29,4 +29,9 @@ public class Bullet : SpaceObject
     {
         gameObject.SetActive(false);
     }
+
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        throw new NotImplementedException();
+    }
 }

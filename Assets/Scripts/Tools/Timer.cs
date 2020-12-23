@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-// TODO: Redo this with UnityEvents
 public class Timer : MonoBehaviour
 {
     public UnityEvent TimerElapsedEvent;
@@ -21,12 +20,13 @@ public class Timer : MonoBehaviour
         enabled = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        timeElapsed += Time.fixedDeltaTime;
+        timeElapsed += Time.deltaTime;
         if (timeElapsed > duration)
         {
-            TimerElapsedEvent.Invoke();
+            if (TimerElapsedEvent != null)
+                TimerElapsedEvent.Invoke();
             ResetTimer();
         }
     }
