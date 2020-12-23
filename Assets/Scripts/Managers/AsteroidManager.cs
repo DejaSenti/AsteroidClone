@@ -21,24 +21,28 @@ public class AsteroidManager : MonoBehaviour
         asteroidCollisionEvent.AddListener(OnAsteroidCollisionEvent);
     }
 
-    private void OnAsteroidCollisionEvent(Asteroid arg0, string arg1)
-    {
-
-    }
-
     private void Start()
     {
-        for (int i = 0; i < Level; i++)
+        SpawnAsteroids(Level, MAX_ASTEROID_SIZE, Vector2.zero);
+    }
+
+    private void OnAsteroidCollisionEvent(Asteroid asteroid, string colliderTag)
+    {
+        asteroidPool.Kill(asteroid);
+
+        if (asteroid.Size > 0)
+        {
+            SpawnAsteroids(NUM_SPLIT_ASTEROIDS, asteroid.Size - 1, asteroid.RB.position);
+        }
+    }
+
+    private void SpawnAsteroids(int amount, int size, Vector2 location)
+    {
+        for (int i = 0; i < amount; i++)
         {
             var asteroid = asteroidPool.Spawn();
-            asteroid.Size = MAX_ASTEROID_SIZE;
+            asteroid.Size = size;
             asteroid.RB.position = Vector2.zero;
         }
-    
-
-    void Update()
-    {
-        
     }
-}
 }

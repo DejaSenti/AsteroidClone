@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Bullet : SpaceObject
 {
+    public BulletDestroyedEvent BulletDestroyedEvent;
+
     [NonSerialized]
     public float Lifetime;
 
@@ -10,13 +12,11 @@ public class Bullet : SpaceObject
 
     private void Awake()
     {
+        if (BulletDestroyedEvent == null)
+            BulletDestroyedEvent = new BulletDestroyedEvent();
+
         distanceTimer = GetComponent<Timer>();
         distanceTimer.TimerElapsedEvent.AddListener(OnTimerElasped);
-    }
-
-    private void OnTimerElasped()
-    {
-        DestroyBullet();
     }
 
     public void Shoot(Vector2 velocity)
@@ -25,13 +25,19 @@ public class Bullet : SpaceObject
         distanceTimer.StartTimer(Lifetime);
     }
 
-    private void DestroyBullet()
+    private void OnTimerElasped()
     {
-        gameObject.SetActive(false);
+        DestroyBullet();
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {
-        throw new NotImplementedException();
+        DestroyBullet();
+    }
+
+    private void DestroyBullet()
+    {
+        distanceTimer.ResetTimer();
+        BulletDestroyedEvent.Invoke(this);
     }
 }

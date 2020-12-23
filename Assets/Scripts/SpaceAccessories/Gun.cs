@@ -49,5 +49,14 @@ public class Gun : MonoBehaviour
         bullet.Shoot(bulletVelocity);
 
         cooldownTimer.StartTimer(CooldownPeriod);
+
+        bullet.BulletDestroyedEvent.AddListener(OnBulletDestroyedEvent);
+    }
+
+    private void OnBulletDestroyedEvent(Bullet bullet)
+    {
+        bulletPool.Kill(bullet);
+
+        bullet.BulletDestroyedEvent.RemoveListener(OnBulletDestroyedEvent);
     }
 }

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 public class ObjectPool<T> where T : SpaceObject
 {
-    public int ActiveCount { get => CountActiveObjects(); }
+    public int ActiveCount { get => activeObjects.Count; }
 
     private List<T> objectPool;
+    private List<T> activeObjects;
     private string poolType;
 
     public ObjectPool()
     {
         poolType = typeof(T).Name;
         objectPool = new List<T>();
+        activeObjects = new List<T>();
     }
 
     public void Initialize(int poolSize, Transform parent)
@@ -31,28 +33,27 @@ public class ObjectPool<T> where T : SpaceObject
 
     public T Spawn()
     {
-        foreach(T spaceObject in objectPool)
-        {
-            if (!spaceObject.gameObject.activeInHierarchy)
-            {
-                spaceObject.gameObject.SetActive(true);
-                return spaceObject;
-            }
-        }
+        if (objectPool.Count == 0)
+            return null;
 
-        return null;
+        T spawnedObject = objectPool[0];
+
+        objectPool.RemoveAt(0);
+        activeObjects.Add(spawnedObject);
+
+        spawnedObject.gameObject.SetActive(true);
+
+        return spawnedObject;
     }
 
-    private int CountActiveObjects()
+    public void Kill(T existingObject)
     {
-        int activeObjects = 0;
+        if (!activeObjects.Contains(existingObject))
+            return;
 
-        foreach(T spaceObject in objectPool)
-        {
-            if (spaceObject.gameObject.activeInHierarchy)
-                activeObjects++;
-        }
+        activeObjects.RemoveAt(activeObjects.IndexOf(existingObject));
+        objectPool.Add(existingObject);
 
-        return activeObjects;
+        existingObject.gameObject.SetActive(false);
     }
 }
