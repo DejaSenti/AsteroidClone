@@ -6,8 +6,18 @@ public class Bullet : SpaceObject
     [NonSerialized]
     public float Lifetime;
 
-    [SerializeField]
     private Timer distanceTimer;
+
+    private void Awake()
+    {
+        distanceTimer = GetComponent<Timer>();
+        distanceTimer.TimerElapsedEvent.AddListener(OnTimerElasped);
+    }
+
+    private void OnTimerElasped()
+    {
+        DestroyBullet();
+    }
 
     public void Shoot(Vector2 velocity)
     {
@@ -15,17 +25,8 @@ public class Bullet : SpaceObject
         distanceTimer.StartTimer(Lifetime);
     }
 
-    private void FixedUpdate()
-    {
-        if (distanceTimer.TimerElapsed)
-        {
-            DestroyBullet();
-        }
-    }
-
     private void DestroyBullet()
     {
         gameObject.SetActive(false);
-        // animate something, play sound
     }
 }

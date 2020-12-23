@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
+// TODO: Redo this with UnityEvents
 public class Timer : MonoBehaviour
 {
+    public UnityEvent TimerElapsedEvent;
+
     private float duration;
     private float timeElapsed;
-
-    private bool TimerElapsed { get => timeElapsed > duration; }
 
     private void Awake()
     {
@@ -22,8 +24,9 @@ public class Timer : MonoBehaviour
     private void FixedUpdate()
     {
         timeElapsed += Time.fixedDeltaTime;
-        if (TimerElapsed)
+        if (timeElapsed > duration)
         {
+            TimerElapsedEvent.Invoke();
             ResetTimer();
         }
     }
