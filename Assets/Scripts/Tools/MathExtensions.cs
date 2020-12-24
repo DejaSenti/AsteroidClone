@@ -82,5 +82,11 @@ namespace ExtensionMethods
             
             return result;
         }
+
+        public static Vector2 Sign(this Vector2 vector2)
+        {
+            Vector2 result = new Vector2(Mathf.Sign(vector2.x), Mathf.Sign(vector2.y));
+            return result;
+        }
     }
 }

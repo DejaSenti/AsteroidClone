@@ -18,36 +18,46 @@ public abstract class SpaceObject : MonoBehaviour
     {
         if (!IsGhost && Ghost != null)
         {
+            Vector2 nextPosition = Position;
+
             if (RB.velocity.magnitude == 0)
             {
-                Ghost.Position = Position - new Vector2(Direction.x * SpaceBoundary.Width, Direction.y * SpaceBoundary.Height);
+                //Ghost.Position = Position - new Vector2(Direction.x * SpaceBoundary.Width, Direction.y * SpaceBoundary.Height);
                 return;
             }
-
-            if (Position.x > SpaceBoundary.Width / 2)
+            else
             {
-                Position -= new Vector2(SpaceBoundary.Width, 0);
+                nextPosition = Position + RB.velocity * Time.deltaTime;
             }
 
-            if (Position.x < -SpaceBoundary.Width / 2)
+            if (Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2)
             {
-                Position += new Vector2(SpaceBoundary.Width, 0);
+                if (nextPosition.x > SpaceBoundary.Width / 2)
+                {
+                    Position -= new Vector2(SpaceBoundary.Width, 0);
+                }
+                else if (nextPosition.x < -SpaceBoundary.Width / 2)
+                {
+                    Position += new Vector2(SpaceBoundary.Width, 0);
+                }
             }
 
-            if (Position.y > SpaceBoundary.Height / 2)
+            if (Position.y >= -SpaceBoundary.Height / 2 && Position.y <= SpaceBoundary.Height / 2)
             {
-                Position -= new Vector2(0, SpaceBoundary.Height);
+                if (nextPosition.y > SpaceBoundary.Height / 2)
+                {
+                    Position -= new Vector2(0, SpaceBoundary.Height);
+                }
+                else if (nextPosition.y < -SpaceBoundary.Height / 2)
+                {
+                    Position += new Vector2(0, SpaceBoundary.Height);
+                }
             }
 
-            if (Position.y < -SpaceBoundary.Height / 2)
-            {
-                Position += new Vector2(0, SpaceBoundary.Height);
-            }
-
-            var velocityDirection = RB.velocity.normalized;
-            Vector2 ghostPosition = Position - new Vector2(velocityDirection.x * SpaceBoundary.Width,velocityDirection.y * SpaceBoundary.Height);
-            Ghost.Position = ghostPosition;
-            Ghost.transform.rotation = transform.rotation;
+            //var velocityDirection = RB.velocity.Sign();
+            //Vector2 ghostPosition = Position - new Vector2(velocityDirection.x * SpaceBoundary.Width,velocityDirection.y * SpaceBoundary.Height);
+            //Ghost.Position = ghostPosition;
+            //Ghost.transform.rotation = transform.rotation;
         }
     }
 }
