@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using ExtensionMethods;
 
 
 public class PlayerShip : SpaceObject
@@ -7,8 +6,6 @@ public class PlayerShip : SpaceObject
     public float MaxSpeed;
     public float Acceleration;
     public float AngularAcceleration;
-
-    public Vector2 Direction { get => this.RotationToVector2(transform.rotation.eulerAngles.z); }
 
     public Gun Gun;
 

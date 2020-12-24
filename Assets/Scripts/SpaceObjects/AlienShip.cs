@@ -18,8 +18,10 @@ public class AlienShip : SpaceObject
         RB.velocity = speed * direction;
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (!Gun.IsCoolingDown)
         {
             Vector2 firingDirection = this.GetRandomDirection();

@@ -5,10 +5,10 @@ public class SpaceBoundary : MonoBehaviour
 {
     public RectTransform RectTransform;
 
-    public float Width;
-    public float Height;
+    public static float Width;
+    public static float Height;
 
-    private void Awake()
+    private void Start()
     {
         Width = RectTransform.rect.width * RectTransform.lossyScale.z;
         Height = RectTransform.rect.height * RectTransform.lossyScale.z;
