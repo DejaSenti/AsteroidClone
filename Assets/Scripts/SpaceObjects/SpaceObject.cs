@@ -3,61 +3,62 @@ using UnityEngine;
 
 public abstract class SpaceObject : MonoBehaviour
 {
-    public bool IsGhost;
-
-    public SpaceObject Ghost;
-
     public Rigidbody2D RB;
 
     public Vector2 Position { get => new Vector2(transform.position.x, transform.position.y); set { transform.position = new Vector3(value.x, value.y, 0); } }
     public Vector2 Direction { get => this.RotationToVector2(transform.rotation.eulerAngles.z); }
 
-    public abstract void OnCollisionEnter2D(Collision2D collision);
+    public abstract void OnTriggerEnter2D(Collider2D collision);
+    
+    public SpaceGhost[] ghosts;
 
-    protected virtual void Update()
+    private void Start()
     {
-        if (!IsGhost && Ghost != null)
+        RB.centerOfMass = Vector2.zero;
+
+        PositionGhosts();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        PositionGhosts();
+
+        Vector2 nextPosition = Position + RB.velocity * Time.fixedDeltaTime;
+
+        if (Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2)
         {
-            Vector2 nextPosition = Position;
-
-            if (RB.velocity.magnitude == 0)
+            if (nextPosition.x > SpaceBoundary.Width / 2)
             {
-                //Ghost.Position = Position - new Vector2(Direction.x * SpaceBoundary.Width, Direction.y * SpaceBoundary.Height);
-                return;
+                Position -= new Vector2(SpaceBoundary.Width, 0);
             }
-            else
+            else if (nextPosition.x < -SpaceBoundary.Width / 2)
             {
-                nextPosition = Position + RB.velocity * Time.deltaTime;
+                Position += new Vector2(SpaceBoundary.Width, 0);
             }
+        }
 
-            if (Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2)
+        if (Position.y >= -SpaceBoundary.Height / 2 && Position.y <= SpaceBoundary.Height / 2)
+        {
+            if (nextPosition.y > SpaceBoundary.Height / 2)
             {
-                if (nextPosition.x > SpaceBoundary.Width / 2)
-                {
-                    Position -= new Vector2(SpaceBoundary.Width, 0);
-                }
-                else if (nextPosition.x < -SpaceBoundary.Width / 2)
-                {
-                    Position += new Vector2(SpaceBoundary.Width, 0);
-                }
+                Position -= new Vector2(0, SpaceBoundary.Height);
             }
-
-            if (Position.y >= -SpaceBoundary.Height / 2 && Position.y <= SpaceBoundary.Height / 2)
+            else if (nextPosition.y < -SpaceBoundary.Height / 2)
             {
-                if (nextPosition.y > SpaceBoundary.Height / 2)
-                {
-                    Position -= new Vector2(0, SpaceBoundary.Height);
-                }
-                else if (nextPosition.y < -SpaceBoundary.Height / 2)
-                {
-                    Position += new Vector2(0, SpaceBoundary.Height);
-                }
+                Position += new Vector2(0, SpaceBoundary.Height);
             }
+        }
+    }
 
-            //var velocityDirection = RB.velocity.Sign();
-            //Vector2 ghostPosition = Position - new Vector2(velocityDirection.x * SpaceBoundary.Width,velocityDirection.y * SpaceBoundary.Height);
-            //Ghost.Position = ghostPosition;
-            //Ghost.transform.rotation = transform.rotation;
+    private void PositionGhosts()
+    {
+        foreach (SpaceGhost ghost in ghosts)
+        {
+            var ghostPosition = new Vector3(transform.position.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
+                                            transform.position.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
+                                            transform.position.z);
+
+            ghost.transform.SetPositionAndRotation(ghostPosition, transform.rotation);
         }
     }
 }

@@ -12,7 +12,7 @@ public class Controller : MonoBehaviour
         playerShip = GetComponent<PlayerShip>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         PlayerInput.UpdateInput();
 

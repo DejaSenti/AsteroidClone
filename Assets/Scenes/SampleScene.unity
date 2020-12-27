@@ -422,15 +422,60 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4489698650549332677, guid: ad11cc03da6fc184885b64aa4f141bd8,
+    - target: {fileID: 1429080243970469624, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4489698650549332677, guid: ad11cc03da6fc184885b64aa4f141bd8,
+    - target: {fileID: 1429080243970469624, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
       propertyPath: m_DynamicOccludee
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252287758762812695, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252287758762812695, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924623093070699081, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924623093070699081, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045751792291340803, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045751792291340803, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192029634982355699, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4192029634982355699, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489698650549332677, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6721388658946026896, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
@@ -497,7 +542,22 @@ PrefabInstance:
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6721388659296961619, guid: ad11cc03da6fc184885b64aa4f141bd8,
+    - target: {fileID: 7795238588256391763, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795238588256391763, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338693362812483291, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338693362812483291, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
       propertyPath: m_DynamicOccludee
       value: 1
