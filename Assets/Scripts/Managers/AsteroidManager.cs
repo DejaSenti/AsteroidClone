@@ -25,7 +25,7 @@ public class AsteroidManager : MonoBehaviour
         int poolSize = Level * Mathf.CeilToInt(Mathf.Pow(NUM_SPLIT_ASTEROIDS, MAX_ASTEROID_SIZE));
         asteroidPool.Initialize(poolSize, transform);
 
-        SpawnAsteroids(Level, MAX_ASTEROID_SIZE, Vector2.zero);
+        SpawnAsteroids(Level, MAX_ASTEROID_SIZE, SpaceBoundary.Width / 2 * Vector2.right);
     }
 
     private void OnAsteroidCollisionEvent(Asteroid asteroid, string colliderTag)

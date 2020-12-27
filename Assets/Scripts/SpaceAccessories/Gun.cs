@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     public SpaceObject Owner;
 
     public float Strength;
+    public float KickBackStrength;
     public float CooldownPeriod;
     public float BulletLifetime;
 
@@ -41,12 +42,21 @@ public class Gun : MonoBehaviour
 
         bullet.tag = BULLET_TAG + Owner.tag;
 
-        bullet.transform.position = transform.position;
+        bullet.transform.localPosition = Vector3.zero;
 
         bullet.Lifetime = BulletLifetime;
 
-        var bulletVelocity = Owner.RB.velocity + direction * Strength;
+        var bulletVelocity = direction * Strength;
+
+        if (Mathf.Abs(Vector2.SignedAngle(Owner.Direction, direction)) < 90)
+        {
+            bulletVelocity += Owner.RB.velocity;
+        }
+
         bullet.Shoot(bulletVelocity);
+
+        var kickBackForce = -direction * KickBackStrength;
+        Owner.RB.AddForce(kickBackForce);
 
         cooldownTimer.StartTimer(CooldownPeriod);
 
