@@ -40,6 +40,7 @@ public class ObjectPool<T> where T : SpaceObject
             gameObject.SetActive(false);
 
             T spaceObject = gameObject.GetComponentInChildren<T>();
+
             objectPool.Add(spaceObject);
         }
     }
@@ -54,7 +55,7 @@ public class ObjectPool<T> where T : SpaceObject
         objectPool.RemoveAt(0);
         activeObjects.Add(spawnedObject);
 
-        spawnedObject.gameObject.SetActive(true);
+        spawnedObject.transform.root.gameObject.SetActive(true);
 
         return spawnedObject;
     }
@@ -67,6 +68,6 @@ public class ObjectPool<T> where T : SpaceObject
         activeObjects.RemoveAt(activeObjects.IndexOf(existingObject));
         objectPool.Add(existingObject);
 
-        existingObject.gameObject.SetActive(false);
+        existingObject.transform.root.gameObject.SetActive(false);
     }
 }
