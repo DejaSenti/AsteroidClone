@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
 
         bullet.tag = BULLET_TAG + Owner.tag;
 
-        bullet.transform.localPosition = Vector3.zero;
+        bullet.transform.position = transform.position;
 
         bullet.Lifetime = BulletLifetime;
 

@@ -36,7 +36,7 @@ public class Bullet : SpaceObject
         BulletDestroyedEvent.Invoke(this);
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
         DestroyBullet();
     }

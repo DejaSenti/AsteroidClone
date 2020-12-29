@@ -4,7 +4,7 @@ using ExtensionMethods;
 public class AsteroidManager : MonoBehaviour
 {
     private const int MAX_ASTEROID_SIZE = 3;
-    private const int NUM_SPLIT_ASTEROIDS = 3;
+    private const int NUM_SPLIT_ASTEROIDS = 2;
 
     public int Level;
 
@@ -46,20 +46,18 @@ public class AsteroidManager : MonoBehaviour
 
     private void SpawnAsteroids(int amount, int size, Vector2 location)
     {
-        var positionArray = this.GetPositionArrayAroundLocation(amount, size, location);
-
         for (int i = 0; i < amount; i++)
         {
             var asteroid = asteroidPool.Spawn();
 
             if (asteroid == null)
-                continue;
+                return;
 
             var asteroidSpeed = this.GetRandomInRange(asteroid.MinSpeed, asteroid.MaxSpeed);
-            var asteroidDirection = this.GetDirectionInRangeRelatedToPosition(amount, location, asteroid.Position);
+            var asteroidDirection = this.GetRandomDirection();
             var asteroidVelocity = asteroidSpeed * asteroidDirection;
 
-            asteroid.Initialize(size, positionArray[i], asteroidVelocity);
+            asteroid.Initialize(size, location, asteroidVelocity);
 
             asteroid.AsteroidCollisionEvent.AddListener(OnAsteroidCollisionEvent);
         }

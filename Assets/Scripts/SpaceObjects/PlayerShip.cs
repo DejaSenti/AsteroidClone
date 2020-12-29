@@ -38,7 +38,7 @@ public class PlayerShip : SpaceObject
         Gun.Fire(Direction);
     }
 
-    public override void OnTriggerEnter2D(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
     }
 }

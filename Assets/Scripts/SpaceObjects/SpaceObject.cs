@@ -7,8 +7,6 @@ public abstract class SpaceObject : MonoBehaviour
 
     public Vector2 Position { get => new Vector2(transform.position.x, transform.position.y); set { transform.position = new Vector3(value.x, value.y, 0); } }
     public Vector2 Direction { get => this.RotationToVector2(transform.rotation.eulerAngles.z); }
-
-    public abstract void OnTriggerEnter2D(Collider2D collision);
     
     public SpaceGhost[] ghosts;
 
@@ -50,13 +48,23 @@ public abstract class SpaceObject : MonoBehaviour
         }
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == Tags.GHOST_TAG)
+            return;
+
+        OnCollision(collision);
+    }
+
+    public abstract void OnCollision(Collider2D collision);
+
     private void PositionGhosts()
     {
         foreach (SpaceGhost ghost in ghosts)
         {
-            var ghostPosition = new Vector3(transform.position.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
-                                            transform.position.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
-                                            transform.position.z);
+            var ghostPosition = new Vector3(transform.localPosition.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
+                                            transform.localPosition.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
+                                            transform.localPosition.z);
 
             ghost.transform.SetPositionAndRotation(ghostPosition, transform.rotation);
         }

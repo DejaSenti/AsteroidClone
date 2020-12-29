@@ -422,6 +422,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1389844868522784344, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389844868522784344, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1429080243970469624, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
       propertyPath: m_DynamicOccludee
@@ -461,6 +471,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ShapeTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3395771646915442532, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3395771646915442532, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569588418048024179, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569588418048024179, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4192029634982355699, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
@@ -476,6 +506,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ShapeTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012270684648723302, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064599436140276863, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187956403891754763, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187956403891754763, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6655777928701437783, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6655777928701437783, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6721388658946026896, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
@@ -542,6 +602,16 @@ PrefabInstance:
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6732812758538900935, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732812758538900935, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7795238588256391763, guid: ad11cc03da6fc184885b64aa4f141bd8,
         type: 3}
       propertyPath: m_DynamicOccludee
@@ -561,6 +631,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ShapeTexture
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690312628269669976, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8690312628269669976, guid: ad11cc03da6fc184885b64aa4f141bd8,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad11cc03da6fc184885b64aa4f141bd8, type: 3}
