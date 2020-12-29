@@ -1,5 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
-public class AsteroidCollisionEvent : UnityEvent<Asteroid, string>
+public class AsteroidCollisionEvent : UnityEvent<Asteroid, Collider2D>
 {
 }

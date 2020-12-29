@@ -45,6 +45,6 @@ public class Asteroid : SpaceObject
     public override void OnCollision(Collider2D collision)
     {
         if (AsteroidCollisionEvent != null && isActiveAndEnabled)
-            AsteroidCollisionEvent.Invoke(this, collision.gameObject.tag);
+            AsteroidCollisionEvent.Invoke(this, collision);
     }
 }

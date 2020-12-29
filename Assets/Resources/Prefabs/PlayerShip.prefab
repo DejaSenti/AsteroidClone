@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875d8accb89e4c94dbdbabce9dee2625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 6994055872359382321}
+  Owner: {fileID: 0}
   Strength: 50
   KickBackStrength: 100
   CooldownPeriod: 0.5
@@ -152,8 +152,6 @@ GameObject:
   - component: {fileID: 3497283837930344183}
   - component: {fileID: 1134316156587499744}
   - component: {fileID: 3338322716335064025}
-  - component: {fileID: 2607008518766847338}
-  - component: {fileID: 6994055872359382321}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Player
@@ -229,45 +227,6 @@ PolygonCollider2D:
       - {x: -0.85568005, y: -0.95140743}
       - {x: -0.96216, y: -0.98725927}
       - {x: -1, y: -1}
---- !u!114 &2607008518766847338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797544830863417216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 859afd34e317d0742810f635da791c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerInput: {fileID: 11400000, guid: 5551005a5e51dd14eb36c7a18c62bb8a, type: 2}
---- !u!114 &6994055872359382321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797544830863417216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d728bc6ccf1434ea3c69c12dc6bcbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RB: {fileID: 1134316156587499744}
-  ghosts:
-  - {fileID: 6741166821200734943}
-  - {fileID: 8192586738393921775}
-  - {fileID: 703812378310687134}
-  - {fileID: 4734537392423645214}
-  - {fileID: 3172698664562747157}
-  - {fileID: 2859125181783598629}
-  - {fileID: 7905895345988845402}
-  - {fileID: 6875065117750956560}
-  MaxSpeed: 50
-  Acceleration: 100
-  AngularAcceleration: 100
-  Gun: {fileID: 8081560078436492405}
 --- !u!1 &1973646726954274417
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +269,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -445,7 +404,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -734,7 +693,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -869,7 +828,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1158,7 +1117,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1799,6 +1758,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6721388658946026896}
+  - component: {fileID: 1915461035782410903}
+  - component: {fileID: 8833724961947434202}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Player
@@ -1822,6 +1783,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1915461035782410903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721388658946026925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859afd34e317d0742810f635da791c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerInput: {fileID: 11400000, guid: 5551005a5e51dd14eb36c7a18c62bb8a, type: 2}
+--- !u!114 &8833724961947434202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721388658946026925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d728bc6ccf1434ea3c69c12dc6bcbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RB: {fileID: 1134316156587499744}
+  ghosts:
+  - {fileID: 6741166821200734943}
+  - {fileID: 8192586738393921775}
+  - {fileID: 703812378310687134}
+  - {fileID: 4734537392423645214}
+  - {fileID: 3172698664562747157}
+  - {fileID: 2859125181783598629}
+  - {fileID: 7905895345988845402}
+  - {fileID: 6875065117750956560}
+  MaxSpeed: 50
+  Acceleration: 100
+  AngularAcceleration: 50
+  Gun: {fileID: 8081560078436492405}
 --- !u!1 &9195865232583604103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1864,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1999,7 +1999,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
