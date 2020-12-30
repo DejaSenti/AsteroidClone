@@ -24,16 +24,21 @@ public class AlienShip : SpaceEntity
 
         if (!Gun.IsCoolingDown)
         {
-            Vector2 firingDirection = this.GetRandomDirection();
-
-            Vector3 gunPosition = new Vector3(transform.position.x, transform.position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * BARREL_LENGTH;
-            Gun.transform.position = gunPosition;
-
-            Gun.Fire(firingDirection);
+            FireInRandomDirection();
         }
     }
 
     public override void OnCollision(Collider2D collision)
     {
+    }
+
+    private void FireInRandomDirection()
+    {
+        Vector2 firingDirection = this.GetRandomDirection();
+
+        Vector3 gunPosition = new Vector3(Position.x, Position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * BARREL_LENGTH;
+        Gun.transform.position = gunPosition;
+
+        Gun.Fire(firingDirection);
     }
 }
