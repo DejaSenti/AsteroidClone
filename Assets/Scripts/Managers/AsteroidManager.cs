@@ -31,9 +31,6 @@ public class AsteroidManager : MonoBehaviour
 
     private void OnAsteroidCollisionEvent(Asteroid asteroid, Collider2D collision)
     {
-        if (collision.tag == Tags.ASTEROID_TAG)
-            return;
-
         if (asteroid.Size > 0)
         {
             int newSize = asteroid.Size - 1;

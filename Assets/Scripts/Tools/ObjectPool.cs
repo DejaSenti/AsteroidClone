@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class ObjectPool<T> where T : SpaceObject
+public class ObjectPool<T> where T : SpaceEntity
 {
     public int ActiveCount { get => activeObjects.Count; }
 
@@ -27,7 +27,7 @@ public class ObjectPool<T> where T : SpaceObject
 
             foreach (T spaceObject in allObjects)
             {
-                Object.Destroy(spaceObject.transform.parent.gameObject);
+                Object.Destroy(spaceObject.gameObject);
             }
         }
 
@@ -55,7 +55,7 @@ public class ObjectPool<T> where T : SpaceObject
         objectPool.RemoveAt(0);
         activeObjects.Add(spawnedObject);
 
-        spawnedObject.transform.root.gameObject.SetActive(true);
+        spawnedObject.gameObject.SetActive(true);
 
         return spawnedObject;
     }
@@ -68,6 +68,6 @@ public class ObjectPool<T> where T : SpaceObject
         activeObjects.RemoveAt(activeObjects.IndexOf(existingObject));
         objectPool.Add(existingObject);
 
-        existingObject.transform.root.gameObject.SetActive(false);
+        existingObject.gameObject.SetActive(false);
     }
 }

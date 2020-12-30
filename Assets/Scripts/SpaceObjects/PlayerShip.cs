@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class PlayerShip : SpaceObject
+public class PlayerShip : SpaceEntity
 {
     public float MaxSpeed;
     public float Acceleration;

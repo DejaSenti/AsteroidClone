@@ -1,8 +1,8 @@
 ﻿using ExtensionMethods;
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(CorporealForm))]
-public abstract class SpaceObject : MonoBehaviour
+public abstract class SpaceEntity : MonoBehaviour
 {
     public Rigidbody2D RB;
 
@@ -12,18 +12,20 @@ public abstract class SpaceObject : MonoBehaviour
     public CorporealForm CorporealForm;
     public GhostForm[] Ghosts;
 
-    private void Start()
+    private void Awake()
     {
+        SetColliders(false);
+
         RB.centerOfMass = Vector2.zero;
 
         PositionGhosts();
+
+        SetColliders(true);
     }
 
-    protected virtual void FixedUpdate()
+    public virtual void Update()
     {
-        PositionGhosts();
-
-        Vector2 nextPosition = Position + RB.velocity * Time.fixedDeltaTime;
+        Vector2 nextPosition = Position + RB.velocity * Time.deltaTime;
 
         if (Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2)
         {
@@ -48,14 +50,8 @@ public abstract class SpaceObject : MonoBehaviour
                 Position += new Vector2(0, SpaceBoundary.Height);
             }
         }
-    }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == Tags.GHOST_TAG)
-            return;
-
-        OnCollision(collision);
+        PositionGhosts();
     }
 
     public abstract void OnCollision(Collider2D collision);
@@ -64,11 +60,20 @@ public abstract class SpaceObject : MonoBehaviour
     {
         foreach (GhostForm ghost in Ghosts)
         {
-            var ghostPosition = new Vector3(CorporealForm.transform.position.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
-                                            CorporealForm.transform.position.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
-                                            CorporealForm.transform.position.z);
+            var ghostPosition = new Vector3(Position.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
+                                            Position.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
+                                            0);
 
             ghost.transform.SetPositionAndRotation(ghostPosition, CorporealForm.transform.rotation);
+        }
+    }
+
+    private void SetColliders(bool enabled)
+    {
+        CorporealForm.Collider.enabled = enabled;
+        foreach (GhostForm ghost in Ghosts)
+        {
+            ghost.Collider.enabled = enabled;
         }
     }
 }

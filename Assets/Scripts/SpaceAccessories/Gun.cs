@@ -4,7 +4,7 @@ public class Gun : MonoBehaviour
 {
     private const string BULLET_TAG = "Bullet";
 
-    public SpaceObject Owner;
+    public SpaceEntity Owner;
 
     public float Strength;
     public float KickBackStrength;

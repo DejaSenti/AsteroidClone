@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Asteroid : SpaceObject
+public class Asteroid : SpaceEntity
 {
     public AsteroidCollisionEvent AsteroidCollisionEvent;
 
@@ -30,6 +30,9 @@ public class Asteroid : SpaceObject
 
     public override void OnCollision(Collider2D collision)
     {
+        if (collision.tag == Tags.ASTEROID_TAG)
+            return;
+
         if (AsteroidCollisionEvent != null && isActiveAndEnabled)
             AsteroidCollisionEvent.Invoke(this, collision);
     }

@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 1595384987692046404}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: -1, y: 1}
 --- !u!1 &111973707127166609
 GameObject:
@@ -71,7 +73,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5377419644781961247}
-  - component: {fileID: 2396018618082273782}
   m_Layer: 0
   m_Name: Ghosts
   m_TagString: Ghost
@@ -101,27 +102,6 @@ Transform:
   m_Father: {fileID: 7452836299507811669}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &2396018618082273782
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111973707127166609}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!1 &1079759431788020290
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 277943301491377852}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: 0, y: -1}
 --- !u!1 &1966876870569567256
 GameObject:
@@ -507,9 +489,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2135455894526983705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018b264182590b342acaaf3dd6913132, type: 3}
+  m_Script: {fileID: 11500000, guid: 9143b63574803174c8c3e8daaf77411e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 620118996437510368}
+  Entity: {fileID: 6329532560515454727}
 --- !u!1 &2231811665128285536
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 4641070485076589075}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: 1, y: 1}
 --- !u!1 &3532572183512718948
 GameObject:
@@ -795,6 +781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 3243406919718578961}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: -1, y: 0}
 --- !u!1 &5829885517146639700
 GameObject:
@@ -938,6 +926,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 6073916925073461547}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: 1, y: -1}
 --- !u!1 &6195752592279725970
 GameObject:
@@ -1081,6 +1071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 1776473157023098332}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: 0, y: 1}
 --- !u!1 &7013814761604496395
 GameObject:
@@ -1143,6 +1135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 3955696085670356993}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: -1, y: -1}
 --- !u!1 &7452836299507811673
 GameObject:
@@ -1439,4 +1433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c14908986ce3ba4f8c2d38d33b5b32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 2877486166683734100}
+  Entity: {fileID: 6329532560515454727}
   RelativeDirection: {x: 1, y: 0}

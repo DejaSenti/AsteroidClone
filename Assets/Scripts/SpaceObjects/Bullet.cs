@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Bullet : SpaceObject
+public class Bullet : SpaceEntity
 {
     public BulletDestroyedEvent BulletDestroyedEvent;
 

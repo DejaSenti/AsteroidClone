@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using ExtensionMethods;
 
-public class AlienShip : SpaceObject
+public class AlienShip : SpaceEntity
 {
     private const float BARREL_LENGTH = 4;
     
@@ -18,8 +18,10 @@ public class AlienShip : SpaceObject
         RB.velocity = speed * direction;
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
+
         if (!Gun.IsCoolingDown)
         {
             Vector2 firingDirection = this.GetRandomDirection();
