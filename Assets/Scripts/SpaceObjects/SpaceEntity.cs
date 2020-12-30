@@ -24,30 +24,22 @@ public abstract class SpaceEntity : MonoBehaviour
 
     public virtual void Update()
     {
-        Vector2 nextPosition = Position + RB.velocity * Time.deltaTime;
-
-        if (Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2)
+        if (Position.x <= -SpaceBoundary.Width / 2)
         {
-            if (nextPosition.x > SpaceBoundary.Width / 2)
-            {
-                Position -= new Vector2(SpaceBoundary.Width, 0);
-            }
-            else if (nextPosition.x < -SpaceBoundary.Width / 2)
-            {
-                Position += new Vector2(SpaceBoundary.Width, 0);
-            }
+            Position += new Vector2(SpaceBoundary.Width, 0);
+        }
+        else if (Position.x >= SpaceBoundary.Width / 2)
+        {
+            Position -= new Vector2(SpaceBoundary.Width, 0);
         }
 
-        if (Position.y >= -SpaceBoundary.Height / 2 && Position.y <= SpaceBoundary.Height / 2)
+        if (Position.y <= -SpaceBoundary.Height / 2)
         {
-            if (nextPosition.y > SpaceBoundary.Height / 2)
-            {
-                Position -= new Vector2(0, SpaceBoundary.Height);
-            }
-            else if (nextPosition.y < -SpaceBoundary.Height / 2)
-            {
-                Position += new Vector2(0, SpaceBoundary.Height);
-            }
+            Position += new Vector2(0, SpaceBoundary.Height);
+        }
+        else if (Position.y >= SpaceBoundary.Height / 2)
+        {
+            Position -= new Vector2(0, SpaceBoundary.Height);
         }
 
         PositionGhosts();
