@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875d8accb89e4c94dbdbabce9dee2625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
+  Owner: {fileID: 8833724961947434202}
   Strength: 50
   KickBackStrength: 100
   CooldownPeriod: 0.5
@@ -152,8 +152,9 @@ GameObject:
   - component: {fileID: 3497283837930344183}
   - component: {fileID: 1134316156587499744}
   - component: {fileID: 3338322716335064025}
+  - component: {fileID: 6010484655351795687}
   m_Layer: 0
-  m_Name: PlayerShip
+  m_Name: Corporeal
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,6 +228,18 @@ PolygonCollider2D:
       - {x: -0.85568005, y: -0.95140743}
       - {x: -0.96216, y: -0.98725927}
       - {x: -1, y: -1}
+--- !u!114 &6010484655351795687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797544830863417216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018b264182590b342acaaf3dd6913132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1973646726954274417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304027846297160188}
+  - component: {fileID: 6597012421225742087}
   m_Layer: 0
   m_Name: Ghosts
   m_TagString: Untagged
@@ -1383,6 +1397,27 @@ Transform:
   m_Father: {fileID: 6721388658946026896}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &6597012421225742087
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5698670242332327794}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &5758362773638096955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,7 +1844,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RB: {fileID: 1134316156587499744}
-  ghosts:
+  CorporealForm: {fileID: 6010484655351795687}
+  Ghosts:
   - {fileID: 6741166821200734943}
   - {fileID: 8192586738393921775}
   - {fileID: 703812378310687134}

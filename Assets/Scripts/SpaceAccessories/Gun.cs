@@ -40,11 +40,11 @@ public class Gun : MonoBehaviour
         if (bullet == null)
             return;
 
-        bullet.tag = BULLET_TAG + Owner.tag;
+        var tag = BULLET_TAG + Owner.tag;
 
-        bullet.transform.position = transform.position;
+        var position = transform.position;
 
-        bullet.Lifetime = BulletLifetime;
+        var lifetime = BulletLifetime;
 
         var bulletVelocity = direction * Strength;
 
@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour
             bulletVelocity += Owner.RB.velocity;
         }
 
-        bullet.Shoot(bulletVelocity);
+        bullet.Shoot(tag, position, bulletVelocity, lifetime);
 
         var kickBackForce = -direction * KickBackStrength;
         Owner.RB.AddForce(kickBackForce);

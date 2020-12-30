@@ -5,8 +5,7 @@ public class Bullet : SpaceObject
 {
     public BulletDestroyedEvent BulletDestroyedEvent;
 
-    [NonSerialized]
-    public float Lifetime;
+    private float lifetime;
 
     private Timer distanceTimer;
 
@@ -19,10 +18,16 @@ public class Bullet : SpaceObject
         distanceTimer.TimerElapsedEvent.AddListener(OnTimerElasped);
     }
 
-    public void Shoot(Vector2 velocity)
+    public void Shoot(string tag, Vector3 position, Vector2 velocity, float lifetime)
     {
+        CorporealForm.tag = tag;
+
+        CorporealForm.transform.position = position;
+
+        this.lifetime = lifetime;
+
         RB.velocity = velocity;
-        distanceTimer.StartTimer(Lifetime);
+        distanceTimer.StartTimer(this.lifetime);
     }
 
     private void OnTimerElasped()
@@ -32,6 +37,7 @@ public class Bullet : SpaceObject
 
     private void DestroyBullet()
     {
+        tag = Tags.BULLET_TAG;
         distanceTimer.ResetTimer();
         BulletDestroyedEvent.Invoke(this);
     }

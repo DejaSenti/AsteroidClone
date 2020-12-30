@@ -1,14 +1,16 @@
 ﻿using ExtensionMethods;
 using UnityEngine;
 
+[RequireComponent(typeof(CorporealForm))]
 public abstract class SpaceObject : MonoBehaviour
 {
     public Rigidbody2D RB;
 
-    public Vector2 Position { get => new Vector2(transform.position.x, transform.position.y); set { transform.position = new Vector3(value.x, value.y, 0); } }
-    public Vector2 Direction { get => this.RotationToVector2(transform.rotation.eulerAngles.z); }
-    
-    public SpaceGhost[] ghosts;
+    public Vector2 Position { get => new Vector2(CorporealForm.transform.position.x, CorporealForm.transform.position.y); set { CorporealForm.transform.position = new Vector3(value.x, value.y, 0); } }
+    public Vector2 Direction { get => this.RotationToVector2(CorporealForm.transform.rotation.eulerAngles.z); }
+
+    public CorporealForm CorporealForm;
+    public SpaceGhost[] Ghosts;
 
     private void Start()
     {
@@ -60,13 +62,13 @@ public abstract class SpaceObject : MonoBehaviour
 
     private void PositionGhosts()
     {
-        foreach (SpaceGhost ghost in ghosts)
+        foreach (SpaceGhost ghost in Ghosts)
         {
-            var ghostPosition = new Vector3(transform.localPosition.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
-                                            transform.localPosition.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
-                                            transform.localPosition.z);
+            var ghostPosition = new Vector3(CorporealForm.transform.position.x + ghost.RelativeDirection.x * SpaceBoundary.Width,
+                                            CorporealForm.transform.position.y + ghost.RelativeDirection.y * SpaceBoundary.Height,
+                                            CorporealForm.transform.position.z);
 
-            ghost.transform.SetPositionAndRotation(ghostPosition, transform.rotation);
+            ghost.transform.SetPositionAndRotation(ghostPosition, CorporealForm.transform.rotation);
         }
     }
 }
