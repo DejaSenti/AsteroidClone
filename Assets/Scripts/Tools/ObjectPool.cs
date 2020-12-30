@@ -41,6 +41,8 @@ public class ObjectPool<T> where T : SpaceEntity
 
             T spaceObject = gameObject.GetComponentInChildren<T>();
 
+            spaceObject.transform.position = Vector3.zero;
+
             objectPool.Add(spaceObject);
         }
     }

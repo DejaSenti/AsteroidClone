@@ -1,5 +1,4 @@
 ﻿using ExtensionMethods;
-using System;
 using UnityEngine;
 
 public abstract class SpaceEntity : MonoBehaviour
