@@ -27,11 +27,14 @@ public class PlayerShipManager : MonoBehaviour
 
     public void Initialize()
     {
-        var playerShipGO = Resources.Load(MainAssetPaths.PLAYER_SHIP);
-        var playerShipInstance = Instantiate(playerShipGO) as GameObject;
+        if (playerShip == null)
+        {
+            var playerShipGO = Resources.Load(MainAssetPaths.PLAYER_SHIP);
+            var playerShipInstance = Instantiate(playerShipGO) as GameObject;
 
-        playerShip = playerShipInstance.GetComponent<PlayerShip>();
-        playerShip.Deactivate();
+            playerShip = playerShipInstance.GetComponent<PlayerShip>();
+            playerShip.Deactivate();
+        }
 
         playerHealth = MaxPlayerHealth;
 
