@@ -6,7 +6,7 @@ public class GhostForm : SpaceForm
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == Tags.GHOST_TAG)
+        if (collision.tag == Tags.GHOST)
             return;
 
         base.OnTriggerEnter2D(collision);

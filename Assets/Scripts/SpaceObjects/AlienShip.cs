@@ -3,6 +3,7 @@ using ExtensionMethods;
 
 public class AlienShip : SpaceEntity
 {
+    private const int SCORE = 200;
     private const float BARREL_LENGTH = 4;
     
     public float MinSpeed;
@@ -30,6 +31,10 @@ public class AlienShip : SpaceEntity
 
     public override void OnCollision(Collider2D collision)
     {
+        if (collision.tag == Tags.PLAYER_BULLET)
+        {
+            ScoreManager.Instance.AddScore(SCORE);
+        }
     }
 
     private void FireInRandomDirection()

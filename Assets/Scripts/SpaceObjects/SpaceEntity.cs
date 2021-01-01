@@ -13,13 +13,25 @@ public abstract class SpaceEntity : MonoBehaviour
 
     protected virtual void Awake()
     {
-        SetColliders(false);
+        Deactivate();
 
         PositionGhosts();
 
         RB.centerOfMass = Vector2.zero;
 
+        Activate();
+    }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
         SetColliders(true);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+        SetColliders(false);
     }
 
     protected virtual void Update()

@@ -30,9 +30,9 @@ public class PlayerShipManager : MonoBehaviour
         var playerShipGO = Resources.Load(MainAssetPaths.PLAYER_SHIP);
         var playerShipInstance = Instantiate(playerShipGO) as GameObject;
 
-        playerShipInstance.SetActive(false);
-
         playerShip = playerShipInstance.GetComponent<PlayerShip>();
+        playerShip.Deactivate();
+
         playerHealth = MaxPlayerHealth;
 
         UpdateHealthDisplay();
@@ -50,12 +50,12 @@ public class PlayerShipManager : MonoBehaviour
 
         playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
 
-        playerShip.gameObject.SetActive(true);
+        playerShip.Activate();
     }
 
     private void OnPlayerShipCollision()
     {
-        playerShip.gameObject.SetActive(false);
+        playerShip.Deactivate();
 
         if (playerHealth >= 1)
         {

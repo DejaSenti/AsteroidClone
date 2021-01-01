@@ -37,9 +37,9 @@ public class ObjectPool<T> where T : SpaceEntity
         {
             var gameObject = Object.Instantiate(gameObjectPrefab);
 
-            gameObject.SetActive(false);
-
             T spaceObject = gameObject.GetComponentInChildren<T>();
+
+            spaceObject.Deactivate();
 
             spaceObject.transform.position = Vector3.zero;
 
@@ -47,7 +47,7 @@ public class ObjectPool<T> where T : SpaceEntity
         }
     }
 
-    public T Spawn()
+    public T Acquire()
     {
         if (objectPool.Count == 0)
             return null;
@@ -57,12 +57,12 @@ public class ObjectPool<T> where T : SpaceEntity
         objectPool.RemoveAt(0);
         activeObjects.Add(spawnedObject);
 
-        spawnedObject.gameObject.SetActive(true);
+        spawnedObject.Activate();
 
         return spawnedObject;
     }
 
-    public void Kill(T existingObject)
+    public void Release(T existingObject)
     {
         if (!activeObjects.Contains(existingObject))
             return;
@@ -70,6 +70,6 @@ public class ObjectPool<T> where T : SpaceEntity
         activeObjects.RemoveAt(activeObjects.IndexOf(existingObject));
         objectPool.Add(existingObject);
 
-        existingObject.gameObject.SetActive(false);
+        existingObject.Deactivate();
     }
 }

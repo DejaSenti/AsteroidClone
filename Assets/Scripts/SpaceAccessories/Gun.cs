@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
 
         direction = direction.normalized;
 
-        var bullet = bulletPool.Spawn();
+        var bullet = bulletPool.Acquire();
 
         if (bullet == null)
             return;
@@ -65,7 +65,7 @@ public class Gun : MonoBehaviour
 
     private void OnBulletDestroyedEvent(Bullet bullet)
     {
-        bulletPool.Kill(bullet);
+        bulletPool.Release(bullet);
 
         bullet.BulletDestroyedEvent.RemoveListener(OnBulletDestroyedEvent);
     }

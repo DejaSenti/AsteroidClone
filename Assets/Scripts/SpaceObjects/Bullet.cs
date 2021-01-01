@@ -39,7 +39,7 @@ public class Bullet : SpaceEntity
 
     private void DestroyBullet()
     {
-        tag = Tags.BULLET_TAG;
+        tag = Tags.BULLET;
         distanceTimer.ResetTimer();
         BulletDestroyedEvent.Invoke(this);
     }
