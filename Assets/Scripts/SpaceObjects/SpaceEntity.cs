@@ -11,18 +11,18 @@ public abstract class SpaceEntity : MonoBehaviour
     public CorporealForm CorporealForm;
     public GhostForm[] Ghosts;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         SetColliders(false);
 
-        RB.centerOfMass = Vector2.zero;
-
         PositionGhosts();
+
+        RB.centerOfMass = Vector2.zero;
 
         SetColliders(true);
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         if (Position.x <= -SpaceBoundary.Width / 2)
         {

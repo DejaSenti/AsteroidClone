@@ -1,5 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerShipCollisionEvent : UnityEvent<PlayerShip, string>
+public class PlayerShipCollisionEvent : UnityEvent
 {
 }

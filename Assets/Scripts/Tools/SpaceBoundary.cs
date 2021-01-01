@@ -8,7 +8,17 @@ public class SpaceBoundary : MonoBehaviour
     public static float Width;
     public static float Height;
 
+    private void Awake()
+    {
+        UpdateDimensions();
+    }
+
     private void Update()
+    {
+        UpdateDimensions();
+    }
+
+    private void UpdateDimensions()
     {
         Width = RectTransform.rect.width * RectTransform.lossyScale.z;
         Height = RectTransform.rect.height * RectTransform.lossyScale.z;

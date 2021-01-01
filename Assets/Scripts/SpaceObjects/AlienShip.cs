@@ -18,7 +18,7 @@ public class AlienShip : SpaceEntity
         RB.velocity = speed * direction;
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
 

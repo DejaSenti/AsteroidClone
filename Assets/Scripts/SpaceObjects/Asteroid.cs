@@ -9,8 +9,10 @@ public class Asteroid : SpaceEntity
 
     public int Size;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (AsteroidCollisionEvent == null)
             AsteroidCollisionEvent = new AsteroidCollisionEvent();
     }

@@ -9,6 +9,23 @@ public class PlayerShip : SpaceEntity
 
     public Gun Gun;
 
+    public PlayerShipCollisionEvent PlayerShipCollisionEvent;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (PlayerShipCollisionEvent == null)
+        {
+            PlayerShipCollisionEvent = new PlayerShipCollisionEvent();
+        }
+    }
+
+    public void Initialize(Vector2 position)
+    {
+        Position = position;
+    }
+
     public void Accelerate()
     {
         if (RB.velocity.magnitude <= MaxSpeed)
@@ -40,5 +57,6 @@ public class PlayerShip : SpaceEntity
 
     public override void OnCollision(Collider2D collision)
     {
+        PlayerShipCollisionEvent.Invoke();
     }
 }

@@ -9,8 +9,10 @@ public class Bullet : SpaceEntity
 
     private Timer distanceTimer;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (BulletDestroyedEvent == null)
             BulletDestroyedEvent = new BulletDestroyedEvent();
 
