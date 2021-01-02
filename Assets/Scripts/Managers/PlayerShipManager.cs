@@ -15,17 +15,9 @@ public class PlayerShipManager : MonoBehaviour
     public Timer PlayerRespawnDelayTimer;
 
     private PlayerShip playerShip;
-    private int playerHealth;
+    public int playerHealth;
 
     private void Awake()
-    {
-        if(PlayerDeathEvent == null)
-        {
-            PlayerDeathEvent = new PlayerDeathEvent();
-        }
-    }
-
-    public void Initialize()
     {
         if (playerShip == null)
         {
@@ -33,14 +25,24 @@ public class PlayerShipManager : MonoBehaviour
             var playerShipInstance = Instantiate(playerShipGO) as GameObject;
 
             playerShip = playerShipInstance.GetComponent<PlayerShip>();
-            playerShip.Deactivate();
         }
 
-        playerHealth = MaxPlayerHealth;
+        playerShip.Deactivate();
 
+        if (PlayerDeathEvent == null)
+        {
+            PlayerDeathEvent = new PlayerDeathEvent();
+        }
+    }
+
+    public void Initialize()
+    {
+        playerHealth = MaxPlayerHealth;
         UpdateHealthDisplay();
 
         SpawnPlayerShip();
+
+        playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
     }
 
     private void SpawnPlayerShip()
@@ -50,8 +52,6 @@ public class PlayerShipManager : MonoBehaviour
 
         Vector2 position = Vector2.zero;
         playerShip.Initialize(position);
-
-        playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
 
         playerShip.Activate();
     }
@@ -70,6 +70,8 @@ public class PlayerShipManager : MonoBehaviour
         }
         else
         {
+            playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
+
             PlayerDeathEvent.Invoke();
         }
     }
@@ -77,6 +79,7 @@ public class PlayerShipManager : MonoBehaviour
     private void OnPlayerRespawnTimerElapsed()
     {
         SpawnPlayerShip();
+        PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveListener(OnPlayerRespawnTimerElapsed);
     }
 
     private void UpdateHealthDisplay()

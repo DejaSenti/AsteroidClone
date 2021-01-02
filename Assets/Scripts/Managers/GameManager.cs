@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerDeath()
     {
+        PlayerShipManager.PlayerDeathEvent.RemoveListener(OnPlayerDeath);
         Announcements.text = GAME_OVER_MESSAGE;
     }
 
