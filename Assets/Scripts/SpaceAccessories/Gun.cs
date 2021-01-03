@@ -69,4 +69,18 @@ public class Gun : MonoBehaviour
 
         bullet.BulletDestroyedEvent.RemoveListener(OnBulletDestroyedEvent);
     }
+
+    public void Terminate()
+    {
+        cooldownTimer.TimerElapsedEvent.RemoveAllListeners();
+
+        var bullets = bulletPool.GetAllPooledObjects();
+        foreach(Bullet bullet in bullets)
+        {
+            bullet.BulletDestroyedEvent.RemoveAllListeners();
+            bullet.Terminate();
+        }
+
+        bulletPool.Terminate();
+    }
 }

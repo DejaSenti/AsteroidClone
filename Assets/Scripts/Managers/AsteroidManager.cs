@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using ExtensionMethods;
 
-public class AsteroidManager : MonoBehaviour
+public class AsteroidManager : MonoBehaviour, IGameManager
 {
     private ObjectPool<Asteroid> asteroidPool;
 
@@ -48,5 +48,22 @@ public class AsteroidManager : MonoBehaviour
 
             asteroid.AsteroidCollisionEvent.AddListener(OnAsteroidCollisionEvent);
         }
+    }
+
+    public void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Terminate()
+    {
+        var asteroids = asteroidPool.GetAllPooledObjects();
+        foreach (Asteroid asteroid in asteroids)
+        {
+            asteroid.AsteroidCollisionEvent.RemoveAllListeners();
+            asteroid.Terminate();
+        }
+
+        asteroidPool.Terminate();
     }
 }

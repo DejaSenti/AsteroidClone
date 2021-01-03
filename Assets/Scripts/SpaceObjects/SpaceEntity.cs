@@ -57,7 +57,7 @@ public abstract class SpaceEntity : MonoBehaviour
         PositionGhosts();
     }
 
-    public abstract void OnCollision(Collider2D collision);
+    protected abstract void OnCollision(Collider2D collision);
 
     private void PositionGhosts()
     {
@@ -79,4 +79,6 @@ public abstract class SpaceEntity : MonoBehaviour
             ghost.Collider.enabled = enabled;
         }
     }
+
+    public abstract void Terminate();
 }

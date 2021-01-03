@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : SpaceEntity
 {
@@ -35,18 +34,23 @@ public class Bullet : SpaceEntity
     private void OnTimerElapsed()
     {
         DestroyBullet();
-        distanceTimer.TimerElapsedEvent.RemoveListener(OnTimerElapsed);
+    }
+
+    protected override void OnCollision(Collider2D collision)
+    {
+        DestroyBullet();
     }
 
     private void DestroyBullet()
     {
-        tag = Tags.BULLET;
-        distanceTimer.ResetTimer();
         BulletDestroyedEvent.Invoke(this);
+        Terminate();
     }
 
-    public override void OnCollision(Collider2D collision)
+    public override void Terminate()
     {
-        DestroyBullet();
+        tag = Tags.BULLET;
+        distanceTimer.ResetTimer();
+        distanceTimer.TimerElapsedEvent.RemoveListener(OnTimerElapsed);
     }
 }

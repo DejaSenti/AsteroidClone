@@ -29,7 +29,7 @@ public class AlienShip : SpaceEntity
         }
     }
 
-    public override void OnCollision(Collider2D collision)
+    protected override void OnCollision(Collider2D collision)
     {
         if (collision.tag == Tags.PLAYER_BULLET)
         {
@@ -45,5 +45,10 @@ public class AlienShip : SpaceEntity
         Gun.transform.position = gunPosition;
 
         Gun.Fire(firingDirection);
+    }
+
+    public override void Terminate()
+    {
+        Gun.Terminate();
     }
 }

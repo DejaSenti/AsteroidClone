@@ -55,8 +55,13 @@ public class PlayerShip : SpaceEntity
         Gun.Fire(Direction);
     }
 
-    public override void OnCollision(Collider2D collision)
+    protected override void OnCollision(Collider2D collision)
     {
         PlayerShipCollisionEvent.Invoke();
+    }
+
+    public override void Terminate()
+    {
+        Gun.Terminate();
     }
 }

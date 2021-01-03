@@ -21,14 +21,7 @@ public class ObjectPool<T> where T : SpaceEntity
     {
         if (objectPool.Count > 0)
         {
-            var allObjects = objectPool.Concat(activeObjects).ToList();
-            objectPool.Clear();
-            activeObjects.Clear();
-
-            foreach (T spaceObject in allObjects)
-            {
-                Object.Destroy(spaceObject.gameObject);
-            }
+            Terminate();
         }
 
         var gameObjectPrefab = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
@@ -45,6 +38,26 @@ public class ObjectPool<T> where T : SpaceEntity
 
             objectPool.Add(spaceObject);
         }
+    }
+
+    public void Terminate()
+    {
+        var allObjects = GetAllPooledObjects();
+
+        objectPool.Clear();
+        activeObjects.Clear();
+
+        foreach (T spaceObject in allObjects)
+        {
+            spaceObject.Deactivate();
+            Object.Destroy(spaceObject.gameObject);
+        }
+    }
+
+    public List<T> GetAllPooledObjects()
+    {
+        var result = objectPool.Concat(activeObjects).ToList();
+        return result;
     }
 
     public T Acquire()

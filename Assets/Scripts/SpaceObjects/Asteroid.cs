@@ -32,7 +32,7 @@ public class Asteroid : SpaceEntity
         RB.velocity = velocity;
     }
 
-    public override void OnCollision(Collider2D collision)
+    protected override void OnCollision(Collider2D collision)
     {
         var addedScore = 0;
         switch (collision.tag)
@@ -52,6 +52,10 @@ public class Asteroid : SpaceEntity
 
         if (AsteroidCollisionEvent != null && isActiveAndEnabled)
             AsteroidCollisionEvent.Invoke(this, collision);
+    }
+
+    public override void Terminate()
+    {
     }
 }
 

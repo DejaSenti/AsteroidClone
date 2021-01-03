@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IGameManager
 {
     private const string GAME_OVER_MESSAGE = "Game Over";
 
@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
         StartNewGame();
     }
 
@@ -21,12 +22,8 @@ public class GameManager : MonoBehaviour
     {
         Announcements.text = "";
 
-        ScoreManager.Instance.Initialize();
-
         Level = 1;
-        AsteroidManager.Initialize(Level);
 
-        PlayerShipManager.Initialize();
         PlayerShipManager.PlayerDeathEvent.AddListener(OnPlayerDeath);
     }
 
@@ -39,6 +36,22 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Restart Level")]
     public void RestartLevel()
     {
+        Terminate();
         StartNewGame();
+    }
+
+    public void Initialize()
+    {
+        ScoreManager.Instance.Initialize();
+        AsteroidManager.Initialize();
+        PlayerShipManager.Initialize();
+    }
+
+    public void Terminate()
+    {
+        PlayerShipManager.PlayerDeathEvent.RemoveAllListeners();
+        PlayerShipManager.Terminate();
+        AsteroidManager.Terminate();
+        ScoreManager.Instance.Terminate();
     }
 }

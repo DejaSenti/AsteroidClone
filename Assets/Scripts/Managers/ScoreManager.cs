@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, IGameManager
 {
     public static ScoreManager Instance;
 
@@ -29,5 +29,10 @@ public class ScoreManager : MonoBehaviour
     private void UpdateDisplay()
     {
         ScoreDisplay.text = score.ToString();
+    }
+
+    public void Terminate()
+    {
+        // remove listeners etc.
     }
 }

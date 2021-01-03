@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class PlayerShipManager : MonoBehaviour
+public class PlayerShipManager : MonoBehaviour, IGameManager
 {
     private const char HEALTH_LETTER = 'Y';
 
@@ -86,5 +86,13 @@ public class PlayerShipManager : MonoBehaviour
     {
         var playerHealthDisplay = new string(HEALTH_LETTER, playerHealth);
         HealthDisplayText.text = playerHealthDisplay;
+    }
+
+    public void Terminate()
+    {
+        PlayerDeathEvent.RemoveAllListeners();
+
+        PlayerRespawnDelayTimer.ResetTimer();
+        PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
     }
 }
