@@ -29,7 +29,7 @@ public class AlienShip : SpaceEntity
         }
     }
 
-    protected override void OnCollision(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
         if (collision.tag == Tags.PLAYER_BULLET)
         {

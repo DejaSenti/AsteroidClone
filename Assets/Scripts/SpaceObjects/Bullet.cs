@@ -36,7 +36,7 @@ public class Bullet : SpaceEntity
         DestroyBullet();
     }
 
-    protected override void OnCollision(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
         DestroyBullet();
     }

@@ -32,7 +32,7 @@ public class Asteroid : SpaceEntity
         RB.velocity = velocity;
     }
 
-    protected override void OnCollision(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
         var addedScore = 0;
         switch (collision.tag)
