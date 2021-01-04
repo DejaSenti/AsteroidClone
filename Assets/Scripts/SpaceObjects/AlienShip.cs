@@ -3,7 +3,6 @@ using ExtensionMethods;
 
 public class AlienShip : SpaceEntity
 {
-    private const int SCORE = 200;
     private const float BARREL_LENGTH = 4;
     
     public float MinSpeed;
@@ -11,12 +10,22 @@ public class AlienShip : SpaceEntity
 
     public Gun Gun;
 
-    void Start()
-    {
-        float speed = this.GetRandomInRange(MinSpeed, MaxSpeed);
-        Vector2 direction = this.GetRandomDirection();
+    public AlienShipCollisionEvent AlienShipCollisionEvent;
 
-        RB.velocity = speed * direction;
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (AlienShipCollisionEvent == null)
+        {
+            AlienShipCollisionEvent = new AlienShipCollisionEvent();
+        }
+    }
+
+    public void Initialize(Vector2 position, Vector2 velocity)
+    {
+        Position = position;
+        RB.velocity = velocity;
     }
 
     protected override void Update()
@@ -29,14 +38,6 @@ public class AlienShip : SpaceEntity
         }
     }
 
-    public override void OnCollision(Collider2D collision)
-    {
-        if (collision.tag == Tags.PLAYER_BULLET)
-        {
-            ScoreManager.Instance.AddScore(SCORE);
-        }
-    }
-
     private void FireInRandomDirection()
     {
         Vector2 firingDirection = this.GetRandomDirection();
@@ -45,6 +46,11 @@ public class AlienShip : SpaceEntity
         Gun.transform.position = gunPosition;
 
         Gun.Fire(firingDirection);
+    }
+
+    public override void OnCollision(Collider2D collision)
+    {
+        AlienShipCollisionEvent.Invoke(this, collision);
     }
 
     public override void Terminate()

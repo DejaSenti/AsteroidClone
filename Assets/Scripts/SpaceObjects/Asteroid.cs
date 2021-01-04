@@ -2,8 +2,6 @@
 
 public class Asteroid : SpaceEntity
 {
-    private const int SCORE = 100;
-
     public AsteroidCollisionEvent AsteroidCollisionEvent;
 
     public float MinSpeed;
@@ -34,22 +32,6 @@ public class Asteroid : SpaceEntity
 
     public override void OnCollision(Collider2D collision)
     {
-        var addedScore = 0;
-        switch (collision.tag)
-        {
-            case Tags.ASTEROID:
-                return;
-            case Tags.PLAYER_BULLET:
-                addedScore = SCORE * AsteroidData.MAX_ASTEROID_SIZE / Size;
-                break;
-            case Tags.PLAYER:
-                addedScore = SCORE * AsteroidData.MAX_ASTEROID_SIZE / Size - (int) (SCORE * 0.5);
-                break;
-        }
-
-        if (addedScore != 0)
-            ScoreManager.Instance.AddScore(addedScore);
-
         if (AsteroidCollisionEvent != null && isActiveAndEnabled)
             AsteroidCollisionEvent.Invoke(this, collision);
     }

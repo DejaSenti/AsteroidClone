@@ -1,21 +1,18 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerShipManager : MonoBehaviour, IGameManager
+[RequireComponent(typeof(Timer))]
+public class PlayerShipManager : MonoBehaviour
 {
-    private const char HEALTH_LETTER = 'Y';
-
+    private const float PLAYER_RESPAWN_DELAY = 1.5f;
     public int MaxPlayerHealth;
-    public float PlayerRespawnDelay;
-
-    public TextMeshProUGUI HealthDisplayText;
-
-    public PlayerDeathEvent PlayerDeathEvent;
-
-    public Timer PlayerRespawnDelayTimer;
 
     private PlayerShip playerShip;
-    public int playerHealth;
+    private int playerHealth;
+
+    public Timer PlayerRespawnDelayTimer;
+    public PlayerHealthDisplay PlayerHealthDisplay;
+
+    public PlayerDeathEvent PlayerDeathEvent;
 
     private void Awake()
     {
@@ -41,37 +38,38 @@ public class PlayerShipManager : MonoBehaviour, IGameManager
         UpdateHealthDisplay();
 
         SpawnPlayerShip();
+    }
 
-        playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
+    private void UpdateHealthDisplay()
+    {
+        PlayerHealthDisplay.UpdateDisplay(playerHealth);
     }
 
     private void SpawnPlayerShip()
     {
-        if (playerShip == null)
-            return;
-
         Vector2 position = Vector2.zero;
-        playerShip.Initialize(position);
+        playerShip.Position = position;
 
         playerShip.Activate();
+        playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
     }
 
     private void OnPlayerShipCollision()
     {
         playerShip.Deactivate();
 
-        if (playerHealth >= 1)
+        playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
+
+        if (playerHealth > 1)
         {
             playerHealth--;
             UpdateHealthDisplay();
 
-            PlayerRespawnDelayTimer.StartTimer(PlayerRespawnDelay);
+            PlayerRespawnDelayTimer.StartTimer(PLAYER_RESPAWN_DELAY);
             PlayerRespawnDelayTimer.TimerElapsedEvent.AddListener(OnPlayerRespawnTimerElapsed);
         }
         else
         {
-            playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
-
             PlayerDeathEvent.Invoke();
         }
     }
@@ -82,17 +80,18 @@ public class PlayerShipManager : MonoBehaviour, IGameManager
         PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveListener(OnPlayerRespawnTimerElapsed);
     }
 
-    private void UpdateHealthDisplay()
-    {
-        var playerHealthDisplay = new string(HEALTH_LETTER, playerHealth);
-        HealthDisplayText.text = playerHealthDisplay;
-    }
-
     public void Terminate()
     {
-        PlayerDeathEvent.RemoveAllListeners();
+        playerShip.PlayerShipCollisionEvent.RemoveAllListeners();
 
         PlayerRespawnDelayTimer.ResetTimer();
         PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
+
+        TerminateSubordinates();
+    }
+
+    public void TerminateSubordinates()
+    {
+        playerShip.Deactivate();
     }
 }

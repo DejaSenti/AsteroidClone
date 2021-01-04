@@ -689,11 +689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875d8accb89e4c94dbdbabce9dee2625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
+  Owner: {fileID: 696261150942615127}
   Strength: 20
   KickBackStrength: 5
   CooldownPeriod: 3
   BulletLifetime: 2
+  CooldownTimer: {fileID: 1289872859077095413}
 --- !u!114 &1289872859077095413
 MonoBehaviour:
   m_ObjectHideFlags: 0

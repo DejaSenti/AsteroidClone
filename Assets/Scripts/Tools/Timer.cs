@@ -31,11 +31,6 @@ public class Timer : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        ResetTimer();
-    }
-
     public void ResetTimer()
     {
         enabled = false;

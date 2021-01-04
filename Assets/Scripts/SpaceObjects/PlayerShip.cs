@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class PlayerShip : SpaceEntity
 {
     public float MaxSpeed;
@@ -21,11 +20,6 @@ public class PlayerShip : SpaceEntity
         }
     }
 
-    public void Initialize(Vector2 position)
-    {
-        Position = position;
-    }
-
     public void Accelerate()
     {
         if (RB.velocity.magnitude <= MaxSpeed)
@@ -33,6 +27,7 @@ public class PlayerShip : SpaceEntity
             RB.AddForce(Direction * Acceleration);
         }
     }
+
     public void Rotate(RotationDirection rotationDirection)
     {
         switch (rotationDirection)

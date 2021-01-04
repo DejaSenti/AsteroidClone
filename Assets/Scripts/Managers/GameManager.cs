@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private const string GAME_OVER_MESSAGE = "Game Over";
 
     public PlayerShipManager PlayerShipManager;
-    public AsteroidManager AsteroidManager;
+    public ScoreManager ScoreManager;
+    public LevelManager LevelManager;
 
     public TextMeshProUGUI Announcements;
 
@@ -14,7 +15,6 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void Start()
     {
-        Initialize();
         StartNewGame();
     }
 
@@ -24,34 +24,41 @@ public class GameManager : MonoBehaviour, IGameManager
 
         Level = 1;
 
+        Initialize(Level);
         PlayerShipManager.PlayerDeathEvent.AddListener(OnPlayerDeath);
     }
 
     private void OnPlayerDeath()
     {
-        PlayerShipManager.PlayerDeathEvent.RemoveListener(OnPlayerDeath);
+        Terminate();
         Announcements.text = GAME_OVER_MESSAGE;
     }
 
-    [ContextMenu("Restart Level")]
-    public void RestartLevel()
+    [ContextMenu("Restart Game")]
+    public void RestartGame()
     {
         Terminate();
         StartNewGame();
     }
 
-    public void Initialize()
+    public void Initialize(int level)
     {
-        ScoreManager.Instance.Initialize();
-        AsteroidManager.Initialize();
+        LevelManager.Initialize(level);
+        ScoreManager.Initialize();
         PlayerShipManager.Initialize();
     }
 
     public void Terminate()
     {
         PlayerShipManager.PlayerDeathEvent.RemoveAllListeners();
+
+        TerminateSubordinates();
+    }
+
+    public void TerminateSubordinates()
+    {
         PlayerShipManager.Terminate();
-        AsteroidManager.Terminate();
-        ScoreManager.Instance.Terminate();
+        ScoreManager.Terminate();
+        LevelManager.Terminate();
     }
 }

@@ -17,7 +17,7 @@ public class ObjectPool<T> where T : SpaceEntity
         activeObjects = new List<T>();
     }
 
-    public void Initialize(int poolSize, Transform parent)
+    public void Initialize(int poolSize)
     {
         if (objectPool.Count > 0)
         {

@@ -36,25 +36,42 @@ public abstract class SpaceEntity : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (Position.x <= -SpaceBoundary.Width / 2)
+        Vector2 addedPosition = Vector2.zero;
+
+        if (Position.x < -SpaceBoundary.Width / 2)
         {
-            Position += new Vector2(SpaceBoundary.Width, 0);
+            addedPosition = new Vector2(SpaceBoundary.Width, 0);
         }
-        else if (Position.x >= SpaceBoundary.Width / 2)
+        else if (Position.x > SpaceBoundary.Width / 2)
         {
-            Position -= new Vector2(SpaceBoundary.Width, 0);
+            addedPosition = new Vector2(-SpaceBoundary.Width, 0);
         }
 
-        if (Position.y <= -SpaceBoundary.Height / 2)
+        if (Position.y < -SpaceBoundary.Height / 2)
         {
-            Position += new Vector2(0, SpaceBoundary.Height);
+            addedPosition = new Vector2(0, SpaceBoundary.Height);
         }
-        else if (Position.y >= SpaceBoundary.Height / 2)
+        else if (Position.y > SpaceBoundary.Height / 2)
         {
-            Position -= new Vector2(0, SpaceBoundary.Height);
+            addedPosition = new Vector2(0, -SpaceBoundary.Height);
         }
 
+        if (addedPosition == Vector2.zero)
+        {
+            PositionGhosts();
+        }
+        else
+        {
+            Reposition(addedPosition);
+        }
+    }
+
+    private void Reposition(Vector2 addedPosition)
+    {
+        SetColliders(false);
+        Position += addedPosition;
         PositionGhosts();
+        SetColliders(true);
     }
 
     public abstract void OnCollision(Collider2D collision);

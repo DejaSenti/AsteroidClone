@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class Gun : MonoBehaviour
 {
     private const string BULLET_TAG = "Bullet";
@@ -11,21 +12,22 @@ public class Gun : MonoBehaviour
     public float CooldownPeriod;
     public float BulletLifetime;
 
-    public bool IsCoolingDown { get => cooldownTimer.enabled; }
+    public bool IsCoolingDown { get => CooldownTimer.enabled; }
 
     private ObjectPool<Bullet> bulletPool;
 
-    private Timer cooldownTimer;
+    public Timer CooldownTimer;
 
     private void Awake()
     {
-        cooldownTimer = GetComponent<Timer>();
-
-        bulletPool = new ObjectPool<Bullet>();
+        if (bulletPool == null)
+        {
+            bulletPool = new ObjectPool<Bullet>();
+        }
 
         int poolSize = Mathf.CeilToInt(BulletLifetime / CooldownPeriod);
 
-        bulletPool.Initialize(poolSize, transform);
+        bulletPool.Initialize(poolSize);
     }
 
     public void Fire(Vector2 direction)
@@ -58,7 +60,7 @@ public class Gun : MonoBehaviour
         var kickBackForce = -direction * KickBackStrength;
         Owner.RB.AddForce(kickBackForce);
 
-        cooldownTimer.StartTimer(CooldownPeriod);
+        CooldownTimer.StartTimer(CooldownPeriod);
 
         bullet.BulletDestroyedEvent.AddListener(OnBulletDestroyedEvent);
     }
@@ -67,18 +69,21 @@ public class Gun : MonoBehaviour
     {
         bulletPool.Release(bullet);
 
+        CooldownTimer.ResetTimer();
+
         bullet.BulletDestroyedEvent.RemoveListener(OnBulletDestroyedEvent);
     }
 
     public void Terminate()
     {
-        cooldownTimer.TimerElapsedEvent.RemoveAllListeners();
+        CooldownTimer.ResetTimer();
 
         var bullets = bulletPool.GetAllPooledObjects();
         foreach(Bullet bullet in bullets)
         {
-            bullet.BulletDestroyedEvent.RemoveAllListeners();
             bullet.Terminate();
+            bulletPool.Release(bullet);
+            bullet.BulletDestroyedEvent.RemoveAllListeners();
         }
 
         bulletPool.Terminate();

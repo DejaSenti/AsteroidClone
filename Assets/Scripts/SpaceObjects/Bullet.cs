@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class Bullet : SpaceEntity
 {
     public BulletDestroyedEvent BulletDestroyedEvent;
 
     private float lifetime;
 
-    private Timer distanceTimer;
+    public Timer DistanceTimer;
 
     protected override void Awake()
     {
@@ -15,8 +16,7 @@ public class Bullet : SpaceEntity
         if (BulletDestroyedEvent == null)
             BulletDestroyedEvent = new BulletDestroyedEvent();
 
-        distanceTimer = GetComponent<Timer>();
-        distanceTimer.TimerElapsedEvent.AddListener(OnTimerElapsed);
+        DistanceTimer.TimerElapsedEvent.AddListener(OnTimerElapsed);
     }
 
     public void Shoot(string tag, Vector3 position, Vector2 velocity, float lifetime)
@@ -28,7 +28,7 @@ public class Bullet : SpaceEntity
         this.lifetime = lifetime;
 
         RB.velocity = velocity;
-        distanceTimer.StartTimer(this.lifetime);
+        DistanceTimer.StartTimer(this.lifetime);
     }
 
     private void OnTimerElapsed()
@@ -50,7 +50,7 @@ public class Bullet : SpaceEntity
     public override void Terminate()
     {
         tag = Tags.BULLET;
-        distanceTimer.ResetTimer();
-        distanceTimer.TimerElapsedEvent.RemoveListener(OnTimerElapsed);
+        DistanceTimer.ResetTimer();
+        DistanceTimer.TimerElapsedEvent.RemoveListener(OnTimerElapsed);
     }
 }
