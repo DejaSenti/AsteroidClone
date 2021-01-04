@@ -18,8 +18,6 @@ public abstract class SpaceEntity : MonoBehaviour
         PositionGhosts();
 
         RB.centerOfMass = Vector2.zero;
-
-        Activate();
     }
 
     public void Activate()
@@ -74,8 +72,6 @@ public abstract class SpaceEntity : MonoBehaviour
         SetColliders(true);
     }
 
-    public abstract void OnCollision(Collider2D collision);
-
     private void PositionGhosts()
     {
         foreach (GhostForm ghost in Ghosts)
@@ -96,6 +92,8 @@ public abstract class SpaceEntity : MonoBehaviour
             ghost.Collider.enabled = enabled;
         }
     }
+
+    public abstract void OnCollision(Collider2D collision);
 
     public abstract void Terminate();
 }

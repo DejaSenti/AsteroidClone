@@ -1,6 +1,6 @@
 ﻿public interface IGameManager
 {
-    void Initialize(int level);
+    void Initialize();
     void Terminate();
     void TerminateSubordinates();
 }

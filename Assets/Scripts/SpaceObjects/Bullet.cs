@@ -15,8 +15,6 @@ public class Bullet : SpaceEntity
 
         if (BulletDestroyedEvent == null)
             BulletDestroyedEvent = new BulletDestroyedEvent();
-
-        DistanceTimer.TimerElapsedEvent.AddListener(OnTimerElapsed);
     }
 
     public void Shoot(string tag, Vector3 position, Vector2 velocity, float lifetime)
@@ -28,7 +26,9 @@ public class Bullet : SpaceEntity
         this.lifetime = lifetime;
 
         RB.velocity = velocity;
+
         DistanceTimer.StartTimer(this.lifetime);
+        DistanceTimer.TimerElapsedEvent.AddListener(OnTimerElapsed);
     }
 
     private void OnTimerElapsed()

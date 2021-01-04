@@ -18,6 +18,8 @@ public class PlayerShip : SpaceEntity
         {
             PlayerShipCollisionEvent = new PlayerShipCollisionEvent();
         }
+
+        Gun.Initialize();
     }
 
     public void Accelerate()

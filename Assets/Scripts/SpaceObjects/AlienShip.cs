@@ -20,6 +20,8 @@ public class AlienShip : SpaceEntity
         {
             AlienShipCollisionEvent = new AlienShipCollisionEvent();
         }
+
+        Gun.Initialize();
     }
 
     public void Initialize(Vector2 position, Vector2 velocity)

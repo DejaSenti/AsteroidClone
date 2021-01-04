@@ -12,12 +12,12 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public int Level;
 
-    public void Initialize(int level)
+    public void Initialize()
     {
-        AsteroidManager.Initialize(level);
+        AsteroidManager.Initialize(Level);
         AsteroidManager.AsteroidsClearedEvent.AddListener(OnAsteroidsDestroyed);
 
-        AlienShipManager.Initialize(level);
+        AlienShipManager.Initialize(Level);
     }
 
     private void OnAsteroidsDestroyed()
@@ -27,6 +27,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         TerminateSubordinates();
 
         Level++;
+
         LevelDelayTimer.StartTimer(LEVEL_DELAY);
         LevelDelayTimer.TimerElapsedEvent.AddListener(OnLevelDelayElapsed);
     }
@@ -35,7 +36,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         LevelDelayTimer.TimerElapsedEvent.RemoveListener(OnLevelDelayElapsed);
 
-        Initialize(Level);
+        Initialize();
     }
 
     public void Terminate()

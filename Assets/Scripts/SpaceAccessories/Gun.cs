@@ -3,8 +3,6 @@
 [RequireComponent(typeof(Timer))]
 public class Gun : MonoBehaviour
 {
-    private const string BULLET_TAG = "Bullet";
-
     public SpaceEntity Owner;
 
     public float Strength;
@@ -18,7 +16,7 @@ public class Gun : MonoBehaviour
 
     public Timer CooldownTimer;
 
-    private void Awake()
+    public void Initialize()
     {
         if (bulletPool == null)
         {
@@ -42,7 +40,7 @@ public class Gun : MonoBehaviour
         if (bullet == null)
             return;
 
-        var tag = BULLET_TAG + Owner.tag;
+        var tag = Tags.BULLET + Owner.tag;
 
         var position = transform.position;
 

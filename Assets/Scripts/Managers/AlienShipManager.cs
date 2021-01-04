@@ -2,7 +2,7 @@
 using ExtensionMethods;
 
 [RequireComponent(typeof(Timer))]
-public class AlienShipManager : MonoBehaviour, IGameManager
+public class AlienShipManager : MonoBehaviour
 {
     private const float SPAWN_DELAY_MULTIPLIER = 30f;
 
@@ -12,7 +12,7 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     private int level;
 
-    private void Awake()
+    private void Start()
     {
         if (alienShipPool == null)
         {

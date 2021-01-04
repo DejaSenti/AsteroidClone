@@ -9,12 +9,14 @@ public class ObjectPool<T> where T : SpaceEntity
     private List<T> objectPool;
     private List<T> activeObjects;
     private string poolType;
+    private GameObject gameObjectPrefab;
 
     public ObjectPool()
     {
         poolType = typeof(T).Name;
         objectPool = new List<T>();
         activeObjects = new List<T>();
+        gameObjectPrefab = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
     }
 
     public void Initialize(int poolSize)
@@ -23,8 +25,6 @@ public class ObjectPool<T> where T : SpaceEntity
         {
             Terminate();
         }
-
-        var gameObjectPrefab = Resources.Load<GameObject>(MainAssetPaths.POOL_OBJECTS_PATH + poolType);
 
         for (int i = 0; i < poolSize; i++)
         {

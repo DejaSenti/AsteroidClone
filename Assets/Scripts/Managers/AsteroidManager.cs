@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using ExtensionMethods;
 
-public class AsteroidManager : MonoBehaviour, IGameManager
+public class AsteroidManager : MonoBehaviour
 {
     public AsteroidsClearedEvent AsteroidsClearedEvent;
 
     private ObjectPool<Asteroid> asteroidPool;
 
-    void Awake()
+    void Start()
     {
         if (AsteroidsClearedEvent == null)
         {
@@ -58,15 +58,15 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
         asteroidPool.Release(asteroid);
 
-        if (GetActiveAsteroids() == 0)
-        {
-            AsteroidsClearedEvent.Invoke();
-        }
-
         if (asteroid.Size > 1)
         {
             int newSize = asteroid.Size - 1;
             SpawnAsteroids(AsteroidData.NUM_SPLIT_ASTEROIDS, newSize, asteroid.Position);
+        }
+
+        if (GetActiveAsteroids() == 0)
+        {
+            AsteroidsClearedEvent.Invoke();
         }
     }
 

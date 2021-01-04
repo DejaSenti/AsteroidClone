@@ -9,6 +9,7 @@ TagManager:
   - Asteroid
   - AlienShip
   - BulletAlienShip
+  - Ghost
   layers:
   - Default
   - TransparentFX

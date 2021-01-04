@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     private int score;
 
-    private void Awake()
+    private void Start()
     {
         if (ScoreEvent == null)
         {
