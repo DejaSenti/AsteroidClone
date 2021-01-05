@@ -7,7 +7,8 @@ public abstract class SpaceForm : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActiveAndEnabled && Collider != collision)
+        
+        if (Entity.isActiveAndEnabled)
         {
             Entity.OnCollision(collision);
         }

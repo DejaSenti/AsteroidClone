@@ -12,7 +12,7 @@ public class AlienShipManager : MonoBehaviour
 
     private int level;
 
-    private void Start()
+    private void Awake()
     {
         if (alienShipPool == null)
         {
@@ -53,6 +53,9 @@ public class AlienShipManager : MonoBehaviour
     private void SpawnAlienShip()
     {
         var alienShip = alienShipPool.Acquire();
+
+        if (alienShip == null)
+            return;
 
         Vector2 position = new Vector2(SpaceBoundary.Width / 2, this.GetRandomInRange(-SpaceBoundary.Height / 2, SpaceBoundary.Height / 2));
 

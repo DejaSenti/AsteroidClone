@@ -7,7 +7,7 @@ public class AsteroidManager : MonoBehaviour
 
     private ObjectPool<Asteroid> asteroidPool;
 
-    void Start()
+    void Awake()
     {
         if (AsteroidsClearedEvent == null)
         {
@@ -49,6 +49,9 @@ public class AsteroidManager : MonoBehaviour
 
     private void OnAsteroidCollision(Asteroid asteroid, Collider2D collision)
     {
+        if (collision.tag == Tags.ASTEROID)
+            return;
+
         if (collision.tag == Tags.PLAYER || collision.tag == Tags.PLAYER_BULLET)
         {
             ScoreManager.ScoreEvent.Invoke(Tags.ASTEROID, collision.tag);

@@ -14,7 +14,7 @@ public class PlayerShipManager : MonoBehaviour
 
     public PlayerDeathEvent PlayerDeathEvent;
 
-    private void Start()
+    private void Awake()
     {
         if (playerShip == null)
         {
