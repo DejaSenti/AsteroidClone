@@ -16,6 +16,7 @@ public class Timer : MonoBehaviour
     public void StartTimer(float duration)
     {
         this.duration = duration;
+
         timeElapsed = 0;
         enabled = true;
     }

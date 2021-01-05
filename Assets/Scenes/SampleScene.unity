@@ -217,11 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb0a037a07e8094c912f24c6695a4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Announcements: {fileID: 1072662205}
+  AnnouncementDisplayTimer: {fileID: 350221803}
   PlayerShipManager: {fileID: 1976409635}
   ScoreManager: {fileID: 515206036}
   LevelManager: {fileID: 867953364}
-  Announcements: {fileID: 1072662205}
-  AnnouncementDisplayTimer: {fileID: 350221803}
 --- !u!4 &350221802
 Transform:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff2dd2d634f42746acefe8696e702a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDelayTimer: {fileID: 355150002}
+  SpawnDelayTimer: {fileID: 355150002}
 --- !u!114 &355150002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,10 +522,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a036f5b929a4d4bba5b737701846ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Announcements: {fileID: 1072662205}
+  AnnouncementDisplayTimer: {fileID: 867953365}
   AsteroidManager: {fileID: 553110749}
   AlienShipManager: {fileID: 355150001}
-  LevelDelayTimer: {fileID: 867953365}
-  Level: 0
 --- !u!114 &867953365
 MonoBehaviour:
   m_ObjectHideFlags: 0

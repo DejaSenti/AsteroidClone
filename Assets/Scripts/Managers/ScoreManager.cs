@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, IGameManager
 {
     public int AlienShipScore;
     public int AsteroidScore;
@@ -63,5 +63,9 @@ public class ScoreManager : MonoBehaviour
     public void Terminate()
     {
         ScoreEvent.RemoveAllListeners();
+    }
+
+    public void TerminateSubordinates()
+    {
     }
 }

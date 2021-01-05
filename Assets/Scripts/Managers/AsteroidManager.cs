@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using ExtensionMethods;
 
-public class AsteroidManager : MonoBehaviour
+public class AsteroidManager : MonoBehaviour, IGameManager
 {
     public AsteroidsClearedEvent AsteroidsClearedEvent;
 
@@ -20,12 +20,15 @@ public class AsteroidManager : MonoBehaviour
         }
     }
 
-    public void Initialize(int level)
+    public void Initialize()
     {
-        int poolSize = level * Mathf.CeilToInt(Mathf.Pow(AsteroidData.NUM_SPLIT_ASTEROIDS, AsteroidData.MAX_ASTEROID_SIZE));
+        int poolSize = LevelManager.Level * Mathf.CeilToInt(Mathf.Pow(AsteroidData.NUM_SPLIT_ASTEROIDS, AsteroidData.MAX_ASTEROID_SIZE));
         asteroidPool.Initialize(poolSize);
+    }
 
-        SpawnAsteroids(level, AsteroidData.MAX_ASTEROID_SIZE, SpaceBoundary.Width / 3 * Vector2.right);
+    public void StartLevel()
+    {
+        SpawnAsteroids(LevelManager.Level, AsteroidData.MAX_ASTEROID_SIZE, SpaceBoundary.Width / 3 * Vector2.right);
     }
 
     private void SpawnAsteroids(int amount, int size, Vector2 location)

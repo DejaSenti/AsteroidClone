@@ -1,23 +1,36 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
-public class LevelManager : MonoBehaviour, IGameManager
+public class LevelManager : AnnouncingManager, IGameManager
 {
-    private const float LEVEL_DELAY = 2f;
-
     public AsteroidManager AsteroidManager;
     public AlienShipManager AlienShipManager;
 
-    public Timer LevelDelayTimer;
+    public static int Level;
 
-    public int Level;
-
-    public void Initialize()
+    public void InitializeLevel()
     {
-        AsteroidManager.Initialize(Level);
+        AsteroidManager.Initialize();
+        AlienShipManager.Initialize();
+    }
+
+    public void StartNextLevel()
+    {
+        Level++;
+
+        string levelAnnouncement = "Level " + LevelManager.Level;
+
+        Announce(levelAnnouncement, StartLevel);
+
+        InitializeLevel();
+    }
+
+    public void StartLevel()
+    {
+        AsteroidManager.StartLevel();
         AsteroidManager.AsteroidsClearedEvent.AddListener(OnAsteroidsDestroyed);
 
-        AlienShipManager.Initialize(Level);
+        AlienShipManager.StartLevel();
     }
 
     private void OnAsteroidsDestroyed()
@@ -26,22 +39,13 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         TerminateSubordinates();
 
-        Level++;
-
-        LevelDelayTimer.StartTimer(LEVEL_DELAY);
-        LevelDelayTimer.TimerElapsedEvent.AddListener(OnLevelDelayElapsed);
+        StartNextLevel();
     }
 
-    private void OnLevelDelayElapsed()
+    public override void Terminate()
     {
-        LevelDelayTimer.TimerElapsedEvent.RemoveListener(OnLevelDelayElapsed);
+        base.Terminate();
 
-        Initialize();
-    }
-
-    public void Terminate()
-    {
-        LevelDelayTimer.TimerElapsedEvent.RemoveAllListeners();
         AsteroidManager.AsteroidsClearedEvent.RemoveAllListeners();
 
         TerminateSubordinates();

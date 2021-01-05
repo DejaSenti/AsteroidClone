@@ -2,15 +2,13 @@
 using ExtensionMethods;
 
 [RequireComponent(typeof(Timer))]
-public class AlienShipManager : MonoBehaviour
+public class AlienShipManager : MonoBehaviour, IGameManager
 {
     private const float SPAWN_DELAY_MULTIPLIER = 30f;
 
-    public Timer spawnDelayTimer;
+    public Timer SpawnDelayTimer;
 
     private ObjectPool<AlienShip> alienShipPool;
-
-    private int level;
 
     private void Awake()
     {
@@ -20,30 +18,32 @@ public class AlienShipManager : MonoBehaviour
         }
     }
 
-    public void Initialize(int level)
+    public void Initialize()
     {
-        this.level = level;
-        alienShipPool.Initialize(level);
+        alienShipPool.Initialize(LevelManager.Level);
+    }
 
+    public void StartLevel()
+    {
         StartSpawnDelay();
     }
 
     private void StartSpawnDelay()
     {
         var spawnDelay = GetShipSpawnDelay();
-        spawnDelayTimer.StartTimer(spawnDelay);
-        spawnDelayTimer.TimerElapsedEvent.AddListener(OnSpawnDelayElapsed);
+        SpawnDelayTimer.StartTimer(spawnDelay);
+        SpawnDelayTimer.TimerElapsedEvent.AddListener(OnSpawnDelayElapsed);
     }
 
     private float GetShipSpawnDelay()
     {
-        float result = this.GetRandomInRange(0, SPAWN_DELAY_MULTIPLIER / level);
+        float result = this.GetRandomInRange(0, SPAWN_DELAY_MULTIPLIER / LevelManager.Level);
         return result;
     }
 
     private void OnSpawnDelayElapsed()
     {
-        spawnDelayTimer.TimerElapsedEvent.RemoveListener(OnSpawnDelayElapsed);
+        SpawnDelayTimer.TimerElapsedEvent.RemoveListener(OnSpawnDelayElapsed);
 
         SpawnAlienShip();
 
@@ -84,7 +84,7 @@ public class AlienShipManager : MonoBehaviour
 
     public void Terminate()
     {
-        spawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
+        SpawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
         TerminateSubordinates();
     }
 
