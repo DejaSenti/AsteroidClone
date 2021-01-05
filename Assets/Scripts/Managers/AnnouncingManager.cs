@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class AnnouncingManager : MonoBehaviour
 {
@@ -10,20 +9,18 @@ public abstract class AnnouncingManager : MonoBehaviour
 
     public Timer AnnouncementDisplayTimer;
 
-    public void Announce(string announcement, UnityAction action)
+    public void Announce(string announcement)
     {
         Announcements.text = announcement;
         AnnouncementDisplayTimer.StartTimer(ANNOUNCEMENT_DISPLAY_TIME);
-        AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(delegate { OnAnnouncementDisplayTimerElapsed(action); });
+        AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
     }
 
-    private void OnAnnouncementDisplayTimerElapsed(UnityAction action)
+    public virtual void OnAnnouncementDisplayTimerElapsed()
     {
         Announcements.text = "";
 
-        action.Invoke();
-
-        AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(delegate { OnAnnouncementDisplayTimerElapsed(action); });
+        AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
     }
 
     public virtual void Terminate()

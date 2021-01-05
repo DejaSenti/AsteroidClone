@@ -10,6 +10,11 @@ namespace ExtensionMethods
             return RotationToVector2(angle);
         }
 
+        public static float Vector2ToRotation(this MonoBehaviour monoBehaviour, Vector2 vector2)
+        {
+            return Vector2ToRotation(vector2);
+        }
+
         public static Vector2 GetRandomDirection(this MonoBehaviour monoBehaviour)
         {
             float rotation = GetRandomAngle();
@@ -59,6 +64,12 @@ namespace ExtensionMethods
         {
             float angleRad = Mathf.Deg2Rad * angle;
             Vector2 result = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
+            return result;
+        }
+
+        private static float Vector2ToRotation(Vector2 vector2)
+        {
+            float result = Mathf.Atan2(vector2.y, vector2.x);
             return result;
         }
 

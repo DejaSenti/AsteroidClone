@@ -49,6 +49,7 @@ public class PlayerShipManager : MonoBehaviour
     {
         Vector2 position = Vector2.zero;
         playerShip.Position = position;
+        playerShip.Direction = position;
 
         playerShip.Activate();
         playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
@@ -60,11 +61,11 @@ public class PlayerShipManager : MonoBehaviour
 
         playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
 
-        if (playerHealth > 1)
-        {
-            playerHealth--;
-            UpdateHealthDisplay();
+        playerHealth--;
+        UpdateHealthDisplay();
 
+        if (playerHealth > 0)
+        {
             PlayerRespawnDelayTimer.StartTimer(PLAYER_RESPAWN_DELAY);
             PlayerRespawnDelayTimer.TimerElapsedEvent.AddListener(OnPlayerRespawnTimerElapsed);
         }

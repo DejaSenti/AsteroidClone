@@ -28,7 +28,14 @@ public class GameManager : AnnouncingManager, IGameManager
 
     private void OnPlayerDeath()
     {
-        Announce(GAME_OVER_MESSAGE, Terminate);
+        Announce(GAME_OVER_MESSAGE);
+    }
+
+    public override void OnAnnouncementDisplayTimerElapsed()
+    {
+        base.OnAnnouncementDisplayTimerElapsed();
+
+        Terminate();
     }
 
     [ContextMenu("Restart Game")]

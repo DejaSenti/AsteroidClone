@@ -20,9 +20,16 @@ public class LevelManager : AnnouncingManager, IGameManager
 
         string levelAnnouncement = "Level " + LevelManager.Level;
 
-        Announce(levelAnnouncement, StartLevel);
+        Announce(levelAnnouncement);
 
         InitializeLevel();
+    }
+
+    public override void OnAnnouncementDisplayTimerElapsed()
+    {
+        base.OnAnnouncementDisplayTimerElapsed();
+
+        StartLevel();
     }
 
     public void StartLevel()

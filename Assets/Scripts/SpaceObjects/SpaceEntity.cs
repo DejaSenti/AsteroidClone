@@ -6,7 +6,7 @@ public abstract class SpaceEntity : MonoBehaviour
     public Rigidbody2D RB;
 
     public Vector2 Position { get => new Vector2(CorporealForm.transform.position.x, CorporealForm.transform.position.y); set { CorporealForm.transform.position = new Vector3(value.x, value.y, 0); } }
-    public Vector2 Direction { get => this.RotationToVector2(CorporealForm.transform.rotation.eulerAngles.z); }
+    public Vector2 Direction { get => this.RotationToVector2(CorporealForm.transform.rotation.eulerAngles.z); set => CorporealForm.transform.rotation = Quaternion.Euler(0, 0, this.Vector2ToRotation(value)); }
 
     public CorporealForm CorporealForm;
     public GhostForm[] Ghosts;
