@@ -759,8 +759,8 @@ MonoBehaviour:
   - {fileID: 5582091076528392715}
   - {fileID: 535176942636995444}
   - {fileID: 3869460945687690814}
-  MinSpeed: 0.5
-  MaxSpeed: 2
+  MinSpeed: 1
+  MaxSpeed: 5
   Size: 0
 --- !u!1 &5387777947046670660
 GameObject:

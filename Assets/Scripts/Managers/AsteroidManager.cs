@@ -3,6 +3,8 @@ using ExtensionMethods;
 
 public class AsteroidManager : MonoBehaviour, IGameManager
 {
+    private const int SEMI_CIRCLE_DEG = 180;
+
     public AsteroidsClearedEvent AsteroidsClearedEvent;
 
     private ObjectPool<Asteroid> asteroidPool;
@@ -28,11 +30,16 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
     public void StartLevel()
     {
-        SpawnAsteroids(LevelManager.Level, AsteroidData.MAX_ASTEROID_SIZE, SpaceBoundary.Width / 3 * Vector2.right);
+        SpawnAsteroids(LevelManager.Level, AsteroidData.MAX_ASTEROID_SIZE, SpaceBoundary.Width / 3 * Vector2.right, Vector2.zero);
     }
 
-    private void SpawnAsteroids(int amount, int size, Vector2 location)
+    private void SpawnAsteroids(int amount, int size, Vector2 location, Vector2 origin)
     {
+        if (amount <= 0)
+            return;
+
+        Vector2[] semiCirclePositions = GetSemiCircle(amount, size, location, origin);
+
         for (int i = 0; i < amount; i++)
         {
             var asteroid = asteroidPool.Acquire();
@@ -41,13 +48,58 @@ public class AsteroidManager : MonoBehaviour, IGameManager
                 return;
 
             var asteroidSpeed = this.GetRandomInRange(asteroid.MinSpeed, asteroid.MaxSpeed);
-            var asteroidDirection = this.GetRandomDirection();
+            var asteroidDirection = GetDirection(amount, semiCirclePositions[i], location);
             var asteroidVelocity = asteroidSpeed * asteroidDirection;
 
-            asteroid.Initialize(size, location, asteroidVelocity);
+            asteroid.Initialize(size, semiCirclePositions[i], asteroidVelocity);
 
             asteroid.AsteroidCollisionEvent.AddListener(OnAsteroidCollision);
         }
+    }
+
+    private Vector2 GetDirection(int amount, Vector2 position, Vector2 origin)
+    {
+        Vector2 initialDirection = (position - origin).normalized;
+        float sliceAngle = SEMI_CIRCLE_DEG / amount;
+        float rotationAngle = this.GetRandomInRange(-sliceAngle / 2, sliceAngle / 2);
+
+        var result = this.RotateVectorByDeg(initialDirection, rotationAngle);
+        return result;
+    }
+
+    private Vector2[] GetSemiCircle(int amount, int size, Vector2 position, Vector2 origin)
+    {
+        if (amount == 0)
+            return null;
+
+        Vector2[] result = new Vector2[amount];
+
+        if (amount == 1)
+        {
+            result[0] = position;
+            return result;
+        }
+
+        float sliceAngle = SEMI_CIRCLE_DEG / amount;
+        float radius = GetSemiCircleRadius(sliceAngle, Mathf.Pow(2, size));
+
+        Vector2 initialDirection = this.RotateVectorByDeg(position - origin, -SEMI_CIRCLE_DEG / 2).normalized;
+
+        for (int i = 0; i < amount; i++)
+        {
+            Vector2 direction = this.RotateVectorByDeg(initialDirection, (i + 0.5f) * sliceAngle);
+            Vector2 newPosition = position + direction * radius;
+
+            result[i] = newPosition;
+        }
+
+        return result;
+    }
+
+    private float GetSemiCircleRadius(float sliceAngle, float radius)
+    {
+        float result = radius / Mathf.Sin(sliceAngle / 2);
+        return result;
     }
 
     private void OnAsteroidCollision(Asteroid asteroid, Collider2D collision)
@@ -67,7 +119,7 @@ public class AsteroidManager : MonoBehaviour, IGameManager
         if (asteroid.Size > 1)
         {
             int newSize = asteroid.Size - 1;
-            SpawnAsteroids(AsteroidData.NUM_SPLIT_ASTEROIDS, newSize, asteroid.Position);
+            SpawnAsteroids(AsteroidData.NUM_SPLIT_ASTEROIDS, newSize, asteroid.Position, collision.transform.position);
         }
 
         if (GetActiveAsteroids() == 0)

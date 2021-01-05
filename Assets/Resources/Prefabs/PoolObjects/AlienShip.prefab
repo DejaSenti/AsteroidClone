@@ -691,8 +691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Owner: {fileID: 696261150942615127}
   Strength: 20
-  KickBackStrength: 5
-  CooldownPeriod: 3
+  KickBackStrength: 15
+  CooldownPeriod: 5
   BulletLifetime: 2
   CooldownTimer: {fileID: 1289872859077095413}
 --- !u!114 &1289872859077095413

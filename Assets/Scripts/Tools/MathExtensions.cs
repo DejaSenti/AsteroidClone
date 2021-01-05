@@ -54,12 +54,6 @@ namespace ExtensionMethods
             return result;
         }
 
-        private static Vector2 Sign(this Vector2 vector2)
-        {
-            Vector2 result = new Vector2(Mathf.Sign(vector2.x), Mathf.Sign(vector2.y));
-            return result;
-        }
-
         private static Vector2 RotationToVector2(float angle)
         {
             float angleRad = Mathf.Deg2Rad * angle;

@@ -8,6 +8,7 @@ public class Asteroid : SpaceEntity
     public float MaxSpeed;
 
     public int Size;
+    public float Radius { get => Mathf.Pow(2, Size); }
 
     protected override void Awake()
     {
@@ -21,8 +22,7 @@ public class Asteroid : SpaceEntity
     {
         Size = size;
 
-        var scale = Mathf.Pow(2, Size);
-        var localScale = new Vector3(scale, scale, 1);
+        var localScale = new Vector3(Radius, Radius, 1);
         transform.localScale = localScale;
 
         Position = position;
