@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void OnPlayerDeath()
     {
-        AnnouncingService.AnnounceGameOver();
+        AnnouncingService.AnnounceGameOver(ScoreManager.Score);
 
         AnnouncingService.GameOverMessageOverEvent.AddListener(OnGameOverMessageOver);
     }
@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour, IGameManager
         AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
 
         Terminate();
+        ShowMenu();
     }
 
     public void Terminate()

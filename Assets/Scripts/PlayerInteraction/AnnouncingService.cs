@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +13,8 @@ public class AnnouncingService : MonoBehaviour
     private const string UNDERDOG_MESSAGE = "Underdog...";
     private const string SLEEPING_BEAUTY_MESSAGE = "Sleeping Beauty...";
 
-    private const float ANNOUNCEMENT_DISPLAY_TIME = 1.5f;
+    private const float ANNOUNCEMENT_DISPLAY_TIME_SHORT = 1.5f;
+    private const float ANNOUNCEMENT_DISPLAY_TIME_LONG = 3f;
 
     public UnityEvent GameOverMessageOverEvent;
     public UnityEvent LevelMessageOverEvent;
@@ -23,7 +23,10 @@ public class AnnouncingService : MonoBehaviour
 
     public Timer AnnouncementDisplayTimer;
 
-    private List<string> AnnouncementQueue;
+    private List<string> announcementQueue;
+    private List<float> displayTimes;
+
+    private string gameOverMessage;
 
     private void Awake()
     {
@@ -40,13 +43,14 @@ public class AnnouncingService : MonoBehaviour
 
     public void Initialize()
     {
-        AnnouncementQueue = new List<string>();
+        announcementQueue = new List<string>();
+        displayTimes = new List<float>();
         LevelManager.EndLevelEvent.AddListener(OnEndLevel);
     }
 
-    private void Announce(string announcement)
+    private void Announce(string announcement, float displayTime)
     {
-        Enqueue(announcement);
+        Enqueue(announcement, displayTime);
 
         if (Announcements.text != "")
             return;
@@ -54,21 +58,24 @@ public class AnnouncingService : MonoBehaviour
         Write();
     }
 
-    private void Enqueue(string announcement)
+    private void Enqueue(string announcement, float displayTime)
     {
-        AnnouncementQueue.Add(announcement);
+        announcementQueue.Add(announcement);
+        displayTimes.Add(displayTime);
     }
 
     private void Write()
     {
-        if (AnnouncementQueue.Count == 0)
+        if (announcementQueue.Count == 0)
             return;
 
-        Announcements.text = AnnouncementQueue[0];
-        AnnouncementQueue.RemoveAt(0);
+        Announcements.text = announcementQueue[0];
 
-        AnnouncementDisplayTimer.StartTimer(ANNOUNCEMENT_DISPLAY_TIME);
+        AnnouncementDisplayTimer.StartTimer(displayTimes[0]);
         AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
+
+        announcementQueue.RemoveAt(0);
+        displayTimes.RemoveAt(0);
     }
 
     private void Clear()
@@ -80,13 +87,13 @@ public class AnnouncingService : MonoBehaviour
     {
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
 
-        if (Announcements.text == GAME_OVER_MESSAGE)
+        if (Announcements.text == gameOverMessage)
             GameOverMessageOverEvent.Invoke();
 
         if (Announcements.text == LEVEL_MESSAGE + LevelManager.Level)
             LevelMessageOverEvent.Invoke();
 
-        if (AnnouncementQueue.Count > 0)
+        if (announcementQueue.Count > 0)
         {
             Write();
         }
@@ -96,14 +103,15 @@ public class AnnouncingService : MonoBehaviour
         }
     }
 
-    public void AnnounceGameOver()
+    public void AnnounceGameOver(int score)
     {
-        Announce(GAME_OVER_MESSAGE);
+        gameOverMessage = GAME_OVER_MESSAGE + "\nYour score is: " + score;
+        Announce(gameOverMessage, ANNOUNCEMENT_DISPLAY_TIME_LONG);
     }
 
     public void AnnounceLevel(int level)
     {
-        Announce(LEVEL_MESSAGE + level);
+        Announce(LEVEL_MESSAGE + level, ANNOUNCEMENT_DISPLAY_TIME_SHORT);
     }
 
     private void OnEndLevel(string destroyerTag)
@@ -111,16 +119,16 @@ public class AnnouncingService : MonoBehaviour
         switch (destroyerTag)
         {
             case Tags.PLAYER_BULLET:
-                Announce(SHARPSHOOTER_MESSAGE);
+                Announce(SHARPSHOOTER_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
             case Tags.PLAYER:
-                Announce(KAMIKAZE_MESSAGE);
+                Announce(KAMIKAZE_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
             case Tags.ALIEN_SHIP_BULLET:
-                Announce(UNDERDOG_MESSAGE);
+                Announce(UNDERDOG_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
             case Tags.ALIEN_SHIP:
-                Announce(SLEEPING_BEAUTY_MESSAGE);
+                Announce(SLEEPING_BEAUTY_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
         }
     }
@@ -129,7 +137,8 @@ public class AnnouncingService : MonoBehaviour
     {
         LevelManager.EndLevelEvent.RemoveListener(OnEndLevel);
 
-        AnnouncementQueue.Clear();
+        announcementQueue.Clear();
+        displayTimes.Clear();
 
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
     }

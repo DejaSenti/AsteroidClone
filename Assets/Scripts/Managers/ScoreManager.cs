@@ -12,11 +12,11 @@ public class ScoreManager : MonoBehaviour, IGameManager
     public LevelManager LevelManager;
     public ScoreDisplay ScoreDisplay;
 
-    private int score;
+    public int Score;
 
     public void Initialize()
     {
-        score = 0;
+        Score = 0;
         UpdateScoreDisplay();
 
         AlienShipManager.AlienShipDestroyedEvent.AddListener(OnScoreableDestroyed);
@@ -70,13 +70,13 @@ public class ScoreManager : MonoBehaviour, IGameManager
 
     public void AddScore(int addedScore)
     {
-        score += addedScore;
+        Score += addedScore;
         UpdateScoreDisplay();
     }
 
     private void UpdateScoreDisplay()
     {
-        ScoreDisplay.UpdateDisplay(score);
+        ScoreDisplay.UpdateDisplay(Score);
     }
 
     public void Terminate()
