@@ -18,6 +18,11 @@ public class AlienShipManager : MonoBehaviour, IGameManager
         {
             alienShipPool = new ObjectPool<AlienShip>();
         }
+
+        if (AlienShipDestroyedEvent == null)
+        {
+            AlienShipDestroyedEvent = new EntityDestroyedEvent();
+        }
     }
 
     public void Initialize()
@@ -83,7 +88,8 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        SpawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
+        AlienShipDestroyedEvent.RemoveAllListeners();
+        SpawnDelayTimer.TimerElapsedEvent.RemoveListener(OnSpawnDelayElapsed);
         TerminateSubordinates();
     }
 
@@ -95,7 +101,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
         {
             alienShip.Terminate();
             alienShipPool.Release(alienShip);
-            alienShip.AlienShipCollisionEvent.RemoveAllListeners();
         }
 
         alienShipPool.Terminate();

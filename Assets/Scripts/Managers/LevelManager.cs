@@ -15,14 +15,14 @@ public class LevelManager : MonoBehaviour, IGameManager
         Level++;
 
         AnnouncingService.AnnounceLevel(Level);
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnLevelAnnouncementOver);
+        AnnouncingService.LevelMessageOverEvent.AddListener(OnLevelMessageOver);
 
         InitializeLevel();
     }
 
-    private void OnLevelAnnouncementOver()
+    private void OnLevelMessageOver()
     {
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnLevelAnnouncementOver);
+        AnnouncingService.LevelMessageOverEvent.RemoveListener(OnLevelMessageOver);
 
         StartLevel();
     }
@@ -41,9 +41,25 @@ public class LevelManager : MonoBehaviour, IGameManager
         AlienShipManager.StartLevel();
     }
 
-    private void OnAsteroidsDestroyed()
+    private void OnAsteroidsDestroyed(string destroyerTag)
     {
         AsteroidManager.AsteroidsClearedEvent.RemoveListener(OnAsteroidsDestroyed);
+
+        switch (destroyerTag)
+        {
+            case Tags.PLAYER_BULLET:
+                AnnouncingService.AnnounceSharpshooter();
+                break;
+            case Tags.PLAYER:
+                AnnouncingService.AnnounceKamikaze();
+                break;
+            case Tags.ALIEN_SHIP_BULLET:
+                AnnouncingService.AnnounceUnderdog();
+                break;
+            case Tags.ALIEN_SHIP:
+                AnnouncingService.AnnounceSleepingBeauty();
+                break;
+        }
 
         TerminateSubordinates();
 
@@ -52,9 +68,6 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        AsteroidManager.AsteroidsClearedEvent.RemoveAllListeners();
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnLevelAnnouncementOver);
-
         TerminateSubordinates();
     }
 

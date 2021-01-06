@@ -57,6 +57,7 @@ public class AlienShip : SpaceEntity
 
     public override void Terminate()
     {
+        AlienShipCollisionEvent.RemoveAllListeners();
         Gun.Terminate();
     }
 }

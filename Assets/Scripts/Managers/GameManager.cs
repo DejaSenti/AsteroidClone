@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
 public class GameManager : MonoBehaviour, IGameManager
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void StartNewGame()
     {
+        AnnouncingService.Initialize();
+
         ScoreManager.Initialize();
         PlayerShipManager.Initialize();
 
@@ -28,12 +31,13 @@ public class GameManager : MonoBehaviour, IGameManager
     private void OnPlayerDeath()
     {
         AnnouncingService.AnnounceGameOver();
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnGameOverAnnouncementOver);
+
+        AnnouncingService.GameOverMessageOverEvent.AddListener(OnGameOverMessageOver);
     }
 
-    private void OnGameOverAnnouncementOver()
+    private void OnGameOverMessageOver()
     {
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnGameOverAnnouncementOver);
+        AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
 
         Terminate();
     }
@@ -47,9 +51,6 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        PlayerShipManager.PlayerDeathEvent.RemoveAllListeners();
-        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveAllListeners();
-
         TerminateSubordinates();
     }
 

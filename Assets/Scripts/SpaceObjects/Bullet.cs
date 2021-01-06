@@ -52,5 +52,6 @@ public class Bullet : SpaceEntity
         tag = Tags.BULLET;
         DistanceTimer.ResetTimer();
         DistanceTimer.TimerElapsedEvent.RemoveListener(OnTimerElapsed);
+        BulletDestroyedEvent.RemoveAllListeners();
     }
 }

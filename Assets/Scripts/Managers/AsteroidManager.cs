@@ -18,6 +18,11 @@ public class AsteroidManager : MonoBehaviour, IGameManager
             AsteroidsClearedEvent = new AsteroidsClearedEvent();
         }
 
+        if (AsteroidDestroyedEvent == null)
+        {
+            AsteroidDestroyedEvent = new EntityDestroyedEvent();
+        }
+
         if (asteroidPool == null)
         {
             asteroidPool = new ObjectPool<Asteroid>();
@@ -123,7 +128,7 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
         if (GetActiveAsteroids() == 0)
         {
-            AsteroidsClearedEvent.Invoke();
+            AsteroidsClearedEvent.Invoke(collision.tag);
         }
     }
 
@@ -135,6 +140,9 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
+        AsteroidsClearedEvent.RemoveAllListeners();
+        AsteroidDestroyedEvent.RemoveAllListeners();
+
         TerminateSubordinates();
     }
 
@@ -146,7 +154,6 @@ public class AsteroidManager : MonoBehaviour, IGameManager
         {
             asteroid.Terminate();
             asteroidPool.Release(asteroid);
-            asteroid.AsteroidCollisionEvent.RemoveAllListeners();
         }
 
         asteroidPool.Terminate();

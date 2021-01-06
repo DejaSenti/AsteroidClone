@@ -65,11 +65,8 @@ public class Gun : MonoBehaviour
 
     private void OnBulletDestroyedEvent(Bullet bullet)
     {
+        bullet.Terminate();
         bulletPool.Release(bullet);
-
-        CooldownTimer.ResetTimer();
-
-        bullet.BulletDestroyedEvent.RemoveListener(OnBulletDestroyedEvent);
     }
 
     public void Terminate()
@@ -81,7 +78,6 @@ public class Gun : MonoBehaviour
         {
             bullet.Terminate();
             bulletPool.Release(bullet);
-            bullet.BulletDestroyedEvent.RemoveAllListeners();
         }
 
         bulletPool.Terminate();

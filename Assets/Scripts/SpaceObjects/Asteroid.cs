@@ -37,6 +37,7 @@ public class Asteroid : SpaceEntity
 
     public override void Terminate()
     {
+        AsteroidCollisionEvent.RemoveAllListeners();
     }
 }
 

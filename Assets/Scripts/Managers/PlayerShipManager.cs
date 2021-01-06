@@ -83,7 +83,7 @@ public class PlayerShipManager : MonoBehaviour
 
     public void Terminate()
     {
-        playerShip.PlayerShipCollisionEvent.RemoveAllListeners();
+        PlayerDeathEvent.RemoveAllListeners();
 
         PlayerRespawnDelayTimer.ResetTimer();
         PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveAllListeners();
