@@ -1,35 +1,36 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
-public class LevelManager : AnnouncingManager, IGameManager
+public class LevelManager : MonoBehaviour, IGameManager
 {
     public AsteroidManager AsteroidManager;
     public AlienShipManager AlienShipManager;
 
+    public AnnouncingService AnnouncingService;
+
     public static int Level;
 
-    public void InitializeLevel()
-    {
-        AsteroidManager.Initialize();
-        AlienShipManager.Initialize();
-    }
-
-    public void StartNextLevel()
+    public void InitializeNextLevel()
     {
         Level++;
 
-        string levelAnnouncement = "Level " + LevelManager.Level;
-
-        Announce(levelAnnouncement);
+        AnnouncingService.AnnounceLevel(Level);
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnLevelAnnouncementOver);
 
         InitializeLevel();
     }
 
-    public override void OnAnnouncementDisplayTimerElapsed()
+    private void OnLevelAnnouncementOver()
     {
-        base.OnAnnouncementDisplayTimerElapsed();
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnLevelAnnouncementOver);
 
         StartLevel();
+    }
+
+    private void InitializeLevel()
+    {
+        AsteroidManager.Initialize();
+        AlienShipManager.Initialize();
     }
 
     public void StartLevel()
@@ -46,14 +47,13 @@ public class LevelManager : AnnouncingManager, IGameManager
 
         TerminateSubordinates();
 
-        StartNextLevel();
+        InitializeNextLevel();
     }
 
-    public override void Terminate()
+    public void Terminate()
     {
-        base.Terminate();
-
         AsteroidManager.AsteroidsClearedEvent.RemoveAllListeners();
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnLevelAnnouncementOver);
 
         TerminateSubordinates();
     }

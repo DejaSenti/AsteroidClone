@@ -5,48 +5,43 @@ public class ScoreManager : MonoBehaviour, IGameManager
     public int AlienShipScore;
     public int AsteroidScore;
 
-    public static ScoreEvent ScoreEvent;
-
     public LevelManager LevelManager;
     public ScoreDisplay ScoreDisplay;
 
     private int score;
-
-    private void Awake()
-    {
-        if (ScoreEvent == null)
-        {
-            ScoreEvent = new ScoreEvent();
-        }
-    }
 
     public void Initialize()
     {
         score = 0;
         UpdateScoreDisplay();
 
-        ScoreEvent.AddListener(OnScore);
+        AlienShipManager.AlienShipDestroyedEvent.AddListener(OnScoreableDestroyed);
+        AsteroidManager.AsteroidDestroyedEvent.AddListener(OnScoreableDestroyed);
     }
 
-    private void OnScore(string enemyTag, string playerTag)
+    private void OnScoreableDestroyed(SpaceEntity scoreable, string destroyerTag)
     {
-        int addedScore = 0;
-        switch (enemyTag)
+        if (destroyerTag == Tags.PLAYER || destroyerTag == Tags.PLAYER_BULLET)
         {
-            case Tags.ASTEROID:
-                addedScore = AsteroidScore* LevelManager.Level;
-                break;
-            case Tags.ALIEN_SHIP:
-                addedScore = AlienShipScore * LevelManager.Level;
-                break;
-        }
+            int addedScore = 0;
 
-        if (playerTag == Tags.PLAYER)
-        {
-            addedScore /= 2;
-        }
+            switch (scoreable.tag)
+            {
+                case Tags.ASTEROID:
+                    addedScore = AsteroidScore * LevelManager.Level;
+                    break;
+                case Tags.ALIEN_SHIP:
+                    addedScore = AlienShipScore * LevelManager.Level;
+                    break;
+            }
 
-        AddScore(addedScore);
+            if (destroyerTag == Tags.PLAYER)
+            {
+                addedScore /= 2;
+            }
+
+            AddScore(addedScore);
+        }
     }
 
     public void AddScore(int addedScore)
@@ -62,7 +57,8 @@ public class ScoreManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        ScoreEvent.RemoveAllListeners();
+        AlienShipManager.AlienShipDestroyedEvent.RemoveListener(OnScoreableDestroyed);
+        AsteroidManager.AsteroidDestroyedEvent.RemoveListener(OnScoreableDestroyed);
     }
 
     public void TerminateSubordinates()

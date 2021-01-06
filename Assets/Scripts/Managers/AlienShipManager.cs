@@ -6,6 +6,8 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 {
     private const float SPAWN_DELAY_MULTIPLIER = 30f;
 
+    public static EntityDestroyedEvent AlienShipDestroyedEvent;
+
     public Timer SpawnDelayTimer;
 
     private ObjectPool<AlienShip> alienShipPool;
@@ -70,10 +72,7 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     private void OnAlienShipCollision(AlienShip alienShip, Collider2D collision)
     {
-        if (collision.tag == Tags.PLAYER || collision.tag == Tags.PLAYER_BULLET)
-        {
-            ScoreManager.ScoreEvent.Invoke(Tags.ALIEN_SHIP, collision.tag);
-        }
+        AlienShipDestroyedEvent.Invoke(alienShip, collision.tag);
 
         alienShip.AlienShipCollisionEvent.RemoveListener(OnAlienShipCollision);
 

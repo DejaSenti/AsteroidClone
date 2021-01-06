@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
-public class GameManager : AnnouncingManager, IGameManager
+public class GameManager : MonoBehaviour, IGameManager
 {
-    private const string GAME_OVER_MESSAGE = "Game Over";
-
     public PlayerShipManager PlayerShipManager;
     public ScoreManager ScoreManager;
     public LevelManager LevelManager;
+    public AnnouncingService AnnouncingService;
 
     private void Start()
     {
@@ -21,19 +20,20 @@ public class GameManager : AnnouncingManager, IGameManager
 
         LevelManager.Level = 0;
 
-        LevelManager.StartNextLevel();
+        LevelManager.InitializeNextLevel();
 
         PlayerShipManager.PlayerDeathEvent.AddListener(OnPlayerDeath);
     }
 
     private void OnPlayerDeath()
     {
-        Announce(GAME_OVER_MESSAGE);
+        AnnouncingService.AnnounceGameOver();
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnGameOverAnnouncementOver);
     }
 
-    public override void OnAnnouncementDisplayTimerElapsed()
+    private void OnGameOverAnnouncementOver()
     {
-        base.OnAnnouncementDisplayTimerElapsed();
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnGameOverAnnouncementOver);
 
         Terminate();
     }
@@ -45,11 +45,10 @@ public class GameManager : AnnouncingManager, IGameManager
         StartNewGame();
     }
 
-    public override void Terminate()
+    public void Terminate()
     {
-        base.Terminate();
-
         PlayerShipManager.PlayerDeathEvent.RemoveAllListeners();
+        AnnouncingService.AnnouncementDisplayTimer.TimerElapsedEvent.RemoveAllListeners();
 
         TerminateSubordinates();
     }
@@ -59,5 +58,6 @@ public class GameManager : AnnouncingManager, IGameManager
         PlayerShipManager.Terminate();
         ScoreManager.Terminate();
         LevelManager.Terminate();
+        AnnouncingService.Terminate();
     }
 }

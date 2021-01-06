@@ -5,6 +5,8 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 {
     private const int SEMI_CIRCLE_DEG = 180;
 
+    public static EntityDestroyedEvent AsteroidDestroyedEvent;
+
     public AsteroidsClearedEvent AsteroidsClearedEvent;
 
     private ObjectPool<Asteroid> asteroidPool;
@@ -107,10 +109,7 @@ public class AsteroidManager : MonoBehaviour, IGameManager
         if (collision.tag == Tags.ASTEROID)
             return;
 
-        if (collision.tag == Tags.PLAYER || collision.tag == Tags.PLAYER_BULLET)
-        {
-            ScoreManager.ScoreEvent.Invoke(Tags.ASTEROID, collision.tag);
-        }
+        AsteroidDestroyedEvent.Invoke(asteroid, collision.tag);
 
         asteroid.AsteroidCollisionEvent.RemoveListener(OnAsteroidCollision);
 
