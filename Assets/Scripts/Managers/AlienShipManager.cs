@@ -28,6 +28,11 @@ public class AlienShipManager : MonoBehaviour, IGameManager
     public void Initialize()
     {
         alienShipPool.Initialize(LevelManager.Level);
+
+        foreach(AlienShip alienShip in alienShipPool.GetAllPooledObjects())
+        {
+            alienShip.Initialize(Vector2.zero, Vector2.zero);
+        }
     }
 
     public void StartLevel()

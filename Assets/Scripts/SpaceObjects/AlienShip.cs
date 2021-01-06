@@ -20,14 +20,14 @@ public class AlienShip : SpaceEntity
         {
             AlienShipCollisionEvent = new AlienShipCollisionEvent();
         }
-
-        Gun.Initialize();
     }
 
     public void Initialize(Vector2 position, Vector2 velocity)
     {
         Position = position;
         RB.velocity = velocity;
+
+        Gun.Initialize();
     }
 
     protected override void Update()

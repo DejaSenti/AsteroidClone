@@ -54,6 +54,9 @@ public class LevelManager : MonoBehaviour, IGameManager
         AsteroidManager.AsteroidsClearedEvent.AddListener(OnAsteroidsCleared);
 
         AlienShipManager.StartLevel();
+
+        if (Level == 1)
+            playerShipManager.SpawnPlayerShip();
     }
 
     private void OnAsteroidsCleared(string destroyerTag)
@@ -64,8 +67,10 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         TerminateSubordinates();
 
-        if (playerShipManager.PlayerHealth > 1)
-            InitializeNextLevel();
+        if (playerShipManager.PlayerHealth == 1 && destroyerTag == Tags.PLAYER)
+            return;
+
+        InitializeNextLevel();
     }
 
     public void Terminate()

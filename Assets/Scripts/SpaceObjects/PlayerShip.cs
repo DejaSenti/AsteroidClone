@@ -20,14 +20,16 @@ public class PlayerShip : SpaceEntity
         }
     }
 
-    public void Initialize(Vector2 position, Vector2 direction)
+    public void Initialize()
+    {
+        Activate();
+        Gun.Initialize();
+    }
+
+    public void SetPositionAndRotation(Vector2 position, Vector2 direction)
     {
         Position = position;
         Direction = direction;
-
-        Activate();
-
-        Gun.Initialize();
     }
 
     public void Accelerate()

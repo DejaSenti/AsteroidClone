@@ -36,24 +36,19 @@ public class PlayerShipManager : MonoBehaviour
     {
         PlayerHealth = MaxPlayerHealth;
         UpdateHealthDisplay();
-
-        SpawnPlayerShip();
     }
 
-    private void UpdateHealthDisplay()
+    public void SpawnPlayerShip()
     {
-        PlayerHealthDisplay.UpdateDisplay(PlayerHealth);
-    }
-
-    private void SpawnPlayerShip()
-    {
-        playerShip.Initialize(Vector2.zero, Vector2.zero);
-
+        ResetPlayerPosition();
+        playerShip.Initialize();
         playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
     }
 
     private void OnPlayerShipCollision()
     {
+        playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
+
         playerShip.Terminate();
 
         PlayerHealth--;
@@ -76,8 +71,20 @@ public class PlayerShipManager : MonoBehaviour
         PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveListener(OnPlayerRespawnTimerElapsed);
     }
 
+    private void ResetPlayerPosition()
+    {
+        playerShip.SetPositionAndRotation(Vector2.zero, Vector2.zero);
+    }
+
+    private void UpdateHealthDisplay()
+    {
+        PlayerHealthDisplay.UpdateDisplay(PlayerHealth);
+    }
+
     public void Terminate()
     {
+        playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
+
         PlayerDeathEvent.RemoveAllListeners();
 
         PlayerRespawnDelayTimer.ResetTimer();
