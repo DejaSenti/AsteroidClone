@@ -87,8 +87,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
         alienShip.Terminate();
 
         alienShipPool.Release(alienShip);
-
-        StartSpawnDelay();
     }
 
     public void Terminate()
