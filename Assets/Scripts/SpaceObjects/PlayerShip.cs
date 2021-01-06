@@ -18,6 +18,14 @@ public class PlayerShip : SpaceEntity
         {
             PlayerShipCollisionEvent = new PlayerShipCollisionEvent();
         }
+    }
+
+    public void Initialize(Vector2 position, Vector2 direction)
+    {
+        Position = position;
+        Direction = direction;
+
+        Activate();
 
         Gun.Initialize();
     }

@@ -12,6 +12,11 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public static int Level;
 
+#pragma warning disable 0649
+    [SerializeField]
+    private PlayerShipManager playerShipManager;
+#pragma warning restore 0649
+
     private void Awake()
     {
         if (EndLevelEvent == null)
@@ -59,7 +64,8 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         TerminateSubordinates();
 
-        InitializeNextLevel();
+        if (playerShipManager.PlayerHealth > 1)
+            InitializeNextLevel();
     }
 
     public void Terminate()
