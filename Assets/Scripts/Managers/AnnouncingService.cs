@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -40,8 +41,26 @@ public class AnnouncingService : MonoBehaviour
     public void Initialize()
     {
         AnnouncementQueue = new List<string>();
+        LevelManager.EndLevelEvent.AddListener(OnEndLevel);
+    }
 
-        AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
+    private void OnEndLevel(string destroyerTag)
+    {
+        switch (destroyerTag)
+        {
+            case Tags.PLAYER_BULLET:
+                Announce(SHARPSHOOTER_MESSAGE);
+                break;
+            case Tags.PLAYER:
+                Announce(KAMIKAZE_MESSAGE);
+                break;
+            case Tags.ALIEN_SHIP_BULLET:
+                Announce(UNDERDOG_MESSAGE);
+                break;
+            case Tags.ALIEN_SHIP:
+                Announce(SLEEPING_BEAUTY_MESSAGE);
+                break;
+        }
     }
 
     private void Announce(string announcement)
@@ -63,10 +82,13 @@ public class AnnouncingService : MonoBehaviour
     {
         Announcements.text = AnnouncementQueue[0];
         AnnouncementDisplayTimer.StartTimer(ANNOUNCEMENT_DISPLAY_TIME);
+        AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
     }
 
     public void OnAnnouncementDisplayTimerElapsed()
     {
+        AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
+
         if (AnnouncementQueue[0] == GAME_OVER_MESSAGE)
             GameOverMessageOverEvent.Invoke();
 
@@ -92,26 +114,6 @@ public class AnnouncingService : MonoBehaviour
     public void AnnounceLevel(int level)
     {
         Announce(LEVEL_MESSAGE + level);
-    }
-
-    public void AnnounceSharpshooter()
-    {
-        Announce(SHARPSHOOTER_MESSAGE);
-    }
-
-    public void AnnounceKamikaze()
-    {
-        Announce(KAMIKAZE_MESSAGE);
-    }
-
-    public void AnnounceUnderdog()
-    {
-        Announce(UNDERDOG_MESSAGE);
-    }
-
-    public void AnnounceSleepingBeauty()
-    {
-        Announce(SLEEPING_BEAUTY_MESSAGE);
     }
 
     public void Terminate()

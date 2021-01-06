@@ -8,7 +8,17 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public AnnouncingService AnnouncingService;
 
+    public static EndLevelEvent EndLevelEvent;
+
     public static int Level;
+
+    private void Awake()
+    {
+        if (EndLevelEvent == null)
+        {
+            EndLevelEvent = new EndLevelEvent();
+        }
+    }
 
     public void InitializeNextLevel()
     {
@@ -45,21 +55,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         AsteroidManager.AsteroidsClearedEvent.RemoveListener(OnAsteroidsDestroyed);
 
-        switch (destroyerTag)
-        {
-            case Tags.PLAYER_BULLET:
-                AnnouncingService.AnnounceSharpshooter();
-                break;
-            case Tags.PLAYER:
-                AnnouncingService.AnnounceKamikaze();
-                break;
-            case Tags.ALIEN_SHIP_BULLET:
-                AnnouncingService.AnnounceUnderdog();
-                break;
-            case Tags.ALIEN_SHIP:
-                AnnouncingService.AnnounceSleepingBeauty();
-                break;
-        }
+        EndLevelEvent.Invoke(destroyerTag);
 
         TerminateSubordinates();
 
@@ -68,6 +64,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
+        EndLevelEvent.RemoveAllListeners();
         TerminateSubordinates();
     }
 

@@ -26,9 +26,9 @@ public class Timer : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed > duration)
         {
+            ResetTimer();
             if (TimerElapsedEvent != null)
                 TimerElapsedEvent.Invoke();
-            ResetTimer();
         }
     }
 

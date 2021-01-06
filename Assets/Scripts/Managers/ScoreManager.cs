@@ -2,8 +2,12 @@
 
 public class ScoreManager : MonoBehaviour, IGameManager
 {
-    public int AlienShipScore;
-    public int AsteroidScore;
+    private const int SHARPSHOOTER_BONUS = 1000;
+    private const int KAMIKAZE_BONUS = 700;
+    private const int UNDERDOG_BONUS = 300;
+    private const int SLEEPING_BEAUTY_BONUS = 1;
+    private const int ALIEN_SHIP_SCORE = 200;
+    private const int ASTEROID_SCORE = 100;
 
     public LevelManager LevelManager;
     public ScoreDisplay ScoreDisplay;
@@ -17,6 +21,7 @@ public class ScoreManager : MonoBehaviour, IGameManager
 
         AlienShipManager.AlienShipDestroyedEvent.AddListener(OnScoreableDestroyed);
         AsteroidManager.AsteroidDestroyedEvent.AddListener(OnScoreableDestroyed);
+        LevelManager.EndLevelEvent.AddListener(OnEndLevel);
     }
 
     private void OnScoreableDestroyed(SpaceEntity scoreable, string destroyerTag)
@@ -28,10 +33,10 @@ public class ScoreManager : MonoBehaviour, IGameManager
             switch (scoreable.tag)
             {
                 case Tags.ASTEROID:
-                    addedScore = AsteroidScore * LevelManager.Level;
+                    addedScore = ASTEROID_SCORE * LevelManager.Level;
                     break;
                 case Tags.ALIEN_SHIP:
-                    addedScore = AlienShipScore * LevelManager.Level;
+                    addedScore = ALIEN_SHIP_SCORE * LevelManager.Level;
                     break;
             }
 
@@ -41,6 +46,25 @@ public class ScoreManager : MonoBehaviour, IGameManager
             }
 
             AddScore(addedScore);
+        }
+    }
+
+    private void OnEndLevel(string destroyerTag)
+    {
+        switch (destroyerTag)
+        {
+            case Tags.PLAYER_BULLET:
+                AddScore(SHARPSHOOTER_BONUS);
+                break;
+            case Tags.PLAYER:
+                AddScore(KAMIKAZE_BONUS);
+                break;
+            case Tags.ALIEN_SHIP_BULLET:
+                AddScore(UNDERDOG_BONUS);
+                break;
+            case Tags.ALIEN_SHIP:
+                AddScore(SLEEPING_BEAUTY_BONUS);
+                break;
         }
     }
 
@@ -59,6 +83,7 @@ public class ScoreManager : MonoBehaviour, IGameManager
     {
         AlienShipManager.AlienShipDestroyedEvent.RemoveListener(OnScoreableDestroyed);
         AsteroidManager.AsteroidDestroyedEvent.RemoveListener(OnScoreableDestroyed);
+        LevelManager.EndLevelEvent.RemoveListener(OnEndLevel);
     }
 
     public void TerminateSubordinates()
