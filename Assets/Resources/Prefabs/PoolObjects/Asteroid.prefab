@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3129511197506313264}
   m_Layer: 0
   m_Name: Ghost (3)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 1975918385103639745}
   m_Layer: 0
   m_Name: Ghost (1)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 535176942636995444}
   m_Layer: 0
   m_Name: Ghost (6)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 5582091076528392715}
   m_Layer: 0
   m_Name: Ghost (5)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 3987756015748515569}
   m_Layer: 0
   m_Name: Ghost
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 5106384707286846267}
   m_Layer: 0
   m_Name: Ghost (4)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 3869460945687690814}
   m_Layer: 0
   m_Name: Ghost (7)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1372,7 +1372,7 @@ GameObject:
   - component: {fileID: 7142221749691913648}
   m_Layer: 0
   m_Name: Ghost (2)
-  m_TagString: Ghost
+  m_TagString: AsteroidGhost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

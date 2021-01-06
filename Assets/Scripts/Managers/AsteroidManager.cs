@@ -66,7 +66,7 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
     private void OnAsteroidCollision(Asteroid asteroid, Collider2D collision)
     {
-        if (collision.tag == Tags.ASTEROID)
+        if (collision.tag == Tags.ASTEROID || collision.tag == Tags.ASTEROID_GHOST)
             return;
 
         AsteroidDestroyedEvent.Invoke(asteroid, collision.tag);
