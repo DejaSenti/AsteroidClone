@@ -356,8 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce5cdfd91b7cb14eb20280e773efe3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlienShipScore: 200
-  AsteroidScore: 100
   LevelManager: {fileID: 867953364}
   ScoreDisplay: {fileID: 1185335699}
 --- !u!1 &519420028
@@ -524,6 +522,7 @@ MonoBehaviour:
   AsteroidManager: {fileID: 553110749}
   AlienShipManager: {fileID: 355150001}
   AnnouncingService: {fileID: 1072662207}
+  playerShipManager: {fileID: 1976409635}
 --- !u!114 &867953365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +723,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2d0ba055c0ab94bb3c6cb604324d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverMessageOverEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  LevelMessageOverEvent:
+    m_PersistentCalls:
+      m_Calls: []
   Announcements: {fileID: 1072662205}
   AnnouncementDisplayTimer: {fileID: 1072662208}
 --- !u!114 &1072662208
@@ -1222,6 +1227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxPlayerHealth: 3
+  PlayerHealth: 0
   PlayerRespawnDelayTimer: {fileID: 1976409636}
   PlayerHealthDisplay: {fileID: 1203364575}
 --- !u!114 &1976409636
