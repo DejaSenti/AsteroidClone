@@ -96,5 +96,6 @@ public class PlayerShipManager : MonoBehaviour
     public void TerminateSubordinates()
     {
         playerShip.Terminate();
+        PlayerHealthDisplay.Clear();
     }
 }

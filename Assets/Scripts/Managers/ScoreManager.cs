@@ -84,9 +84,12 @@ public class ScoreManager : MonoBehaviour, IGameManager
         AlienShipManager.AlienShipDestroyedEvent.RemoveListener(OnScoreableDestroyed);
         AsteroidManager.AsteroidDestroyedEvent.RemoveListener(OnScoreableDestroyed);
         LevelManager.EndLevelEvent.RemoveListener(OnEndLevel);
+
+        TerminateSubordinates();
     }
 
     public void TerminateSubordinates()
     {
+        ScoreDisplay.Clear();
     }
 }

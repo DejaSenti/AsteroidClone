@@ -12,4 +12,9 @@ public class PlayerHealthDisplay : MonoBehaviour
         var playerHealthDisplay = new string(HEALTH_LETTER, playerHealth);
         HealthDisplayText.text = playerHealthDisplay;
     }
+
+    public void Clear()
+    {
+        HealthDisplayText.text = "";
+    }
 }

@@ -14,6 +14,9 @@ public class Controller : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.IsGamePaused)
+            return;
+
         PlayerInput.UpdateInput();
 
         if (PlayerInput.leftButtonDown || PlayerInput.leftButtonHeld)

@@ -9,4 +9,9 @@ public class ScoreDisplay : MonoBehaviour
     {
         Display.text = score.ToString();
     }
+
+    public void Clear()
+    {
+        Display.text = "";
+    }
 }
