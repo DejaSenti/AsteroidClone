@@ -118,10 +118,10 @@ public class AnnouncingService : MonoBehaviour
 
     public void Terminate()
     {
-        GameOverMessageOverEvent.RemoveAllListeners();
-        LevelMessageOverEvent.RemoveAllListeners();
+        LevelManager.EndLevelEvent.RemoveListener(OnEndLevel);
 
         AnnouncementQueue.Clear();
+
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
     }
 }

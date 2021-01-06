@@ -64,14 +64,51 @@ public class AsteroidManager : MonoBehaviour, IGameManager
         }
     }
 
-    private Vector2 GetDirection(int amount, Vector2 position, Vector2 origin)
+    private void OnAsteroidCollision(Asteroid asteroid, Collider2D collision)
     {
-        Vector2 initialDirection = (position - origin).normalized;
-        float sliceAngle = SEMI_CIRCLE_DEG / amount;
-        float rotationAngle = this.GetRandomInRange(-sliceAngle / 2, sliceAngle / 2);
+        if (collision.tag == Tags.ASTEROID)
+            return;
 
-        var result = this.RotateVectorByDeg(initialDirection, rotationAngle);
+        AsteroidDestroyedEvent.Invoke(asteroid, collision.tag);
+
+        asteroid.Terminate();
+
+        asteroidPool.Release(asteroid);
+
+        if (asteroid.Size > 1)
+        {
+            int newSize = asteroid.Size - 1;
+            SpawnAsteroids(AsteroidData.NUM_SPLIT_ASTEROIDS, newSize, asteroid.Position, collision.transform.position);
+        }
+
+        if (GetActiveAsteroids() == 0)
+        {
+            AsteroidsClearedEvent.Invoke(collision.tag);
+        }
+    }
+
+    public int GetActiveAsteroids()
+    {
+        int result = asteroidPool.ActiveCount;
         return result;
+    }
+
+    public void Terminate()
+    {
+        TerminateSubordinates();
+    }
+
+    public void TerminateSubordinates()
+    {
+        var asteroids = asteroidPool.GetAllPooledObjects();
+
+        foreach (Asteroid asteroid in asteroids)
+        {
+            asteroid.Terminate();
+            asteroidPool.Release(asteroid);
+        }
+
+        asteroidPool.Terminate();
     }
 
     private Vector2[] GetSemiCircle(int amount, int size, Vector2 position, Vector2 origin)
@@ -109,53 +146,13 @@ public class AsteroidManager : MonoBehaviour, IGameManager
         return result;
     }
 
-    private void OnAsteroidCollision(Asteroid asteroid, Collider2D collision)
+    private Vector2 GetDirection(int amount, Vector2 position, Vector2 origin)
     {
-        if (collision.tag == Tags.ASTEROID)
-            return;
+        Vector2 initialDirection = (position - origin).normalized;
+        float sliceAngle = SEMI_CIRCLE_DEG / amount;
+        float rotationAngle = this.GetRandomInRange(-sliceAngle / 2, sliceAngle / 2);
 
-        AsteroidDestroyedEvent.Invoke(asteroid, collision.tag);
-
-        asteroid.AsteroidCollisionEvent.RemoveListener(OnAsteroidCollision);
-
-        asteroidPool.Release(asteroid);
-
-        if (asteroid.Size > 1)
-        {
-            int newSize = asteroid.Size - 1;
-            SpawnAsteroids(AsteroidData.NUM_SPLIT_ASTEROIDS, newSize, asteroid.Position, collision.transform.position);
-        }
-
-        if (GetActiveAsteroids() == 0)
-        {
-            AsteroidsClearedEvent.Invoke(collision.tag);
-        }
-    }
-
-    public int GetActiveAsteroids()
-    {
-        int result = asteroidPool.ActiveCount;
+        var result = this.RotateVectorByDeg(initialDirection, rotationAngle);
         return result;
-    }
-
-    public void Terminate()
-    {
-        AsteroidsClearedEvent.RemoveAllListeners();
-        AsteroidDestroyedEvent.RemoveAllListeners();
-
-        TerminateSubordinates();
-    }
-
-    public void TerminateSubordinates()
-    {
-        var asteroids = asteroidPool.GetAllPooledObjects();
-
-        foreach (Asteroid asteroid in asteroids)
-        {
-            asteroid.Terminate();
-            asteroidPool.Release(asteroid);
-        }
-
-        asteroidPool.Terminate();
     }
 }

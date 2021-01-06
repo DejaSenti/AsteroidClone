@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
+        AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
         TerminateSubordinates();
     }
 

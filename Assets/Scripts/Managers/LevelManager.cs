@@ -46,14 +46,14 @@ public class LevelManager : MonoBehaviour, IGameManager
     public void StartLevel()
     {
         AsteroidManager.StartLevel();
-        AsteroidManager.AsteroidsClearedEvent.AddListener(OnAsteroidsDestroyed);
+        AsteroidManager.AsteroidsClearedEvent.AddListener(OnAsteroidsCleared);
 
         AlienShipManager.StartLevel();
     }
 
-    private void OnAsteroidsDestroyed(string destroyerTag)
+    private void OnAsteroidsCleared(string destroyerTag)
     {
-        AsteroidManager.AsteroidsClearedEvent.RemoveListener(OnAsteroidsDestroyed);
+        AsteroidManager.AsteroidsClearedEvent.RemoveListener(OnAsteroidsCleared);
 
         EndLevelEvent.Invoke(destroyerTag);
 
@@ -64,7 +64,9 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        EndLevelEvent.RemoveAllListeners();
+        AnnouncingService.LevelMessageOverEvent.RemoveListener(OnLevelMessageOver);
+        AsteroidManager.AsteroidsClearedEvent.RemoveListener(OnAsteroidsCleared);
+
         TerminateSubordinates();
     }
 

@@ -93,6 +93,6 @@ public class PlayerShipManager : MonoBehaviour
 
     public void TerminateSubordinates()
     {
-        playerShip.Deactivate();
+        playerShip.Terminate();
     }
 }

@@ -59,6 +59,7 @@ public class PlayerShip : SpaceEntity
 
     public override void Terminate()
     {
+        Deactivate();
         Gun.Terminate();
         PlayerShipCollisionEvent.RemoveAllListeners();
     }

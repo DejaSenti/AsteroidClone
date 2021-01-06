@@ -79,7 +79,7 @@ public class AlienShipManager : MonoBehaviour, IGameManager
     {
         AlienShipDestroyedEvent.Invoke(alienShip, collision.tag);
 
-        alienShip.AlienShipCollisionEvent.RemoveListener(OnAlienShipCollision);
+        alienShip.Terminate();
 
         alienShipPool.Release(alienShip);
 
@@ -88,8 +88,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     public void Terminate()
     {
-        AlienShipDestroyedEvent.RemoveAllListeners();
-
         SpawnDelayTimer.ResetTimer();
         SpawnDelayTimer.TimerElapsedEvent.RemoveListener(OnSpawnDelayElapsed);
 
