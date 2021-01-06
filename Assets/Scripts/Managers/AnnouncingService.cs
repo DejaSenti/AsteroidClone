@@ -44,25 +44,6 @@ public class AnnouncingService : MonoBehaviour
         LevelManager.EndLevelEvent.AddListener(OnEndLevel);
     }
 
-    private void OnEndLevel(string destroyerTag)
-    {
-        switch (destroyerTag)
-        {
-            case Tags.PLAYER_BULLET:
-                Announce(SHARPSHOOTER_MESSAGE);
-                break;
-            case Tags.PLAYER:
-                Announce(KAMIKAZE_MESSAGE);
-                break;
-            case Tags.ALIEN_SHIP_BULLET:
-                Announce(UNDERDOG_MESSAGE);
-                break;
-            case Tags.ALIEN_SHIP:
-                Announce(SLEEPING_BEAUTY_MESSAGE);
-                break;
-        }
-    }
-
     private void Announce(string announcement)
     {
         Enqueue(announcement);
@@ -80,30 +61,39 @@ public class AnnouncingService : MonoBehaviour
 
     private void Write()
     {
+        if (AnnouncementQueue.Count == 0)
+            return;
+
         Announcements.text = AnnouncementQueue[0];
+        AnnouncementQueue.RemoveAt(0);
+
         AnnouncementDisplayTimer.StartTimer(ANNOUNCEMENT_DISPLAY_TIME);
         AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
+    }
+
+    private void Clear()
+    {
+        Announcements.text = "";
     }
 
     public void OnAnnouncementDisplayTimerElapsed()
     {
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
 
-        if (AnnouncementQueue[0] == GAME_OVER_MESSAGE)
+        if (Announcements.text == GAME_OVER_MESSAGE)
             GameOverMessageOverEvent.Invoke();
 
-        if (AnnouncementQueue[0] == LEVEL_MESSAGE + LevelManager.Level)
+        if (Announcements.text == LEVEL_MESSAGE + LevelManager.Level)
             LevelMessageOverEvent.Invoke();
 
-        AnnouncementQueue.RemoveAt(0);
-
-        if (AnnouncementQueue.Count == 0)
+        if (AnnouncementQueue.Count > 0)
         {
-            Announcements.text = "";
-            return;
+            Write();
         }
-
-        Write();
+        else
+        {
+            Clear();
+        }
     }
 
     public void AnnounceGameOver()
@@ -114,6 +104,25 @@ public class AnnouncingService : MonoBehaviour
     public void AnnounceLevel(int level)
     {
         Announce(LEVEL_MESSAGE + level);
+    }
+
+    private void OnEndLevel(string destroyerTag)
+    {
+        switch (destroyerTag)
+        {
+            case Tags.PLAYER_BULLET:
+                Announce(SHARPSHOOTER_MESSAGE);
+                break;
+            case Tags.PLAYER:
+                Announce(KAMIKAZE_MESSAGE);
+                break;
+            case Tags.ALIEN_SHIP_BULLET:
+                Announce(UNDERDOG_MESSAGE);
+                break;
+            case Tags.ALIEN_SHIP:
+                Announce(SLEEPING_BEAUTY_MESSAGE);
+                break;
+        }
     }
 
     public void Terminate()
