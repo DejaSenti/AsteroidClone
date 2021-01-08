@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour, IGameManager
 
     private void OnScoreableDestroyed(SpaceEntity scoreable, string destroyerTag)
     {
-        if (destroyerTag == Tags.PLAYER || destroyerTag == Tags.PLAYER_BULLET)
+        if (destroyerTag == Tags.PLAYER || destroyerTag == Tags.PLAYER_GHOST || destroyerTag == Tags.PLAYER_BULLET || destroyerTag == Tags.PLAYER_BULLET_GHOST)
         {
             int addedScore = 0;
 
@@ -35,12 +35,18 @@ public class ScoreManager : MonoBehaviour, IGameManager
                 case Tags.ASTEROID:
                     addedScore = ASTEROID_SCORE * LevelManager.Level;
                     break;
+                case Tags.ASTEROID_GHOST:
+                    addedScore = ASTEROID_SCORE * LevelManager.Level;
+                    break;
                 case Tags.ALIEN_SHIP:
+                    addedScore = ALIEN_SHIP_SCORE * LevelManager.Level;
+                    break;
+                case Tags.ALIEN_SHIP_GHOST:
                     addedScore = ALIEN_SHIP_SCORE * LevelManager.Level;
                     break;
             }
 
-            if (destroyerTag == Tags.PLAYER)
+            if (destroyerTag == Tags.PLAYER || destroyerTag == Tags.PLAYER_GHOST)
             {
                 addedScore /= 2;
             }
@@ -56,13 +62,25 @@ public class ScoreManager : MonoBehaviour, IGameManager
             case Tags.PLAYER_BULLET:
                 AddScore(SHARPSHOOTER_BONUS);
                 break;
+            case Tags.PLAYER_BULLET_GHOST:
+                AddScore(SHARPSHOOTER_BONUS);
+                break;
             case Tags.PLAYER:
+                AddScore(KAMIKAZE_BONUS);
+                break;
+            case Tags.PLAYER_GHOST:
                 AddScore(KAMIKAZE_BONUS);
                 break;
             case Tags.ALIEN_SHIP_BULLET:
                 AddScore(UNDERDOG_BONUS);
                 break;
+            case Tags.ALIEN_SHIP_BULLET_GHOST:
+                AddScore(UNDERDOG_BONUS);
+                break;
             case Tags.ALIEN_SHIP:
+                AddScore(SLEEPING_BEAUTY_BONUS);
+                break;
+            case Tags.ALIEN_SHIP_GHOST:
                 AddScore(SLEEPING_BEAUTY_BONUS);
                 break;
         }

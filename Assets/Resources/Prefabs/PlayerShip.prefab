@@ -47,7 +47,7 @@ MonoBehaviour:
   Owner: {fileID: 8833724961947434202}
   Strength: 50
   KickBackStrength: 100
-  CooldownPeriod: 0.5
+  CooldownPeriod: 0.3
   BulletLifetime: 1
   CooldownTimer: {fileID: 3105083226304323149}
 --- !u!114 &3105083226304323149

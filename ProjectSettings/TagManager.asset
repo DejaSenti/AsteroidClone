@@ -11,6 +11,11 @@ TagManager:
   - BulletAlienShip
   - Ghost
   - AsteroidGhost
+  - PlayerGhost
+  - AlienShipGhost
+  - BulletGhost
+  - BulletPlayerGhost
+  - BulletAlienShipGhost
   layers:
   - Default
   - TransparentFX

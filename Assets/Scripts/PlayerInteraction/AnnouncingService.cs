@@ -121,13 +121,25 @@ public class AnnouncingService : MonoBehaviour
             case Tags.PLAYER_BULLET:
                 Announce(SHARPSHOOTER_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
+            case Tags.PLAYER_BULLET_GHOST:
+                Announce(SHARPSHOOTER_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
+                break;
             case Tags.PLAYER:
+                Announce(KAMIKAZE_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
+                break;
+            case Tags.PLAYER_GHOST:
                 Announce(KAMIKAZE_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
             case Tags.ALIEN_SHIP_BULLET:
                 Announce(UNDERDOG_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
+            case Tags.ALIEN_SHIP_BULLET_GHOST:
+                Announce(UNDERDOG_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
+                break;
             case Tags.ALIEN_SHIP:
+                Announce(SLEEPING_BEAUTY_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
+                break;
+            case Tags.ALIEN_SHIP_GHOST:
                 Announce(SLEEPING_BEAUTY_MESSAGE, ANNOUNCEMENT_DISPLAY_TIME_LONG);
                 break;
         }
