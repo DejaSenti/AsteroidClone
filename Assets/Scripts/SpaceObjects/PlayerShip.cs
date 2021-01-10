@@ -8,6 +8,9 @@ public class PlayerShip : SpaceEntity
 
     public Gun Gun;
 
+    public ParticleSystem ThrusterParticleSystem;
+    private ParticleSystem.EmitParams emitParams;
+
     public PlayerShipCollisionEvent PlayerShipCollisionEvent;
 
     protected override void Awake()
@@ -38,6 +41,10 @@ public class PlayerShip : SpaceEntity
         {
             RB.AddForce(Direction * Acceleration);
         }
+
+        ThrusterParticleSystem.transform.SetPositionAndRotation(CorporealForm.transform.position, CorporealForm.transform.rotation);
+        ThrusterParticleSystem.Emit(20);
+        ThrusterParticleSystem.Play();
     }
 
     public void Rotate(RotationDirection rotationDirection)
