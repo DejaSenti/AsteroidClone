@@ -149,6 +149,7 @@ public class AnnouncingService : MonoBehaviour
     {
         LevelManager.EndLevelEvent.RemoveListener(OnEndLevel);
 
+        Clear();
         announcementQueue.Clear();
         displayTimes.Clear();
 
