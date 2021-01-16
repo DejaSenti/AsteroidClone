@@ -12,6 +12,9 @@ public class AlienShip : SpaceEntity
 
     public AlienShipCollisionEvent AlienShipCollisionEvent;
 
+    private bool isOnScreen;
+    private bool enteredScreen { get => Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2 && Position.y >= -SpaceBoundary.Height / 2 && Position.x <= SpaceBoundary.Height / 2; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,16 +30,25 @@ public class AlienShip : SpaceEntity
         Position = position;
         RB.velocity = velocity;
 
+        isOnScreen = false;
+
         Gun.Initialize();
     }
 
     protected override void Update()
     {
-        base.Update();
-
-        if (!Gun.IsCoolingDown)
+        if (isOnScreen)
         {
-            FireInRandomDirection();
+            base.Update();
+
+            if (!Gun.IsCoolingDown)
+            {
+                FireInRandomDirection();
+            }
+        }
+        else if (!isOnScreen && enteredScreen)
+        {
+            isOnScreen = true;
         }
     }
 

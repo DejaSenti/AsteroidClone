@@ -7,6 +7,9 @@ public abstract class SpaceForm : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("SpawnPoints"))
+            return;
+
         if (Entity.isActiveAndEnabled)
         {
             Entity.OnCollision(collision);
