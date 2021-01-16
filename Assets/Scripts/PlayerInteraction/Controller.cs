@@ -19,19 +19,19 @@ public class Controller : MonoBehaviour
 
         PlayerInput.UpdateInput();
 
-        if (PlayerInput.leftButtonDown || PlayerInput.leftButtonHeld)
+        if (PlayerInput.leftButtonHeld)
         {
             playerShip.Rotate(RotationDirection.CCW);
         }
-        if (PlayerInput.rightButtonDown || PlayerInput.rightButtonHeld)
+        if (PlayerInput.rightButtonHeld)
         {
             playerShip.Rotate(RotationDirection.CW);
         }
-        if (PlayerInput.accelerateButtonDown || PlayerInput.accelerateButtonHeld)
+        if (PlayerInput.accelerateButtonHeld)
         {
             playerShip.Accelerate();
         }
-        if (PlayerInput.fireButtonDown || PlayerInput.fireButtonHeld)
+        if (PlayerInput.fireButtonHeld)
         {
             playerShip.Fire();
         }

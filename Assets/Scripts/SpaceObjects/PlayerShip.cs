@@ -9,9 +9,8 @@ public class PlayerShip : SpaceEntity
     public Gun Gun;
 
     public ParticleSystem ThrusterParticleSystem;
-    private ParticleSystem.EmitParams emitParams;
 
-    public PlayerShipCollisionEvent PlayerShipCollisionEvent;
+    public EntityDestroyedEvent PlayerShipCollisionEvent;
 
     protected override void Awake()
     {
@@ -19,7 +18,7 @@ public class PlayerShip : SpaceEntity
 
         if (PlayerShipCollisionEvent == null)
         {
-            PlayerShipCollisionEvent = new PlayerShipCollisionEvent();
+            PlayerShipCollisionEvent = new EntityDestroyedEvent();
         }
     }
 
@@ -43,7 +42,6 @@ public class PlayerShip : SpaceEntity
         }
 
         ThrusterParticleSystem.transform.SetPositionAndRotation(CorporealForm.transform.position, CorporealForm.transform.rotation);
-        ThrusterParticleSystem.Emit(20);
         ThrusterParticleSystem.Play();
     }
 
@@ -71,7 +69,7 @@ public class PlayerShip : SpaceEntity
 
     public override void OnCollision(Collider2D collision)
     {
-        PlayerShipCollisionEvent.Invoke();
+        PlayerShipCollisionEvent.Invoke(this, collision.tag);
     }
 
     public override void Terminate()

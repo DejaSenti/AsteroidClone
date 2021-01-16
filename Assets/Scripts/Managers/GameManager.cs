@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public ScoreManager ScoreManager;
     public LevelManager LevelManager;
     public AnnouncingService AnnouncingService;
+    public ExplosionParticleSystem ExplosionParticleSystem;
 
     public Button PlayButton;
     public Button ExitButton;
@@ -137,6 +138,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
         LevelManager.InitializeNextLevel();
 
+        ExplosionParticleSystem.Initialize();
+
         PlayerShipManager.PlayerDeathEvent.AddListener(OnPlayerDeath);
     }
 
@@ -166,6 +169,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void TerminateSubordinates()
     {
+        ExplosionParticleSystem.Terminate();
         PlayerShipManager.Terminate();
         ScoreManager.Terminate();
         LevelManager.Terminate();
