@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class SpawnPointManager : MonoBehaviour
 {
     public static SpawnPointManager Instance;
 
     private const string DEFAULT_LAYER_NAME = "Default";
-
-    public Vector2 NullVector2 = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
 
 #pragma warning disable 0649
     [SerializeField]
@@ -34,38 +33,41 @@ public class SpawnPointManager : MonoBehaviour
         PlaceSpawnPoints();
     }
 
-    public Vector2 GetPlayerSpawnPoint()
+    public Vector2? GetPlayerSpawnPoint()
     {
         var spawnPoint = GetSpawnPoint(playerSpawnPoints);
 
-        Vector2 result = spawnPoint != null ? spawnPoint.offset : NullVector2;
+        Vector2? result = spawnPoint != null ? (Vector2?) spawnPoint.offset : null;
 
         return result;
     }
 
-    public Vector2 GetAlienShipSpawnPoint()
+    public Vector2? GetAlienShipSpawnPoint()
     {
         var spawnPoint = GetSpawnPoint(alienShipSpawnPoints);
 
-        Vector2 result = spawnPoint != null ? spawnPoint.offset : NullVector2;
+        Vector2? result = spawnPoint != null ? (Vector2?) spawnPoint.offset : null;
 
         return result;
     }
 
-    public Vector2 GetAsteroidSpawnPoint()
+    public Vector2? GetAsteroidSpawnPoint()
     {
         var spawnPoint = GetSpawnPoint(asteroidSpawnPoints);
 
-        Vector2 result = spawnPoint != null ? spawnPoint.offset : NullVector2;
+        Vector2? result = spawnPoint != null ? (Vector2?) spawnPoint.offset : null;
 
         return result;
     }
 
     private BoxCollider2D GetSpawnPoint(BoxCollider2D[] spawnPoints)
     {
+        System.Random r = new System.Random();
+        spawnPoints = spawnPoints.OrderBy(x => r.Next()).ToArray();
+
         foreach(BoxCollider2D spawnPoint in spawnPoints)
         {
-            if (!spawnPoint.IsTouchingLayers(LayerMask.NameToLayer(DEFAULT_LAYER_NAME)))
+            if (!spawnPoint.IsTouchingLayers(LayerMask.GetMask(DEFAULT_LAYER_NAME)))
             {
                 return spawnPoint;
             }

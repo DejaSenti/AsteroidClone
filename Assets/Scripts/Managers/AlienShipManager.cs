@@ -12,8 +12,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     private ObjectPool<AlienShip> alienShipPool;
 
-    private bool retrySpawn;
-
     private void Awake()
     {
         if (alienShipPool == null)
@@ -27,14 +25,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
         }
     }
 
-    private void Update()
-    {
-        if (retrySpawn)
-        {
-            SpawnAlienShip();
-        }
-    }
-
     public void Initialize()
     {
         alienShipPool.Initialize(LevelManager.Level);
@@ -43,8 +33,6 @@ public class AlienShipManager : MonoBehaviour, IGameManager
         {
             alienShip.Initialize(Vector2.zero, Vector2.zero);
         }
-
-        retrySpawn = false;
     }
 
     public void StartLevel()
@@ -76,25 +64,18 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     private void SpawnAlienShip()
     {
+        Vector2? position_ = SpawnPointManager.Instance.GetAlienShipSpawnPoint();
+        Vector2 position;
+
+        if (position_ == null)
+            return;
+
         var alienShip = alienShipPool.Acquire();
 
         if (alienShip == null)
             return;
 
-        Vector2 position_ = SpawnPointManager.Instance.GetAlienShipSpawnPoint();
-
-        Vector2 position;
-
-        if (position_ == SpawnPointManager.Instance.NullVector2)
-        {
-            retrySpawn = true;
-            return;
-        }
-        else
-        {
-            position = position_;
-            retrySpawn = false;
-        }
+        position = (Vector2)position_;
 
         float speed = this.GetRandomInRange(alienShip.MinSpeed, alienShip.MaxSpeed);
         Vector2 direction = (Vector2.zero - position).normalized;

@@ -3,7 +3,7 @@ using ExtensionMethods;
 
 public class AlienShip : SpaceEntity
 {
-    private const float BARREL_LENGTH = 4;
+    private const float SHIP_SIZE = 4;
     
     public float MinSpeed;
     public float MaxSpeed;
@@ -13,7 +13,10 @@ public class AlienShip : SpaceEntity
     public AlienShipCollisionEvent AlienShipCollisionEvent;
 
     private bool isOnScreen;
-    private bool enteredScreen { get => Position.x >= -SpaceBoundary.Width / 2 && Position.x <= SpaceBoundary.Width / 2 && Position.y >= -SpaceBoundary.Height / 2 && Position.x <= SpaceBoundary.Height / 2; }
+    private bool enteredScreen { get => Position.x >= -SpaceBoundary.Width / 2 + SHIP_SIZE
+                                        && Position.x <= SpaceBoundary.Width / 2 - SHIP_SIZE
+                                        && Position.y >= -SpaceBoundary.Height / 2 + SHIP_SIZE
+                                        && Position.y <= SpaceBoundary.Height / 2 - SHIP_SIZE; }
 
     protected override void Awake()
     {
@@ -56,7 +59,7 @@ public class AlienShip : SpaceEntity
     {
         Vector2 firingDirection = this.GetRandomDirection();
 
-        Vector3 gunPosition = new Vector3(Position.x, Position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * BARREL_LENGTH;
+        Vector3 gunPosition = new Vector3(Position.x, Position.y, 0) + new Vector3(firingDirection.x, firingDirection.y, 0) * SHIP_SIZE;
         Gun.transform.position = gunPosition;
 
         Gun.Fire(firingDirection);
