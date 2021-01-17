@@ -27,6 +27,11 @@ namespace ExtensionMethods
             return GetRandomInRange(min, max);
         }
 
+        public static float[] GetRandomArrayInRange(this MonoBehaviour monoBehaviour, float min, float max, int arraySize)
+        {
+            return GetRandomArrayInRange(min, max, arraySize);
+        }
+
         public static float GetRandomAngle(this MonoBehaviour monoBehaviour)
         {
             return GetRandomAngle();
@@ -70,6 +75,18 @@ namespace ExtensionMethods
         private static float GetRandomInRange(float min, float max)
         {
             float result = Random.Range(min, max);
+            return result;
+        }
+
+        private static float[] GetRandomArrayInRange(float min, float max, int arraySize)
+        {
+            var result = new float[arraySize];
+
+            for(int i = 0; i < arraySize; i++)
+            {
+                result[i] = GetRandomInRange(min, max);
+            }
+
             return result;
         }
     }

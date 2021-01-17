@@ -2,6 +2,11 @@
 
 public class Asteroid : SpaceEntity
 {
+#pragma warning disable 0649
+    [SerializeField]
+    private AsteroidViewController viewController;
+#pragma warning restore 0649
+
     public AsteroidCollisionEvent AsteroidCollisionEvent;
 
     public float MinSpeed;
@@ -28,6 +33,8 @@ public class Asteroid : SpaceEntity
         Position = position;
 
         RB.velocity = velocity;
+
+        viewController.UpdateView();
     }
 
     public override void OnCollision(Collider2D collision)
