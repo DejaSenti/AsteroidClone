@@ -14,6 +14,8 @@ public class PlayerShipManager : MonoBehaviour
 
     public PlayerDeathEvent PlayerDeathEvent;
 
+    private bool isWaitingForRespawn;
+
 # pragma warning disable 0649
     [SerializeField]
     private ParticleSystem ThrusterParticleSystem;
@@ -37,18 +39,37 @@ public class PlayerShipManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (isWaitingForRespawn)
+        {
+            SpawnPlayerShip();
+        }
+    }
+
     public void Initialize()
     {
         PlayerHealth = MaxPlayerHealth;
         UpdateHealthDisplay();
+
         playerShip.ThrusterParticleSystem = ThrusterParticleSystem;
+
+        isWaitingForRespawn = false;
     }
 
     public void SpawnPlayerShip()
     {
-        ResetPlayerPosition();
-        playerShip.Initialize();
-        playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
+        if (ResetPlayerPosition())
+        {
+            playerShip.Initialize();
+            playerShip.PlayerShipCollisionEvent.AddListener(OnPlayerShipCollision);
+
+            isWaitingForRespawn = false;
+        }
+        else
+        {
+            isWaitingForRespawn = true;
+        }
     }
 
     private void OnPlayerShipCollision(SpaceEntity spaceEntity, string destroyerTag)
@@ -77,9 +98,19 @@ public class PlayerShipManager : MonoBehaviour
         PlayerRespawnDelayTimer.TimerElapsedEvent.RemoveListener(OnPlayerRespawnTimerElapsed);
     }
 
-    private void ResetPlayerPosition()
+    private bool ResetPlayerPosition()
     {
-        playerShip.SetPositionAndRotation(Vector2.zero, Vector2.zero);
+        Vector2? position_ = SpawnPointManager.Instance.GetPlayerSpawnPoint();
+        Vector2 position;
+
+        if (position_ == null)
+            return false;
+
+        position = (Vector2)position_;
+
+        playerShip.SetPositionAndRotation(position, Vector2.zero);
+
+        return true;
     }
 
     private void UpdateHealthDisplay()
@@ -89,6 +120,8 @@ public class PlayerShipManager : MonoBehaviour
 
     public void Terminate()
     {
+        isWaitingForRespawn = false;
+
         playerShip.PlayerShipCollisionEvent.RemoveListener(OnPlayerShipCollision);
 
         PlayerDeathEvent.RemoveAllListeners();

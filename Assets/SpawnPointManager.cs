@@ -15,6 +15,8 @@ public class SpawnPointManager : MonoBehaviour
     [SerializeField]
     private BoxCollider2D[] alienShipSpawnPoints = new BoxCollider2D[12];
     [SerializeField]
+    private Vector2[] playerSpawnLocations = new Vector2[9];
+    [SerializeField]
     private Vector2[] asteroidSpawnLocations = new Vector2[8];
     [SerializeField]
     private Vector2[] alienShipSpawnLocations = new Vector2[12];
@@ -67,7 +69,7 @@ public class SpawnPointManager : MonoBehaviour
 
         foreach(BoxCollider2D spawnPoint in spawnPoints)
         {
-            if (!spawnPoint.IsTouchingLayers(LayerMask.GetMask(DEFAULT_LAYER_NAME)))
+            if (spawnPoint.isActiveAndEnabled && !spawnPoint.IsTouchingLayers(LayerMask.GetMask(DEFAULT_LAYER_NAME)))
             {
                 return spawnPoint;
             }
@@ -104,6 +106,13 @@ public class SpawnPointManager : MonoBehaviour
             var offsetX = asteroidSpawnLocations[i].x * (screenSize.x - asteroidSpawnPoints[i].size.x) / 2;
             var offsetY = asteroidSpawnLocations[i].y * (screenSize.y - asteroidSpawnPoints[i].size.y) / 2;
             asteroidSpawnPoints[i].offset = new Vector2(offsetX, offsetY);
+        }
+
+        for (int i = 0; i < playerSpawnPoints.Length; i++)
+        {
+            var offsetX = playerSpawnLocations[i].x * playerSpawnPoints[i].size.x;
+            var offsetY = playerSpawnLocations[i].y * playerSpawnPoints[i].size.y;
+            playerSpawnPoints[i].offset = new Vector2(offsetX, offsetY);
         }
     }
 }
