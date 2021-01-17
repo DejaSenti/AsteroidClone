@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private void ShowMenu()
     {
         MenuOverlay.SetActive(true);
+        Cursor.visible = true;
+
         PlayButton.onClick.AddListener(OnPlayClick);
         ExitButton.onClick.AddListener(OnExitClick);
     }
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private void HideMenu()
     {
         MenuOverlay.SetActive(false);
+        Cursor.visible = false;
+
         PlayButton.onClick.RemoveListener(OnPlayClick);
         ExitButton.onClick.RemoveListener(OnExitClick);
     }
@@ -66,6 +70,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void ShowPause()
     {
         PauseOverlay.SetActive(true);
+        Cursor.visible = true;
 
         ResumeButton.onClick.AddListener(OnResumeClick);
         MenuButton.onClick.AddListener(OnMenuClick);
@@ -75,6 +80,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void HidePause()
     {
         PauseOverlay.SetActive(false);
+        Cursor.visible = false;
 
         ResumeButton.onClick.RemoveListener(OnResumeClick);
         MenuButton.onClick.RemoveListener(OnMenuClick);
