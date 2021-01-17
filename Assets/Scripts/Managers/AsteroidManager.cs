@@ -37,7 +37,8 @@ public class AsteroidManager : MonoBehaviour, IGameManager
 
     public void StartLevel()
     {
-        SpawnAsteroids(LevelManager.Level, AsteroidData.MAX_ASTEROID_SIZE, SpaceBoundary.Width / 3 * Vector2.right, Vector2.zero);
+        Vector2 position = (Vector2)SpawnPointManager.Instance.GetAsteroidSpawnPoint();
+        SpawnAsteroids(LevelManager.Level, AsteroidData.MAX_ASTEROID_SIZE, position, Vector2.zero);
     }
 
     private void SpawnAsteroids(int amount, int size, Vector2 spawnCenter, Vector2 repulsionOrigin)

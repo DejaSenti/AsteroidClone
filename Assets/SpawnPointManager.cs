@@ -94,8 +94,8 @@ public class SpawnPointManager : MonoBehaviour
     {
         for (int i = 0; i < alienShipSpawnPoints.Length; i++)
         {
-            var offsetX = alienShipSpawnLocations[i].x * (screenSize.x + alienShipSpawnPoints[i].size.x) / 2;
-            var offsetY = alienShipSpawnLocations[i].y * (screenSize.y + alienShipSpawnPoints[i].size.y) / 2;
+            var offsetX = alienShipSpawnLocations[i].x * (screenSize.x + alienShipSpawnPoints[i].size.x / 2) / 2;
+            var offsetY = alienShipSpawnLocations[i].y * (screenSize.y + alienShipSpawnPoints[i].size.y / 2) / 2;
             alienShipSpawnPoints[i].offset = new Vector2(offsetX, offsetY);
         }
 
