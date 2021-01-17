@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public LevelManager LevelManager;
     public AnnouncingService AnnouncingService;
     public ExplosionParticleSystem ExplosionParticleSystem;
+    public Animator BackgroundAnimation;
 
     public Button PlayButton;
     public Button ExitButton;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void Start()
     {
         ShowMenu();
+        BackgroundAnimation.Play("BG Loop");
     }
 
     private void Update()

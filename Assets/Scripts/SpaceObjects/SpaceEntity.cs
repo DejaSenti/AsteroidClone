@@ -15,8 +15,6 @@ public abstract class SpaceEntity : MonoBehaviour
     {
         Deactivate();
 
-        PositionGhosts();
-
         RB.centerOfMass = Vector2.zero;
     }
 
