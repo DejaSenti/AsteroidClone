@@ -3,13 +3,13 @@
 [RequireComponent(typeof(PlayerShip))]
 public class Controller : MonoBehaviour
 {
-    public PlayerInput PlayerInput;
-
+    private GameSettings PlayerInput;
     private PlayerShip playerShip;
 
     private void Awake()
     {
         playerShip = GetComponent<PlayerShip>();
+        PlayerInput = UISettings.Settings;
     }
 
     void FixedUpdate()
@@ -19,19 +19,19 @@ public class Controller : MonoBehaviour
 
         PlayerInput.UpdateInput();
 
-        if (PlayerInput.leftButtonHeld)
+        if (PlayerInput.LeftButtonHeld)
         {
             playerShip.Rotate(RotationDirection.CCW);
         }
-        if (PlayerInput.rightButtonHeld)
+        if (PlayerInput.RightButtonHeld)
         {
             playerShip.Rotate(RotationDirection.CW);
         }
-        if (PlayerInput.accelerateButtonHeld)
+        if (PlayerInput.AccelerateButtonHeld)
         {
             playerShip.Accelerate();
         }
-        if (PlayerInput.fireButtonHeld)
+        if (PlayerInput.FireButtonHeld)
         {
             playerShip.Fire();
         }
