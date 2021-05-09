@@ -31,4 +31,14 @@ public class GameSettings : ScriptableObject
         AccelerateButtonHeld = Input.GetKey(AccelerateButton);
         FireButtonHeld = Input.GetKey(FireButton);
     }
+
+    public void SetDefault()
+    {
+        LeftButton = GameSettingsData.DEFAULT_KEY_ROTATE_CCW;
+        RightButton = GameSettingsData.DEFAULT_KEY_ROTATE_CW;
+        AccelerateButton = GameSettingsData.DEFAULT_KEY_ACCELERATE;
+        FireButton = GameSettingsData.DEFAULT_KEY_FIRE;
+        ScreenLayout = GameSettingsData.DEFAULT_SCREEN_LAYOUT;
+        ScreenResolution = GameSettingsData.DEFAULT_SCREEN_RESOLUTION;
+    }
 }

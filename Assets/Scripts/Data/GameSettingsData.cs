@@ -38,11 +38,11 @@ public static class GameSettingsData
         new Tuple<int, int>(1920, 1080)
     };
 
-    public static int DEFAULT_KEY_ROTATE_CW = (int)KeyCode.RightArrow;
-    public static int DEFAULT_KEY_ROTATE_CCW = (int)KeyCode.LeftArrow;
-    public static int DEFAULT_KEY_ACCELERATE = (int)KeyCode.Space;
-    public static int DEFAULT_KEY_SHOOT = (int)KeyCode.LeftControl;
+    public static KeyCode DEFAULT_KEY_ROTATE_CW = KeyCode.RightArrow;
+    public static KeyCode DEFAULT_KEY_ROTATE_CCW = KeyCode.LeftArrow;
+    public static KeyCode DEFAULT_KEY_ACCELERATE = KeyCode.Space;
+    public static KeyCode DEFAULT_KEY_FIRE = KeyCode.LeftControl;
     public static FullScreenMode DEFAULT_SCREEN_LAYOUT = FullScreenMode.FullScreenWindow;
-    public static Tuple<int, int> DEFAULT_SCREEN_RESOLUTION = ScreenResolutions[ScreenResolutions.Count - 1];
+    public static int DEFAULT_SCREEN_RESOLUTION = 4;
     public static int DEFAULT_DIFFICULTY = 1;
 }

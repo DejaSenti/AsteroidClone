@@ -3,12 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using static TMPro.TMP_Dropdown;
-using System.Collections;
 
 public class UISettings : MonoBehaviour
 {
     public static GameSettings Settings;
-
 
 #pragma warning disable 0649
     [SerializeField]
@@ -41,11 +39,6 @@ public class UISettings : MonoBehaviour
     private void Awake()
     {
         Settings = settings;
-        
-        rotateCW.text = UIHelpers.KeycodeToChar(Settings.RightButton);
-        rotateCCW.text = UIHelpers.KeycodeToChar(Settings.LeftButton);
-        accelerate.text = UIHelpers.KeycodeToChar(Settings.AccelerateButton);
-        shoot.text = UIHelpers.KeycodeToChar(Settings.FireButton);
 
         if (screenLayoutOptions.Count == 0)
         {
@@ -57,8 +50,6 @@ public class UISettings : MonoBehaviour
 
             screenLayout.options = screenLayoutOptions;
         }
-
-        screenLayout.value = screenLayout.options.FindIndex(f => f.text == GameSettingsData.LayoutNameByType[Settings.ScreenLayout]);
 
         if (screenResolutionOptions.Count == 0)
         {
@@ -72,6 +63,18 @@ public class UISettings : MonoBehaviour
             screenResolution.options = screenResolutionOptions;
         }
 
+        ReadValuesFromSettings();
+    }
+
+    private void ReadValuesFromSettings()
+    {
+        rotateCW.text = UIHelpers.KeycodeToChar(Settings.RightButton);
+        rotateCCW.text = UIHelpers.KeycodeToChar(Settings.LeftButton);
+        accelerate.text = UIHelpers.KeycodeToChar(Settings.AccelerateButton);
+        shoot.text = UIHelpers.KeycodeToChar(Settings.FireButton);
+
+        screenLayout.value = screenLayout.options.FindIndex(f => f.text == GameSettingsData.LayoutNameByType[Settings.ScreenLayout]);
+
         screenResolution.value = Settings.ScreenResolution;
 
         difficulty.value = Settings.Difficulty;
@@ -79,7 +82,9 @@ public class UISettings : MonoBehaviour
 
     public void OnDefaultClick()
     {
+        settings.SetDefault();
 
+        ReadValuesFromSettings();
     }
 
 
@@ -124,27 +129,5 @@ public class UISettings : MonoBehaviour
     public void OnDifficultyChange()
     {
         Settings.Difficulty = (int)difficulty.value;
-    }
-
-    private KeyCode SetKey(TMP_Text button, KeyCode previous)
-    {
-        button.text = "Press Key";
-        KeyCode newKey = KeyCode.None;
-        return newKey;
-    }
-
-    IEnumerator GetKeyRoutine()
-    {
-        KeyCode result;
-        foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
-        {
-            if (Input.GetKey(keyCode))
-            {
-                result = keyCode;
-                yield return result;
-            }
-        }
-        yield return new WaitUntil(() => Input.anyKeyDown);
-
     }
 }

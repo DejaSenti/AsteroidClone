@@ -6,7 +6,7 @@ public class Controller : MonoBehaviour
     private GameSettings PlayerInput;
     private PlayerShip playerShip;
 
-    private void Awake()
+    private void Start()
     {
         playerShip = GetComponent<PlayerShip>();
         PlayerInput = UISettings.Settings;
