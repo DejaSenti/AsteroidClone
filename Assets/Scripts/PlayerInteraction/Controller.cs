@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         playerShip = GetComponent<PlayerShip>();
-        PlayerInput = UISettings.Settings;
+        PlayerInput = MainMenuEntry.Settings;
     }
 
     void FixedUpdate()

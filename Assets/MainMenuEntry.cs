@@ -2,9 +2,16 @@
 
 public class MainMenuEntry : MonoBehaviour
 {
+    public static GameSettings Settings;
+
+    [SerializeField]
+    private GameSettings settings;
+
     private void Start()
     {
-        var resolution = GameSettingsData.ScreenResolutions[UISettings.Settings.ScreenResolution];
-        Screen.SetResolution(resolution.Item1, resolution.Item2, UISettings.Settings.ScreenLayout);
+        Settings = settings;
+
+        var resolution = GameSettingsData.ScreenResolutions[Settings.ScreenResolution];
+        Screen.SetResolution(resolution.Item1, resolution.Item2, Settings.ScreenLayout);
     }
 }

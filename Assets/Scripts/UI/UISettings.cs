@@ -6,12 +6,7 @@ using static TMPro.TMP_Dropdown;
 
 public class UISettings : MonoBehaviour
 {
-    public static GameSettings Settings;
-
 #pragma warning disable 0649
-    [SerializeField]
-    private GameSettings settings;
-
     [SerializeField]
     private GameObject mainOverlay;
 
@@ -36,9 +31,11 @@ public class UISettings : MonoBehaviour
     private List<OptionData> screenLayoutOptions = new List<OptionData>();
     private List<OptionData> screenResolutionOptions = new List<OptionData>();
 
+    private GameSettings settings;
+
     private void Awake()
     {
-        Settings = settings;
+        settings = MainMenuEntry.Settings;
 
         if (screenLayoutOptions.Count == 0)
         {
@@ -68,16 +65,16 @@ public class UISettings : MonoBehaviour
 
     private void ReadValuesFromSettings()
     {
-        rotateCW.text = UIHelpers.KeycodeToChar(Settings.RightButton);
-        rotateCCW.text = UIHelpers.KeycodeToChar(Settings.LeftButton);
-        accelerate.text = UIHelpers.KeycodeToChar(Settings.AccelerateButton);
-        shoot.text = UIHelpers.KeycodeToChar(Settings.FireButton);
+        rotateCW.text = UIHelpers.KeycodeToChar(settings.RightButton);
+        rotateCCW.text = UIHelpers.KeycodeToChar(settings.LeftButton);
+        accelerate.text = UIHelpers.KeycodeToChar(settings.AccelerateButton);
+        shoot.text = UIHelpers.KeycodeToChar(settings.FireButton);
 
-        screenLayout.value = screenLayout.options.FindIndex(f => f.text == GameSettingsData.LayoutNameByType[Settings.ScreenLayout]);
+        screenLayout.value = screenLayout.options.FindIndex(f => f.text == GameSettingsData.LayoutNameByType[settings.ScreenLayout]);
 
-        screenResolution.value = Settings.ScreenResolution;
+        screenResolution.value = settings.ScreenResolution;
 
-        difficulty.value = Settings.Difficulty;
+        difficulty.value = settings.Difficulty;
     }
 
     public void OnDefaultClick()
@@ -128,6 +125,6 @@ public class UISettings : MonoBehaviour
 
     public void OnDifficultyChange()
     {
-        Settings.Difficulty = (int)difficulty.value;
+        settings.Difficulty = (int)difficulty.value;
     }
 }
