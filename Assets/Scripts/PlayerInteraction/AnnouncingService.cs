@@ -16,6 +16,8 @@ public class AnnouncingService : MonoBehaviour
     private const float ANNOUNCEMENT_DISPLAY_TIME_SHORT = 1.5f;
     private const float ANNOUNCEMENT_DISPLAY_TIME_LONG = 3f;
 
+    public static bool IsDuringAnnouncement;
+
     public UnityEvent GameOverMessageOverEvent;
     public UnityEvent LevelMessageOverEvent;
 
@@ -74,6 +76,8 @@ public class AnnouncingService : MonoBehaviour
         AnnouncementDisplayTimer.StartTimer(displayTimes[0]);
         AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
 
+        IsDuringAnnouncement = true;
+
         announcementQueue.RemoveAt(0);
         displayTimes.RemoveAt(0);
     }
@@ -85,6 +89,8 @@ public class AnnouncingService : MonoBehaviour
 
     public void OnAnnouncementDisplayTimerElapsed()
     {
+        IsDuringAnnouncement = false;
+
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
 
         if (Announcements.text == gameOverMessage)

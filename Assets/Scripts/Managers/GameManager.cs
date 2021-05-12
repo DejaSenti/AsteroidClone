@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Timer))]
@@ -11,14 +12,10 @@ public class GameManager : MonoBehaviour, IGameManager
     public ExplosionParticleSystem ExplosionParticleSystem;
     public Animator BackgroundAnimation;
 
-    public Button PlayButton;
-    public Button ExitButton;
-
     public Button MenuButton;
     public Button ResumeButton;
-    public Button PauseExitButton;
+    public Button ExitButton;
 
-    public GameObject MenuOverlay;
     public GameObject PauseOverlay;
 
     public static bool IsGamePaused;
@@ -30,13 +27,16 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void Start()
     {
-        ShowMenu();
         BackgroundAnimation.Play("BG Loop");
+
+        isGameRunning = true;
+
+        StartNewGame();
     }
 
     private void Update()
     {
-        if (isGameRunning && isPauseDown)
+        if (isGameRunning && isPauseDown && !AnnouncingService.IsDuringAnnouncement)
         {
             if (IsGamePaused)
             {
@@ -49,69 +49,36 @@ public class GameManager : MonoBehaviour, IGameManager
         }
     }
 
-    private void ShowMenu()
-    {
-        MenuOverlay.SetActive(true);
-        Cursor.visible = true;
-
-        PlayButton.onClick.AddListener(OnPlayClick);
-        ExitButton.onClick.AddListener(OnExitClick);
-    }
-
-    private void HideMenu()
-    {
-        MenuOverlay.SetActive(false);
-        Cursor.visible = false;
-
-        PlayButton.onClick.RemoveListener(OnPlayClick);
-        ExitButton.onClick.RemoveListener(OnExitClick);
-    }
-
     private void ShowPause()
     {
         PauseOverlay.SetActive(true);
         Cursor.visible = true;
-
-        ResumeButton.onClick.AddListener(OnResumeClick);
-        MenuButton.onClick.AddListener(OnMenuClick);
-        PauseExitButton.onClick.AddListener(OnExitClick);
     }
 
     private void HidePause()
     {
         PauseOverlay.SetActive(false);
         Cursor.visible = false;
-
-        ResumeButton.onClick.RemoveListener(OnResumeClick);
-        MenuButton.onClick.RemoveListener(OnMenuClick);
-        PauseExitButton.onClick.RemoveListener(OnExitClick);
     }
 
-    private void OnPlayClick()
-    {
-        HideMenu();
-
-        isGameRunning = true;
-
-        StartNewGame();
-    }
-
-    private void OnResumeClick()
+    public void OnResumeClick()
     {
         UnpauseGame();
     }
 
-    private void OnMenuClick()
+    public void OnMenuClick()
     {
         TogglePause();
 
         Terminate();
 
         HidePause();
-        ShowMenu();
+
+        Cursor.visible = true;
+        SceneManager.LoadScene("MainMenu");
     }
 
-    private void OnExitClick()
+    public void OnExitClick()
     {
         Terminate();
         Application.Quit();
@@ -137,6 +104,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void StartNewGame()
     {
+        Cursor.visible = false;
+
         AnnouncingService.Initialize();
 
         ScoreManager.Initialize();
@@ -163,14 +132,12 @@ public class GameManager : MonoBehaviour, IGameManager
         AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
 
         Terminate();
-        ShowMenu();
+
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Terminate()
     {
-        PlayButton.onClick.RemoveListener(OnPlayClick);
-        ExitButton.onClick.RemoveListener(OnExitClick);
-
         AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
         TerminateSubordinates();
     }

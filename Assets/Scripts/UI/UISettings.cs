@@ -11,13 +11,7 @@ public class UISettings : MonoBehaviour
     private GameObject mainOverlay;
 
     [SerializeField]
-    private TMP_Text rotateCW;
-    [SerializeField]
-    private TMP_Text rotateCCW;
-    [SerializeField]
-    private TMP_Text accelerate;
-    [SerializeField]
-    private TMP_Text shoot;
+    private KeySetting[] keySettings = new KeySetting[4];
 
     [SerializeField]
     private TMP_Dropdown screenLayout;
@@ -63,13 +57,16 @@ public class UISettings : MonoBehaviour
         ReadValuesFromSettings();
     }
 
+    private void OnEnable()
+    {
+        foreach (var keySetting in keySettings)
+        {
+            keySetting.KeyChangedEvent.AddListener(OnKeySettingChange);
+        }
+    }
+
     private void ReadValuesFromSettings()
     {
-        rotateCW.text = UIHelpers.KeycodeToChar(settings.RightButton);
-        rotateCCW.text = UIHelpers.KeycodeToChar(settings.LeftButton);
-        accelerate.text = UIHelpers.KeycodeToChar(settings.AccelerateButton);
-        shoot.text = UIHelpers.KeycodeToChar(settings.FireButton);
-
         screenLayout.value = screenLayout.options.FindIndex(f => f.text == GameSettingsData.LayoutNameByType[settings.ScreenLayout]);
 
         screenResolution.value = settings.ScreenResolution;
@@ -82,6 +79,12 @@ public class UISettings : MonoBehaviour
         settings.SetDefault();
 
         ReadValuesFromSettings();
+
+        foreach (var keySetting in keySettings)
+        {
+            keySetting.SetDefault();
+            keySetting.UpdateDisplay();
+        }
     }
 
 
@@ -89,26 +92,6 @@ public class UISettings : MonoBehaviour
     {
         gameObject.SetActive(false);
         mainOverlay.SetActive(true);
-    }
-
-    public void OnRotateCWClick()
-    {
-
-    }
-
-    public void OnRotateCCWClick()
-    {
-
-    }
-
-    public void OnAccelerateClick()
-    {
-
-    }
-
-    public void OnShootClick()
-    {
-
     }
 
     public void OnScreenLayoutChange()
@@ -126,5 +109,21 @@ public class UISettings : MonoBehaviour
     public void OnDifficultyChange()
     {
         settings.Difficulty = (int)difficulty.value;
+    }
+
+    private void OnKeySettingChange()
+    {
+        foreach (var keySetting in keySettings)
+        {
+            keySetting.UpdateDisplay();
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var keySetting in keySettings)
+        {
+            keySetting.KeyChangedEvent.RemoveListener(OnKeySettingChange);
+        }
     }
 }

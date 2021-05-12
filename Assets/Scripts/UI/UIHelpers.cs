@@ -3,26 +3,30 @@ using UnityEngine;
 
 public static class UIHelpers
 {
-    public static string KeycodeToChar(KeyCode keyCode)
+    public static string KeycodeToText(KeyCode keyCode)
     {
         string result;
 
         int keyInt = (int)keyCode;
         if (keyInt >= 97 && keyInt <= 122)
         {
-            result = (keyInt - 32).ToString();
+            result = ((char)(keyInt - 32)).ToString();
         }
         else if (keyInt >= 48 && keyInt <= 57)
         {
-            result = keyInt.ToString();
+            result = ((char)keyInt).ToString();
         }
         else if (keyInt >= 256 && keyInt <= 265)
         {
-            result = "Num" + (keyInt - 208);
+            result = "Num " + (char)(keyInt - 208);
         }
-        else if (keyInt >= 282 && keyInt <= 293)
+        else if (keyInt >= 282 && keyInt <= 290)
         {
-            result = "F" + (keyInt - 281);
+            result = "F" + (char)(keyInt - 281 + 48);
+        }
+        else if (keyInt >= 291 && keyInt <= 293)
+        {
+            result = "F" + (keyInt - 281).ToString();
         }
         else
         {
@@ -121,6 +125,9 @@ public static class UIHelpers
                 case KeyCode.Numlock:
                     result = "Num Lock";
                     break;
+                case KeyCode.None:
+                    result = "???";
+                    break;
                 case KeyCode.PageDown:
                     result = "Page Down";
                     break;
@@ -193,6 +200,28 @@ public static class UIHelpers
     public static string ResolutionTupleToText(Tuple<int, int> tuple)
     {
         var result = tuple.Item1.ToString() + "X" + tuple.Item2.ToString();
+        return result;
+    }
+
+    public static string KeySettingToText(KeySettingType type)
+    {
+        string result = "";
+
+        switch (type)
+        {
+            case KeySettingType.RotateCW:
+                result = "Rotate CW";
+                break;
+            case KeySettingType.RotateCCW:
+                result = "Rotate CCW";
+                break;
+            case KeySettingType.Accelerate:
+                result = "Accelerate";
+                break;
+            case KeySettingType.Fire:
+                result = "Fire";
+                break;
+        }
         return result;
     }
 }
