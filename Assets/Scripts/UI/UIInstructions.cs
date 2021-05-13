@@ -17,7 +17,7 @@ public class UIInstructions : MonoBehaviour
     private TMP_Text instructionText;
 #pragma warning restore 0649
 
-    private void Start()
+    private void OnEnable()
     {
         var leftButtonChar = UIHelpers.KeycodeToText(MainMenuEntry.Settings.LeftButton);
         var rightButtonChar = UIHelpers.KeycodeToText(MainMenuEntry.Settings.RightButton);

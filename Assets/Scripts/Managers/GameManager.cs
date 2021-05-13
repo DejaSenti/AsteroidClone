@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Timer))]
 public class GameManager : MonoBehaviour, IGameManager
@@ -11,10 +10,6 @@ public class GameManager : MonoBehaviour, IGameManager
     public AnnouncingService AnnouncingService;
     public ExplosionParticleSystem ExplosionParticleSystem;
     public Animator BackgroundAnimation;
-
-    public Button MenuButton;
-    public Button ResumeButton;
-    public Button ExitButton;
 
     public GameObject PauseOverlay;
 
@@ -36,7 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void Update()
     {
-        if (isGameRunning && isPauseDown && !AnnouncingService.IsDuringAnnouncement)
+        if (isPauseDown && isGameRunning && !AnnouncingService.IsDuringAnnouncement)
         {
             if (IsGamePaused)
             {
@@ -132,6 +127,8 @@ public class GameManager : MonoBehaviour, IGameManager
         AnnouncingService.GameOverMessageOverEvent.RemoveListener(OnGameOverMessageOver);
 
         Terminate();
+
+        Cursor.visible = true;
 
         SceneManager.LoadScene("MainMenu");
     }

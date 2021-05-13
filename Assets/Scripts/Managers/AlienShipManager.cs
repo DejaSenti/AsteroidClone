@@ -49,7 +49,7 @@ public class AlienShipManager : MonoBehaviour, IGameManager
 
     private float GetShipSpawnDelay()
     {
-        float result = this.GetRandomInRange(SPAWN_DELAY_MULTIPLIER / LevelManager.Level / 2, SPAWN_DELAY_MULTIPLIER / LevelManager.Level);
+        float result = this.GetRandomInRange(SPAWN_DELAY_MULTIPLIER / LevelManager.Level / 2, SPAWN_DELAY_MULTIPLIER / LevelManager.Level) / (MainMenuEntry.Settings.Difficulty + 1);
         return result;
     }
 

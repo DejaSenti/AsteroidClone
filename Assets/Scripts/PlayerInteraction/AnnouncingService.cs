@@ -45,6 +45,8 @@ public class AnnouncingService : MonoBehaviour
 
     public void Initialize()
     {
+        IsDuringAnnouncement = false;
+
         announcementQueue = new List<string>();
         displayTimes = new List<float>();
         LevelManager.EndLevelEvent.AddListener(OnEndLevel);
@@ -52,6 +54,8 @@ public class AnnouncingService : MonoBehaviour
 
     private void Announce(string announcement, float displayTime)
     {
+        IsDuringAnnouncement = true;
+
         Enqueue(announcement, displayTime);
 
         if (Announcements.text != "")
@@ -76,21 +80,12 @@ public class AnnouncingService : MonoBehaviour
         AnnouncementDisplayTimer.StartTimer(displayTimes[0]);
         AnnouncementDisplayTimer.TimerElapsedEvent.AddListener(OnAnnouncementDisplayTimerElapsed);
 
-        IsDuringAnnouncement = true;
-
         announcementQueue.RemoveAt(0);
         displayTimes.RemoveAt(0);
     }
 
-    private void Clear()
-    {
-        Announcements.text = "";
-    }
-
     public void OnAnnouncementDisplayTimerElapsed()
     {
-        IsDuringAnnouncement = false;
-
         AnnouncementDisplayTimer.TimerElapsedEvent.RemoveListener(OnAnnouncementDisplayTimerElapsed);
 
         if (Announcements.text == gameOverMessage)
@@ -107,6 +102,12 @@ public class AnnouncingService : MonoBehaviour
         {
             Clear();
         }
+    }
+
+    private void Clear()
+    {
+        IsDuringAnnouncement = false;
+        Announcements.text = "";
     }
 
     public void AnnounceGameOver(int score)
