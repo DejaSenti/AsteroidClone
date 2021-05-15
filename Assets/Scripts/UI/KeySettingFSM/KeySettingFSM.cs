@@ -23,12 +23,19 @@ public class KeySettingFSM
 
     public void SetState<NewState>(KeyCode key)
     {
-        SetState<NewState>();
+        SetCurrentState<NewState>();
 
         CurrentState.OnEnter(key);
     }
 
     public void SetState<NewState>()
+    {
+        SetCurrentState<NewState>();
+
+        CurrentState.OnEnter();
+    }
+
+    private void SetCurrentState<NewState>()
     {
         if (CurrentState != null)
         {
@@ -36,8 +43,6 @@ public class KeySettingFSM
         }
 
         CurrentState = StatesByType[typeof(NewState)];
-
-        CurrentState.OnEnter();
     }
 
     public void Update()
