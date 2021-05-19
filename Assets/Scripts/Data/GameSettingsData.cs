@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class GameSettingsData
 {
+    public static string SETTINGS_FILE_PATH = Application.dataPath + "/settings.json";
+
     public static string KEY_ROTATE_CW = "Rotate CW";
     public static string KEY_ROTATE_CCW = "Rotate CCW";
     public static string KEY_ACCELERATE = "Accelerate";

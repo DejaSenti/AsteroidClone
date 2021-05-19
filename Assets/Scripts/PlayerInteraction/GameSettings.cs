@@ -1,9 +1,9 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerInput", menuName = "AsteroidClone/PlayerInput")]
 [Serializable]
-public class GameSettings : ScriptableObject
+public class GameSettings
 {
     public KeyCode LeftButton;
     public KeyCode RightButton;
@@ -40,5 +40,50 @@ public class GameSettings : ScriptableObject
         FireButton = GameSettingsData.DEFAULT_KEY_FIRE;
         ScreenLayout = GameSettingsData.DEFAULT_SCREEN_LAYOUT;
         ScreenResolution = GameSettingsData.DEFAULT_SCREEN_RESOLUTION;
+        Difficulty = GameSettingsData.DEFAULT_DIFFICULTY;
+
+        ApplyScreenLayout();
+        ApplyResolution();
+    }
+
+    public void SaveSettingsJson()
+    {
+        string settingsJSON = JsonUtility.ToJson(this);
+        File.WriteAllText(GameSettingsData.SETTINGS_FILE_PATH, settingsJSON);
+    }
+
+    public void LoadSettingsJson()
+    {
+        JsonUtility.FromJsonOverwrite(File.ReadAllText(GameSettingsData.SETTINGS_FILE_PATH), this);
+    }
+
+    public void ApplyScreenLayout(FullScreenMode fullScreenMode)
+    {
+        ScreenLayout = fullScreenMode;
+        Screen.SetResolution(Screen.width, Screen.height, fullScreenMode);
+    }
+
+    public void ApplyScreenLayout()
+    {
+        Screen.SetResolution(Screen.width, Screen.height, ScreenLayout);
+    }
+
+    public void ApplyResolution(int resolution)
+    {
+        ScreenResolution = resolution;
+
+        var resolutionTuple = GameSettingsData.ScreenResolutions[resolution];
+        Screen.SetResolution(resolutionTuple.Item1, resolutionTuple.Item2, Screen.fullScreenMode);
+    }
+
+    public void ApplyResolution()
+    {
+        var resolutionTuple = GameSettingsData.ScreenResolutions[ScreenResolution];
+        Screen.SetResolution(resolutionTuple.Item1, resolutionTuple.Item2, Screen.fullScreenMode);
+    }
+
+    public void ApplyDifficulty(int difficulty)
+    {
+        Difficulty = difficulty;
     }
 }

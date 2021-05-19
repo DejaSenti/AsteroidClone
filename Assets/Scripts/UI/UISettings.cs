@@ -33,7 +33,7 @@ public class UISettings : MonoBehaviour
 
         if (screenLayoutOptions.Count == 0)
         {
-            foreach(var option in GameSettingsData.LayoutNameByType)
+            foreach (var option in GameSettingsData.LayoutNameByType)
             {
                 var newOption = new OptionData(option.Value);
                 screenLayoutOptions.Add(newOption);
@@ -44,7 +44,7 @@ public class UISettings : MonoBehaviour
 
         if (screenResolutionOptions.Count == 0)
         {
-            foreach(var option in GameSettingsData.ScreenResolutions)
+            foreach (var option in GameSettingsData.ScreenResolutions)
             {
                 var text = UIHelpers.ResolutionTupleToText(option);
                 var newOption = new OptionData(text);
@@ -53,15 +53,19 @@ public class UISettings : MonoBehaviour
 
             screenResolution.options = screenResolutionOptions;
         }
+    }
 
+    private void Start()
+    {
         ReadValuesFromSettings();
+        UpdateKeySettingsDisplay();
     }
 
     private void OnEnable()
     {
         foreach (var keySetting in keySettings)
         {
-            keySetting.KeyChangedEvent.AddListener(OnKeySettingChange);
+            keySetting.KeyChangedEvent.AddListener(UpdateKeySettingsDisplay);
         }
     }
 
@@ -90,6 +94,8 @@ public class UISettings : MonoBehaviour
 
     public void OnBackClick()
     {
+        settings.SaveSettingsJson();
+
         gameObject.SetActive(false);
         mainOverlay.SetActive(true);
     }
@@ -97,21 +103,20 @@ public class UISettings : MonoBehaviour
     public void OnScreenLayoutChange()
     {
         var layout = GameSettingsData.LayoutTypeByName[screenLayout.options[screenLayout.value].text];
-        Screen.SetResolution(Screen.width, Screen.height, layout);
+        settings.ApplyScreenLayout(layout);
     }
 
     public void OnScreenResolutionChange()
     {
-        var resolution = GameSettingsData.ScreenResolutions[screenResolution.value];
-        Screen.SetResolution(resolution.Item1, resolution.Item2, Screen.fullScreenMode);
+        settings.ApplyResolution(screenResolution.value);
     }
 
     public void OnDifficultyChange()
     {
-        settings.Difficulty = (int)difficulty.value;
+        settings.ApplyDifficulty((int)difficulty.value);
     }
 
-    private void OnKeySettingChange()
+    private void UpdateKeySettingsDisplay()
     {
         foreach (var keySetting in keySettings)
         {
@@ -123,7 +128,7 @@ public class UISettings : MonoBehaviour
     {
         foreach (var keySetting in keySettings)
         {
-            keySetting.KeyChangedEvent.RemoveListener(OnKeySettingChange);
+            keySetting.KeyChangedEvent.RemoveListener(UpdateKeySettingsDisplay);
         }
     }
 }

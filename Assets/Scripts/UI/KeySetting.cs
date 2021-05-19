@@ -11,8 +11,10 @@ public class KeySetting : MonoBehaviour
 
     public UnityEvent KeyChangedEvent;
 
+#pragma warning disable 0649
     [SerializeField]
     private TMP_Text displayTitle;
+#pragma warning restore 0649
 
     private KeySettingFSM fsm;
 
@@ -32,8 +34,6 @@ public class KeySetting : MonoBehaviour
         fsm.AddState(new KeySettingWriteState());
 
         fsm.SetState<KeySettingIdleState>();
-
-        UpdateDisplay();
     }
 
     void Update()

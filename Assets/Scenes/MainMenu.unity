@@ -2439,7 +2439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1272.6, y: -60}
+  m_AnchoredPosition: {x: 1272.5999, y: -60}
   m_SizeDelta: {x: 963.5, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &466097653
@@ -2888,7 +2888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 146.94998, y: -35}
+  m_AnchoredPosition: {x: 146.95, y: -35}
   m_SizeDelta: {x: 293.9, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681678529
@@ -4713,7 +4713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 496.53253, y: -110}
+  m_AnchoredPosition: {x: 496.53247, y: -110}
   m_SizeDelta: {x: 334.6, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005870922
@@ -6830,7 +6830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1456.5326, y: -220}
+  m_AnchoredPosition: {x: 1456.5323, y: -220}
   m_SizeDelta: {x: 268.46997, y: 220}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1377936338
@@ -8482,7 +8482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 496.53253, y: -55}
+  m_AnchoredPosition: {x: 496.53247, y: -55}
   m_SizeDelta: {x: 334.6, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1701439068
@@ -8573,7 +8573,7 @@ GameObject:
   - component: {fileID: 1733137055}
   - component: {fileID: 1733137054}
   m_Layer: 5
-  m_Name: Medium
+  m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8616,7 +8616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Medium
+  m_text: Normal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f99a11e618f743348bcf0b5e6d2878b9, type: 2}
   m_sharedMaterial: {fileID: -90440913888260854, guid: f99a11e618f743348bcf0b5e6d2878b9,
@@ -8817,7 +8817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1456.5326, y: -110}
+  m_AnchoredPosition: {x: 1456.5323, y: -110}
   m_SizeDelta: {x: 268.46997, y: 110}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1917996763
